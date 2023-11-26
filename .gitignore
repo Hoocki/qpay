@@ -3,7 +3,7 @@ user-manager/HELP.md
 build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
-!**/src/Test/**/build/
+!**/src/test/**/build/
 
 ### STS ###
 .apt_generated
@@ -15,7 +15,7 @@ build/
 .sts4-cache
 bin/
 !**/src/main/**/bin/
-!**/src/Test/**/bin/
+!**/src/test/**/bin/
 
 ### IntelliJ IDEA ###
 .idea

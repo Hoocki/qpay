@@ -1,0 +1,10 @@
+spring:
+  flyway:
+    schemas: users
+  jpa:
+    properties:
+      hibernate:
+        format_sql: true
+        default_schema: users
+    hibernate:
+      ddl-auto: validate

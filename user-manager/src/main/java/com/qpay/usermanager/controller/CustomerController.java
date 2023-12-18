@@ -3,7 +3,7 @@ package com.qpay.usermanager.controller;
 import com.qpay.usermanager.model.dto.customer.CustomerModification;
 import com.qpay.usermanager.model.entity.customer.CustomerEntity;
 import com.qpay.usermanager.service.CustomerService;
-import com.qpay.usermanager.utility.Paths;
+import com.qpay.usermanager.utility.PathsUtils;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(path = Paths.CUSTOMER_PATH)
+@RequestMapping(path = PathsUtils.CUSTOMER_PATH)
 public class CustomerController {
 
     private final CustomerService customerService;

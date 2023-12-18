@@ -32,8 +32,6 @@ public class MerchantEntity {
 
     private String password;
 
-    private long walletId;
-
     @CreationTimestamp
     private LocalDateTime createdAt;
 

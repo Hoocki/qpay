@@ -13,8 +13,7 @@ public record CustomerModification(
         String email,
 
         @NotBlank(message = "Password is required")
-        String password,
-        @NotNull(message = "Wallet Id is required")
-        long walletId
+        String password
+
 ) {
 }

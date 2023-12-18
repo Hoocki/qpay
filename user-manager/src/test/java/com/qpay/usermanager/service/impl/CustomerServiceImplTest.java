@@ -41,7 +41,6 @@ class CustomerServiceImplTest {
                 .name("Roman")
                 .email("admin@gmail.com")
                 .password("password")
-                .walletId(1L)
                 .build();
 
         given(customerRepository.findById(id)).willReturn(Optional.of(customer1));
@@ -75,14 +74,12 @@ class CustomerServiceImplTest {
                 .name("Roman")
                 .email("admin@gmail.com")
                 .password("password")
-                .walletId(1L)
                 .build();
 
         var expectedCustomer = CustomerEntity.builder()
                 .name("Roman")
                 .email("admin@gmail.com")
                 .password("password")
-                .walletId(1L)
                 .build();
 
         given(customerMapper.map(customerModification)).willReturn(expectedCustomer);
@@ -102,21 +99,18 @@ class CustomerServiceImplTest {
                 .name("Andrey")
                 .email("admin@gmail.com")
                 .password("qwerty")
-                .walletId(2L)
                 .build();
 
         var customer1 = CustomerEntity.builder()
                 .name("Roman")
                 .email("admin@gmail.com")
                 .password("password")
-                .walletId(1L)
                 .build();
 
         var customer2 = CustomerEntity.builder()
                 .name("Andrey")
                 .email("admin@gmail.com")
                 .password("qwerty")
-                .walletId(2L)
                 .build();
 
         given(customerMapper.map(customerModification)).willReturn(customer2);
@@ -139,21 +133,18 @@ class CustomerServiceImplTest {
                 .name("Andrey")
                 .email("newAdmin@gmail.com")
                 .password("qwerty")
-                .walletId(1L)
                 .build();
 
         var customer = CustomerEntity.builder()
                 .name("Roman")
                 .email("admin@gmail.com")
                 .password("password")
-                .walletId(1L)
                 .build();
 
         var expectedCustomer = CustomerEntity.builder()
                 .name("Andrey")
                 .email("newAdmin@gmail.com")
                 .password("qwerty")
-                .walletId(1L)
                 .build();
 
         given(customerRepository.findById(id)).willReturn(Optional.of(customer));
@@ -175,7 +166,6 @@ class CustomerServiceImplTest {
                 .name("Andrey")
                 .email("newAdmin@gmail.com")
                 .password("qwerty")
-                .walletId(1L)
                 .build();
 
         given(customerRepository.findById(id)).willReturn(Optional.empty());
@@ -196,21 +186,18 @@ class CustomerServiceImplTest {
                 .name("Andrey")
                 .email("qwerty@gmail.com")
                 .password("qwerty")
-                .walletId(1L)
                 .build();
 
         var customer1 = CustomerEntity.builder()
                 .name("Roman")
                 .email("admin@gmail.com")
                 .password("password")
-                .walletId(1L)
                 .build();
 
         var customer2 = CustomerEntity.builder()
                 .name("Anton")
                 .email("qwerty@gmail.com")
                 .password("password1234")
-                .walletId(2L)
                 .build();
 
         given(customerRepository.findById(id)).willReturn(Optional.of(customer1));
@@ -235,5 +222,4 @@ class CustomerServiceImplTest {
         // then
         then(customerRepository).should().deleteById(id);
     }
-
 }

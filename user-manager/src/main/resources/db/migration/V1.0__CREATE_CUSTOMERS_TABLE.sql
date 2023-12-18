@@ -4,7 +4,6 @@ CREATE TABLE IF NOT EXISTS customers
     name       VARCHAR(32),
     email      VARCHAR(32) UNIQUE,
     password   VARCHAR(32),
-    wallet_id  BIGINT UNIQUE,
     created_at TIMESTAMP(6),
     updated_at TIMESTAMP(6)
 );

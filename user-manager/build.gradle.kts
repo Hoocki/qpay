@@ -15,20 +15,25 @@ configurations {
     }
 }
 
+val flywayVersion = rootProject.extra["flyway"]
+val postgresqlVersion = rootProject.extra["postgresql"]
+val junitJupiterApiVersion = rootProject.extra["junit-jupiter-api"]
+val h2Version = rootProject.extra["h2"]
+
 dependencies {
     annotationProcessor("org.projectlombok:lombok")
 
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-validation")
-    implementation("org.flywaydb:flyway-core:9.22.2")
-    implementation("org.postgresql:postgresql:42.6.0")
+    implementation("org.flywaydb:flyway-core:$flywayVersion")
+    implementation("org.postgresql:postgresql:$postgresqlVersion")
 
     compileOnly("org.projectlombok:lombok")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.10.0")
-    testImplementation("com.h2database:h2:2.2.224")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:$junitJupiterApiVersion")
+    testImplementation("com.h2database:h2:$h2Version")
 
 }
 

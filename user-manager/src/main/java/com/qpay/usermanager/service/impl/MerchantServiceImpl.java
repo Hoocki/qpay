@@ -3,8 +3,10 @@ package com.qpay.usermanager.service.impl;
 import com.qpay.usermanager.mapper.MerchantMapper;
 import com.qpay.usermanager.model.dto.merchant.MerchantCreation;
 import com.qpay.usermanager.model.entity.merchant.MerchantEntity;
+import com.qpay.usermanager.repository.CustomerRepository;
 import com.qpay.usermanager.repository.MerchantRepository;
 import com.qpay.usermanager.service.MerchantService;
+import com.qpay.usermanager.service.exception.CustomerAlreadyExistsException;
 import com.qpay.usermanager.service.exception.NoMerchantFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,6 +25,8 @@ public class MerchantServiceImpl implements MerchantService {
 
     private final MerchantMapper merchantMapper;
 
+    private final CustomerRepository customerRepository;
+
     @Override
     public List<MerchantEntity> getMerchants() {
         return merchantRepository.findAll();
@@ -35,6 +39,8 @@ public class MerchantServiceImpl implements MerchantService {
 
     @Override
     public MerchantEntity addMerchant(final MerchantCreation merchantCreation) {
+        existsCustomerByEmail(merchantCreation.getEmail());
+
         final MerchantEntity merchantEntity = merchantMapper.map(merchantCreation);
         merchantRepository.save(merchantEntity);
         return merchantEntity;
@@ -47,11 +53,19 @@ public class MerchantServiceImpl implements MerchantService {
 
     @Override
     public MerchantEntity updateMerchant(final long id, final MerchantCreation merchantCreation) {
+        existsCustomerByEmail(merchantCreation.getEmail());
+
         final MerchantEntity merchantEntity = getMerchantById(id);
         merchantEntity.setName(merchantCreation.getName());
         merchantEntity.setEmail(merchantCreation.getEmail());
         merchantEntity.setPassword(merchantCreation.getPassword());
         merchantRepository.save(merchantEntity);
         return merchantEntity;
+    }
+
+    private void existsCustomerByEmail(final String email) {
+        if (customerRepository.existsByEmail(email)) {
+            throw new CustomerAlreadyExistsException();
+        }
     }
 }

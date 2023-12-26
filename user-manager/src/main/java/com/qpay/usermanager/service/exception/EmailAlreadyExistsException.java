@@ -5,6 +5,10 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(value = HttpStatus.CONFLICT)
 public class EmailAlreadyExistsException extends RuntimeException {
+    public EmailAlreadyExistsException() {
+        super("Merchant with this email already exists");
+    }
+
     public EmailAlreadyExistsException(final String message) {
         super(message);
     }

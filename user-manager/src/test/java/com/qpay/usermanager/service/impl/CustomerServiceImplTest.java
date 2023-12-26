@@ -4,8 +4,10 @@ import com.qpay.usermanager.mapper.CustomerMapper;
 import com.qpay.usermanager.model.dto.customer.CustomerModification;
 import com.qpay.usermanager.model.entity.customer.CustomerEntity;
 import com.qpay.usermanager.repository.CustomerRepository;
+import com.qpay.usermanager.repository.MerchantRepository;
 import com.qpay.usermanager.service.exception.CustomerAlreadyExistsException;
 import com.qpay.usermanager.service.exception.CustomerNotFoundException;
+import com.qpay.usermanager.service.exception.EmailAlreadyExistsException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -28,6 +30,9 @@ class CustomerServiceImplTest {
 
     @Mock
     private CustomerRepository customerRepository;
+
+    @Mock
+    private MerchantRepository merchantRepository;
 
     @Mock
     private CustomerMapper customerMapper;
@@ -93,7 +98,7 @@ class CustomerServiceImplTest {
     }
 
     @Test
-    void should_throwCustomerAlreadyExistsException_when_addCustomerThatAlreadyExistsWithGivenEmail() {
+    void should_throwEmailAlreadyExistsException_when_addCustomerThatAlreadyExistsWithGivenEmailInMerchants() {
         // given
         var customerModification = CustomerModification.builder()
                 .name("Andrey")
@@ -101,28 +106,13 @@ class CustomerServiceImplTest {
                 .password("qwerty")
                 .build();
 
-        var customer1 = CustomerEntity.builder()
-                .name("Roman")
-                .email("admin@gmail.com")
-                .password("password")
-                .build();
+        given(merchantRepository.existsByEmail("admin@gmail.com")).willReturn(true);
 
-        var customer2 = CustomerEntity.builder()
-                .name("Andrey")
-                .email("admin@gmail.com")
-                .password("qwerty")
-                .build();
+        //when
+        Throwable throwable = catchThrowable(() -> customerService.addCustomer(customerModification));
 
-        given(customerMapper.map(customerModification)).willReturn(customer2);
-        given(customerRepository.save(customer2))
-                .willThrow(DataIntegrityViolationException.class);
-
-        // when
-        var thrown = catchThrowable(() -> customerService.addCustomer(customerModification));
-
-        // then
-        assertThat(thrown)
-                .isInstanceOf(CustomerAlreadyExistsException.class);
+        //then
+        assertThat(throwable).isInstanceOf(EmailAlreadyExistsException.class);;
     }
 
     @Test
@@ -148,7 +138,7 @@ class CustomerServiceImplTest {
                 .build();
 
         given(customerRepository.findById(id)).willReturn(Optional.of(customer));
-        given(customerRepository.existsByEmail(customerModification.email())).willReturn(false);
+        given(merchantRepository.existsByEmail(customerModification.email())).willReturn(false);
         given(customerRepository.save(expectedCustomer)).willReturn(expectedCustomer);
 
         // when
@@ -179,36 +169,21 @@ class CustomerServiceImplTest {
     }
 
     @Test
-    void should_throwCustomerAlreadyExistsException_when_customerModificationContainsEmailThatAlreadyExists() {
+    void should_throwEmailAlreadyExistsException_when_updateCustomerThatAlreadyExistsWithGivenEmailInMerchants() {
         // given
-        var id = 1L;
         var customerModification = CustomerModification.builder()
                 .name("Andrey")
-                .email("qwerty@gmail.com")
+                .email("admin@gmail.com")
                 .password("qwerty")
                 .build();
 
-        var customer1 = CustomerEntity.builder()
-                .name("Roman")
-                .email("admin@gmail.com")
-                .password("password")
-                .build();
+        given(merchantRepository.existsByEmail("admin@gmail.com")).willReturn(true);
 
-        var customer2 = CustomerEntity.builder()
-                .name("Anton")
-                .email("qwerty@gmail.com")
-                .password("password1234")
-                .build();
+        //when
+        Throwable throwable = catchThrowable(() -> customerService.updateCustomer(customerModification, 1L));
 
-        given(customerRepository.findById(id)).willReturn(Optional.of(customer1));
-        given(customerRepository.existsByEmail(customerModification.email())).willReturn(true);
-
-        // when
-        var thrown = catchThrowable(() -> customerService.updateCustomer(customerModification, id));
-
-        // then
-        assertThat(thrown)
-                .isInstanceOf(CustomerAlreadyExistsException.class);
+        //then
+        assertThat(throwable).isInstanceOf(EmailAlreadyExistsException.class);;
     }
 
     @Test

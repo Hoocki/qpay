@@ -3,7 +3,9 @@ package com.qpay.usermanager.service.impl;
 import com.qpay.usermanager.mapper.MerchantMapper;
 import com.qpay.usermanager.model.dto.merchant.MerchantCreation;
 import com.qpay.usermanager.model.entity.merchant.MerchantEntity;
+import com.qpay.usermanager.repository.CustomerRepository;
 import com.qpay.usermanager.repository.MerchantRepository;
+import com.qpay.usermanager.service.exception.CustomerAlreadyExistsException;
 import com.qpay.usermanager.service.exception.NoMerchantFoundException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -26,6 +28,9 @@ class MerchantServiceImplTest {
 
     @Mock
     private MerchantRepository merchantRepository;
+
+    @Mock
+    private CustomerRepository customerRepository;
 
     @Mock
     private MerchantMapper merchantMapper;
@@ -105,6 +110,18 @@ class MerchantServiceImplTest {
     }
 
     @Test
+    void should_throwCustomerAlreadyExistsException_when_newMerchantEmailAlreadyExistsInCustomers() {
+        //given
+        given(customerRepository.existsByEmail("bob@gmail.com")).willReturn(true);
+
+        //when
+        Throwable throwable = catchThrowable(() -> merchantService.addMerchant(MERCHANT_CREATION));
+
+        //then
+        assertThat(throwable).isInstanceOf(CustomerAlreadyExistsException.class);
+    }
+
+    @Test
     void should_deleteMerchant() {
         //when
         merchantService.deleteMerchant(1L);
@@ -134,6 +151,18 @@ class MerchantServiceImplTest {
 
         //then
         assertThat(result).isEqualTo(expectedMerchant);
+    }
+
+    @Test
+    void should_throwCustomerAlreadyExistsException_when_updatedMerchantEmailAlreadyExistsInCustomers() {
+        //given
+        given(customerRepository.existsByEmail("bob@gmail.com")).willReturn(true);
+
+        //when
+        Throwable throwable = catchThrowable(() -> merchantService.updateMerchant(1L, MERCHANT_CREATION));
+
+        //then
+        assertThat(throwable).isInstanceOf(CustomerAlreadyExistsException.class);
     }
 
     @Test

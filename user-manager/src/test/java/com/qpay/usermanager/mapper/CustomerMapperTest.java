@@ -17,7 +17,6 @@ class CustomerMapperTest {
                 .name("Roman")
                 .email("admin@gmail.com")
                 .password("password")
-                .walletId(1L)
                 .build();
 
         //when
@@ -28,7 +27,6 @@ class CustomerMapperTest {
                 .name("Roman")
                 .email("admin@gmail.com")
                 .password("password")
-                .walletId(1L)
                 .build();
 
         assertThat(result).isEqualTo(expectedCustomerEntity);

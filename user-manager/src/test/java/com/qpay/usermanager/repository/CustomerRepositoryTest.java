@@ -30,7 +30,6 @@ class CustomerRepositoryTest {
                         .name("Roman")
                         .email("admin@gmail.com")
                         .password("password")
-                        .walletId(1L)
                         .build()
         );
 

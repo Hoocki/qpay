@@ -12,7 +12,6 @@ public class CustomerMapper {
                 .name(customerModification.name())
                 .email(customerModification.email())
                 .password(customerModification.password())
-                .walletId(customerModification.walletId())
                 .build();
     }
 }

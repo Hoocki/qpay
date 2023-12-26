@@ -1,11 +1,11 @@
-package com.qpay.usermanager.model.dto.customer;
+package com.qpay.usermanager.model.dto.merchant;
+
 
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import lombok.Builder;
+import lombok.*;
 
 @Builder
-public record CustomerModification(
+public record MerchantCreation(
         @NotBlank(message = "Name is required")
         String name,
 

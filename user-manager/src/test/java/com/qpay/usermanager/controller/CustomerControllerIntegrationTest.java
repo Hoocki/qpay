@@ -3,10 +3,13 @@ package com.qpay.usermanager.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.qpay.usermanager.model.dto.customer.CustomerModification;
 import com.qpay.usermanager.model.entity.customer.CustomerEntity;
+import com.qpay.usermanager.repository.MerchantRepository;
 import com.qpay.usermanager.service.exception.CustomerNotFoundException;
+import com.qpay.usermanager.service.exception.EmailAlreadyExistsException;
 import com.qpay.usermanager.service.impl.CustomerServiceImpl;
-import com.qpay.usermanager.utility.Paths;
+import com.qpay.usermanager.utility.PathsUtils;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -36,7 +39,6 @@ class CustomerControllerIntegrationTest {
             .name("Roman")
             .email("admin@gmail.com")
             .password("password")
-            .walletId(1L)
             .build();
 
     private final CustomerModification CUSTOMER_MODIFICATION = CustomerModification
@@ -44,7 +46,6 @@ class CustomerControllerIntegrationTest {
             .name("Roman")
             .email("admin@gmail.com")
             .password("password")
-            .walletId(1L)
             .build();
 
     @Test
@@ -55,7 +56,7 @@ class CustomerControllerIntegrationTest {
 
         // when
         var responseBody = mockMvc
-                .perform(MockMvcRequestBuilders.get(Paths.CUSTOMER_PATH + "/{id}", id))
+                .perform(MockMvcRequestBuilders.get(PathsUtils.CUSTOMER_PATH + "/{id}", id))
                 .andReturn()
                 .getResponse()
                 .getContentAsString();
@@ -73,7 +74,7 @@ class CustomerControllerIntegrationTest {
 
         // when
         var status = mockMvc
-                .perform(MockMvcRequestBuilders.get(Paths.CUSTOMER_PATH + "/{id}", id))
+                .perform(MockMvcRequestBuilders.get(PathsUtils.CUSTOMER_PATH + "/{id}", id))
                 .andReturn()
                 .getResponse()
                 .getStatus();
@@ -90,7 +91,7 @@ class CustomerControllerIntegrationTest {
         // when
         var responseBody = mockMvc
                 .perform(MockMvcRequestBuilders
-                        .post(Paths.CUSTOMER_PATH)
+                        .post(PathsUtils.CUSTOMER_PATH)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(CUSTOMER_MODIFICATION)))
                 .andReturn()
@@ -110,13 +111,12 @@ class CustomerControllerIntegrationTest {
                 .name("")
                 .email("")
                 .password("")
-                .walletId(1L)
                 .build();
 
         // when
         var status = mockMvc
                 .perform(MockMvcRequestBuilders
-                        .post(Paths.CUSTOMER_PATH)
+                        .post(PathsUtils.CUSTOMER_PATH)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(invalidCustomerModification)))
                 .andReturn()
@@ -128,6 +128,32 @@ class CustomerControllerIntegrationTest {
     }
 
     @Test
+    void should_returnException_when_newCustomerEmailAlreadyExistsInMerchants() throws Exception {
+        // given
+        var customerModification = CustomerModification
+                .builder()
+                .name("s")
+                .email("s")
+                .password("s")
+                .build();
+
+        given(customerService.addCustomer(customerModification)).willThrow(EmailAlreadyExistsException.class);
+
+        // when
+        var status = mockMvc
+                .perform(MockMvcRequestBuilders
+                        .post(PathsUtils.CUSTOMER_PATH)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(customerModification)))
+                .andReturn()
+                .getResponse()
+                .getStatus();
+
+        // then
+        assertThat(status).isEqualTo(HttpStatus.CONFLICT.value());
+    }
+
+    @Test
     void should_returnCustomer_when_customerUpdated() throws Exception {
         // given
         var id = 1L;
@@ -135,13 +161,11 @@ class CustomerControllerIntegrationTest {
                 .name("Anatoly")
                 .email("anatoly@gmail.com")
                 .password("password1234")
-                .walletId(1L)
                 .build();
         var expectedCustomer = CustomerEntity.builder()
                 .name("Anatoly")
                 .email("anatoly@gmail.com")
                 .password("password1234")
-                .walletId(1L)
                 .build();
 
         given(customerService.updateCustomer(customerModificationAnother, id)).willReturn(expectedCustomer);
@@ -149,7 +173,7 @@ class CustomerControllerIntegrationTest {
         // when
         var responseBody = mockMvc
                 .perform(MockMvcRequestBuilders
-                        .put(Paths.CUSTOMER_PATH + "/{id}", id)
+                        .put(PathsUtils.CUSTOMER_PATH + "/{id}", id)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(customerModificationAnother)))
                 .andReturn()
@@ -162,6 +186,32 @@ class CustomerControllerIntegrationTest {
     }
 
     @Test
+    void should_returnException_when_updatedCustomerEmailAlreadyExistsInMerchants() throws Exception {
+        // given
+        var customerModification = CustomerModification
+                .builder()
+                .name("s")
+                .email("s")
+                .password("s")
+                .build();
+
+        given(customerService.updateCustomer(customerModification, 1L)).willThrow(EmailAlreadyExistsException.class);
+
+        // when
+        var status = mockMvc
+                .perform(MockMvcRequestBuilders
+                        .put(PathsUtils.CUSTOMER_PATH + "/{id}", 1L)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(customerModification)))
+                .andReturn()
+                .getResponse()
+                .getStatus();
+
+        // then
+        assertThat(status).isEqualTo(HttpStatus.CONFLICT.value());
+    }
+
+    @Test
     void should_returnException_when_updateCustomerHasInvalidInput() throws Exception {
         // given
         var id = 1L;
@@ -169,13 +219,12 @@ class CustomerControllerIntegrationTest {
                 .name("")
                 .email("")
                 .password("")
-                .walletId(1L)
                 .build();
 
         // when
         var status = mockMvc
                 .perform(MockMvcRequestBuilders
-                        .put(Paths.CUSTOMER_PATH + "/{id}", id)
+                        .put(PathsUtils.CUSTOMER_PATH + "/{id}", id)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(customerModificationAnother)))
                 .andReturn()
@@ -193,7 +242,7 @@ class CustomerControllerIntegrationTest {
 
         // when
         var status = mockMvc
-                .perform(MockMvcRequestBuilders.delete(Paths.CUSTOMER_PATH + "/{id}", id))
+                .perform(MockMvcRequestBuilders.delete(PathsUtils.CUSTOMER_PATH + "/{id}", id))
                 .andReturn()
                 .getResponse()
                 .getStatus();

@@ -39,7 +39,7 @@ public class MerchantServiceImpl implements MerchantService {
 
     @Override
     public MerchantEntity addMerchant(final MerchantCreation merchantCreation) {
-        existsCustomerByEmail(merchantCreation.getEmail());
+        existsCustomerByEmail(merchantCreation.email());
 
         final MerchantEntity merchantEntity = merchantMapper.map(merchantCreation);
         merchantRepository.save(merchantEntity);
@@ -53,12 +53,12 @@ public class MerchantServiceImpl implements MerchantService {
 
     @Override
     public MerchantEntity updateMerchant(final long id, final MerchantCreation merchantCreation) {
-        existsCustomerByEmail(merchantCreation.getEmail());
+        existsCustomerByEmail(merchantCreation.email());
 
         final MerchantEntity merchantEntity = getMerchantById(id);
-        merchantEntity.setName(merchantCreation.getName());
-        merchantEntity.setEmail(merchantCreation.getEmail());
-        merchantEntity.setPassword(merchantCreation.getPassword());
+        merchantEntity.setName(merchantCreation.name());
+        merchantEntity.setEmail(merchantCreation.email());
+        merchantEntity.setPassword(merchantCreation.password());
         merchantRepository.save(merchantEntity);
         return merchantEntity;
     }

@@ -4,15 +4,16 @@ package com.qpay.usermanager.model.dto.merchant;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
-@Data
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
-public final class MerchantCreation {
+public record MerchantCreation(
+        @NotBlank(message = "Name is required")
+        String name,
 
-    private @NotBlank(message = "Name is mandatory") String name;
+        @NotBlank(message = "Email is required")
+        String email,
 
-    private @NotBlank(message = "Email is mandatory") String email;
+        @NotBlank(message = "Password is required")
+        String password
 
-    private @NotBlank(message = "Password is mandatory") String password;
+) {
 }

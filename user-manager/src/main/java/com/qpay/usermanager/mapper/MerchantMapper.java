@@ -9,9 +9,9 @@ public class MerchantMapper {
     public MerchantEntity map(final MerchantCreation merchantCreation) {
         return MerchantEntity
                 .builder()
-                .name(merchantCreation.getName())
-                .email(merchantCreation.getEmail())
-                .password(merchantCreation.getPassword())
+                .name(merchantCreation.name())
+                .email(merchantCreation.email())
+                .password(merchantCreation.password())
                 .build();
     }
 }

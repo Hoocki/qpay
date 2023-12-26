@@ -3,10 +3,13 @@ package com.qpay.usermanager.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.qpay.usermanager.model.dto.customer.CustomerModification;
 import com.qpay.usermanager.model.entity.customer.CustomerEntity;
+import com.qpay.usermanager.repository.MerchantRepository;
 import com.qpay.usermanager.service.exception.CustomerNotFoundException;
+import com.qpay.usermanager.service.exception.EmailAlreadyExistsException;
 import com.qpay.usermanager.service.impl.CustomerServiceImpl;
 import com.qpay.usermanager.utility.PathsUtils;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -125,6 +128,32 @@ class CustomerControllerIntegrationTest {
     }
 
     @Test
+    void should_returnException_when_newCustomerEmailAlreadyExistsInMerchants() throws Exception {
+        // given
+        var customerModification = CustomerModification
+                .builder()
+                .name("s")
+                .email("s")
+                .password("s")
+                .build();
+
+        given(customerService.addCustomer(customerModification)).willThrow(EmailAlreadyExistsException.class);
+
+        // when
+        var status = mockMvc
+                .perform(MockMvcRequestBuilders
+                        .post(PathsUtils.CUSTOMER_PATH)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(customerModification)))
+                .andReturn()
+                .getResponse()
+                .getStatus();
+
+        // then
+        assertThat(status).isEqualTo(HttpStatus.CONFLICT.value());
+    }
+
+    @Test
     void should_returnCustomer_when_customerUpdated() throws Exception {
         // given
         var id = 1L;
@@ -154,6 +183,32 @@ class CustomerControllerIntegrationTest {
         //then
         var expectedResponseBody = objectMapper.writeValueAsString(expectedCustomer);
         assertThat(responseBody).isEqualTo(expectedResponseBody);
+    }
+
+    @Test
+    void should_returnException_when_updatedCustomerEmailAlreadyExistsInMerchants() throws Exception {
+        // given
+        var customerModification = CustomerModification
+                .builder()
+                .name("s")
+                .email("s")
+                .password("s")
+                .build();
+
+        given(customerService.updateCustomer(customerModification, 1L)).willThrow(EmailAlreadyExistsException.class);
+
+        // when
+        var status = mockMvc
+                .perform(MockMvcRequestBuilders
+                        .put(PathsUtils.CUSTOMER_PATH + "/{id}", 1L)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(customerModification)))
+                .andReturn()
+                .getResponse()
+                .getStatus();
+
+        // then
+        assertThat(status).isEqualTo(HttpStatus.CONFLICT.value());
     }
 
     @Test

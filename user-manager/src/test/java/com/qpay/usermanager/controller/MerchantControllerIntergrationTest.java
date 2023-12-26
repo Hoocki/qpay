@@ -1,8 +1,11 @@
 package com.qpay.usermanager.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.qpay.usermanager.model.dto.customer.CustomerModification;
 import com.qpay.usermanager.model.dto.merchant.MerchantCreation;
 import com.qpay.usermanager.model.entity.merchant.MerchantEntity;
+import com.qpay.usermanager.service.exception.CustomerAlreadyExistsException;
+import com.qpay.usermanager.service.exception.EmailAlreadyExistsException;
 import com.qpay.usermanager.service.exception.NoMerchantFoundException;
 import com.qpay.usermanager.service.impl.MerchantServiceImpl;
 import com.qpay.usermanager.utility.PathsUtils;
@@ -17,6 +20,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.BDDMockito.willThrow;
 
 
 @WebMvcTest(controllers = MerchantController.class)
@@ -120,6 +124,32 @@ class MerchantControllerIntergrationTest {
     }
 
     @Test
+    void should_returnException_when_newMerchantEmailAlreadyExistsInCustomers() throws Exception {
+        // given
+        var merchantCreation = MerchantCreation
+                .builder()
+                .name("s")
+                .email("s")
+                .password("s")
+                .build();
+
+        given(merchantService.addMerchant(merchantCreation)).willThrow(CustomerAlreadyExistsException.class);
+
+        // when
+        var status = mockMvc
+                .perform(MockMvcRequestBuilders
+                        .post(PathsUtils.MERCHANTS_PATH)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(merchantCreation)))
+                .andReturn()
+                .getResponse()
+                .getStatus();
+
+        // then
+        assertThat(status).isEqualTo(HttpStatus.CONFLICT.value());
+    }
+
+    @Test
     void should_returnMerchant_when_merchantUpdated() throws Exception {
         //given
         given(merchantService.updateMerchant(1L, MERCHANT_CREATION)).willReturn(MERCHANT_ENTITY);
@@ -137,6 +167,32 @@ class MerchantControllerIntergrationTest {
         //then
         var expectedResponseBody = objectMapper.writeValueAsString(MERCHANT_ENTITY);
         assertThat(responseBody).isEqualTo(expectedResponseBody);
+    }
+
+    @Test
+    void should_returnException_when_updatedMerchantEmailAlreadyExistsInCustomers() throws Exception {
+        // given
+        var merchantCreation = MerchantCreation
+                .builder()
+                .name("s")
+                .email("s")
+                .password("s")
+                .build();
+
+        given(merchantService.updateMerchant(1L, merchantCreation)).willThrow(CustomerAlreadyExistsException.class);
+
+        // when
+        var status = mockMvc
+                .perform(MockMvcRequestBuilders
+                        .put(PathsUtils.MERCHANTS_PATH + "/{id}", 1L)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(merchantCreation)))
+                .andReturn()
+                .getResponse()
+                .getStatus();
+
+        // then
+        assertThat(status).isEqualTo(HttpStatus.CONFLICT.value());
     }
 
     @Test

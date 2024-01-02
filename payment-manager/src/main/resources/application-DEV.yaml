@@ -1,0 +1,10 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/qpay
+    username: admin
+    password: password
+  jpa:
+    show-sql: true
+server:
+  error:
+    include-message: always

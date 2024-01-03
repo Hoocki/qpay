@@ -2,13 +2,13 @@ server:
   port: 8082
 spring:
   application:
-    name: users
+    name: payment
   flyway:
-    schemas: users
+    schemas: payment
   jpa:
     properties:
       hibernate:
         format_sql: true
-        default_schema: users
+        default_schema: payment
     hibernate:
       ddl-auto: validate

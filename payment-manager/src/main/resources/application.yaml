@@ -1,0 +1,14 @@
+server:
+  port: 8082
+spring:
+  application:
+    name: payment
+  flyway:
+    schemas: payment
+  jpa:
+    properties:
+      hibernate:
+        format_sql: true
+        default_schema: payment
+    hibernate:
+      ddl-auto: validate

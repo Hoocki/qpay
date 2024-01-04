@@ -25,6 +25,7 @@ val h2Version = rootProject.extra["h2"]
 dependencies {
     annotationProcessor("org.projectlombok:lombok")
 
+    implementation(project(":libs"))
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-validation")

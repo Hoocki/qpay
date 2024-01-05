@@ -4,12 +4,10 @@ import com.qpay.libs.models.UserType;
 import com.qpay.paymentmanager.model.dto.WalletModification;
 import com.qpay.paymentmanager.model.entity.WalletEntity;
 import org.junit.jupiter.api.Test;
-import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 class WalletMapperTest {
 

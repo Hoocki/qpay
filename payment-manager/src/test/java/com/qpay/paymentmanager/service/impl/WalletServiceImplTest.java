@@ -85,7 +85,7 @@ class WalletServiceImplTest {
                 .name("adasdasd")
                 .balance(new BigDecimal(111))
                 .userId(2L)
-                .userType(UserType.MERCHANT)
+                .userType(UserType.CUSTOMER)
                 .build();
 
         given(walletRepository.findById(id)).willReturn(Optional.of(wallet));

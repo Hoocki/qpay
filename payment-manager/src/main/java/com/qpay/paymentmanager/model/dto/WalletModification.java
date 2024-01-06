@@ -15,8 +15,7 @@ public record WalletModification (
         @NotNull(message = "Balance is required")
         BigDecimal balance,
 
-        @NotNull(message = "UserId is required")
-        Long userId,
+        long userId,
 
         @NotNull(message = "UserType is required")
         UserType userType

@@ -98,9 +98,6 @@ class WalletControllerIntegrationTest {
         var invalidWallet = WalletModification
                 .builder()
                 .name("")
-                .balance(null)
-                .userId(null)
-                .userType(null)
                 .build();
 
         // when
@@ -145,9 +142,6 @@ class WalletControllerIntegrationTest {
         var invalidWallet = WalletModification
                 .builder()
                 .name("")
-                .balance(null)
-                .userId(null)
-                .userType(null)
                 .build();
 
         // when

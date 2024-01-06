@@ -23,7 +23,7 @@ public class WalletController {
     private final WalletService walletService;
 
     @GetMapping("{id}")
-    public WalletEntity getWalletById(@PathVariable final Long id) {
+    public WalletEntity getWalletById(@PathVariable final long id) {
         return walletService.getWalletById(id);
     }
 
@@ -34,12 +34,12 @@ public class WalletController {
 
     @PutMapping("{id}")
     public WalletEntity updateWallet(@Valid @RequestBody final WalletModification walletModification,
-                                     @PathVariable final Long id) {
+                                     @PathVariable final long id) {
         return walletService.updateWallet(walletModification, id);
     }
 
     @DeleteMapping("{id}")
-    public void deleteWallet(@PathVariable final Long id) {
+    public void deleteWallet(@PathVariable final long id) {
         walletService.deleteWallet(id);
     }
 

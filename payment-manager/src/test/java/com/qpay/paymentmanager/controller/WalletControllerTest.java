@@ -54,7 +54,7 @@ class WalletControllerTest {
     }
 
     @Test
-    void should_updateCustomer() {
+    void should_updateWallet() {
         // given
         given(walletService.updateWallet(WALLET_MODIFICATION, 1L)).willReturn(WALLET_ENTITY);
 
@@ -66,7 +66,7 @@ class WalletControllerTest {
     }
 
     @Test
-    void should_deleteCustomer() {
+    void should_deleteWallet() {
         // given
         var id = 1L;
 

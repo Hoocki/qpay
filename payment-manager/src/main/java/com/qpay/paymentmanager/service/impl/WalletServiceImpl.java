@@ -17,7 +17,7 @@ public class WalletServiceImpl implements WalletService {
 
     private final WalletMapper walletMapper;
 
-    public WalletEntity getWalletById(Long id) {
+    public WalletEntity getWalletById(long id) {
         return walletRepository.findById(id).orElseThrow(NoWalletFoundException::new);
     }
 
@@ -27,17 +27,16 @@ public class WalletServiceImpl implements WalletService {
         return walletRepository.save(walletEntity);
     }
 
-    public WalletEntity updateWallet(WalletModification walletModification, Long id) {
+    public WalletEntity updateWallet(WalletModification walletModification, long id) {
         var walletEntity = getWalletById(id);
         walletEntity.setName(walletModification.name());
         walletEntity.setBalance(walletModification.balance());
         walletEntity.setUserId(walletModification.userId());
-        walletEntity.setUserType(walletModification.userType());
 
         return walletRepository.save(walletEntity);
     }
 
-    public void deleteWallet(Long id) {
+    public void deleteWallet(long id) {
         walletRepository.deleteById(id);
     }
 

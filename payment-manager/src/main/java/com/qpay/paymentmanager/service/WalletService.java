@@ -5,11 +5,11 @@ import com.qpay.paymentmanager.model.entity.WalletEntity;
 
 public interface WalletService {
 
-    WalletEntity getWalletById(Long id);
+    WalletEntity getWalletById(long id);
 
     WalletEntity addWallet(WalletModification walletModification);
 
-    WalletEntity updateWallet(WalletModification walletModification, Long id);
+    WalletEntity updateWallet(WalletModification walletModification, long id);
 
-    void deleteWallet(Long id);
+    void deleteWallet(long id);
 }

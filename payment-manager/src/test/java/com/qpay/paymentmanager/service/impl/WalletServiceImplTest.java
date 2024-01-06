@@ -2,6 +2,7 @@ package com.qpay.paymentmanager.service.impl;
 
 import com.qpay.libs.models.UserType;
 import com.qpay.paymentmanager.mapper.WalletMapper;
+import com.qpay.paymentmanager.model.dto.WalletCreation;
 import com.qpay.paymentmanager.model.dto.WalletModification;
 import com.qpay.paymentmanager.model.entity.WalletEntity;
 import com.qpay.paymentmanager.repository.WalletRepository;
@@ -32,8 +33,10 @@ class WalletServiceImplTest {
     @Mock
     private WalletMapper walletMapper;
 
-    private static final WalletModification WALLET_MODIFICATION = WalletModification.builder().name("wallet").balance(new BigDecimal(0)).userId(1L).userType(UserType.CUSTOMER).build();
+    private static final WalletCreation WALLET_CREATION = WalletCreation.builder().name("wallet").userId(1L).userType(UserType.CUSTOMER).build();
 
+    private static final WalletModification WALLET_MODIFICATION = WalletModification.builder().name("wallet").build();
+    
     private static final WalletEntity WALLET_ENTITY = WalletEntity.builder().name("wallet").balance(new BigDecimal(0)).userId(1L).userType(UserType.CUSTOMER).build();
 
     @Test
@@ -67,11 +70,11 @@ class WalletServiceImplTest {
     @Test
     void should_addWallet() {
         // given
-        given(walletMapper.map(WALLET_MODIFICATION)).willReturn(WALLET_ENTITY);
+        given(walletMapper.map(WALLET_CREATION)).willReturn(WALLET_ENTITY);
         given(walletRepository.save(WALLET_ENTITY)).willReturn(WALLET_ENTITY);
 
         // when
-        var result = walletService.addWallet(WALLET_MODIFICATION);
+        var result = walletService.addWallet(WALLET_CREATION);
 
         // then
         assertThat(result).isEqualTo(WALLET_ENTITY);
@@ -83,8 +86,8 @@ class WalletServiceImplTest {
         var id = 1L;
         var wallet = WalletEntity.builder()
                 .name("adasdasd")
-                .balance(new BigDecimal(111))
-                .userId(2L)
+                .balance(new BigDecimal(0))
+                .userId(1L)
                 .userType(UserType.CUSTOMER)
                 .build();
 

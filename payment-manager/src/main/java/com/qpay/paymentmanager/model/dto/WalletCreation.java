@@ -8,9 +8,14 @@ import lombok.Builder;
 import java.math.BigDecimal;
 
 @Builder
-public record WalletModification (
+public record WalletCreation (
         @NotBlank(message = "Name is required")
-        String name
+        String name,
+
+        long userId,
+
+        @NotNull(message = "UserType is required")
+        UserType userType
 
 ) {
 }

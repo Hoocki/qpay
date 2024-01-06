@@ -1,5 +1,6 @@
 package com.qpay.paymentmanager.controller;
 
+import com.qpay.paymentmanager.model.dto.WalletCreation;
 import com.qpay.paymentmanager.model.dto.WalletModification;
 import com.qpay.paymentmanager.model.entity.WalletEntity;
 import com.qpay.paymentmanager.service.WalletService;
@@ -28,8 +29,8 @@ public class WalletController {
     }
 
     @PostMapping
-    public WalletEntity addWallet(@Valid @RequestBody final WalletModification walletModification) {
-        return walletService.addWallet(walletModification);
+    public WalletEntity addWallet(@Valid @RequestBody final WalletCreation walletCreation) {
+        return walletService.addWallet(walletCreation);
     }
 
     @PutMapping("{id}")

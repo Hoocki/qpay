@@ -1,6 +1,7 @@
 package com.qpay.paymentmanager.controller;
 
 import com.qpay.libs.models.UserType;
+import com.qpay.paymentmanager.model.dto.WalletCreation;
 import com.qpay.paymentmanager.model.dto.WalletModification;
 import com.qpay.paymentmanager.model.entity.WalletEntity;
 import com.qpay.paymentmanager.service.WalletService;
@@ -25,7 +26,9 @@ class WalletControllerTest {
     @Mock
     private WalletService walletService;
 
-    private static final WalletModification WALLET_MODIFICATION = WalletModification.builder().name("wallet").balance(new BigDecimal(0)).userId(1L).userType(UserType.CUSTOMER).build();
+    private static final WalletCreation WALLET_CREATION = WalletCreation.builder().name("wallet").userId(1L).userType(UserType.CUSTOMER).build();
+
+    private static final WalletModification WALLET_MODIFICATION = WalletModification.builder().name("wallet").build();
 
     private static final WalletEntity WALLET_ENTITY = WalletEntity.builder().name("wallet").balance(new BigDecimal(0)).userId(1L).userType(UserType.CUSTOMER).build();
 
@@ -44,10 +47,10 @@ class WalletControllerTest {
     @Test
     void should_addWallet() {
         // given
-        given(walletService.addWallet(WALLET_MODIFICATION)).willReturn(WALLET_ENTITY);
+        given(walletService.addWallet(WALLET_CREATION)).willReturn(WALLET_ENTITY);
 
         // when
-        var result = walletController.addWallet(WALLET_MODIFICATION);
+        var result = walletController.addWallet(WALLET_CREATION);
 
         // then
         assertThat(result).isEqualTo(WALLET_ENTITY);

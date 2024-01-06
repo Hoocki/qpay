@@ -2,6 +2,7 @@ package com.qpay.paymentmanager.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.qpay.libs.models.UserType;
+import com.qpay.paymentmanager.model.dto.WalletCreation;
 import com.qpay.paymentmanager.model.dto.WalletModification;
 import com.qpay.paymentmanager.model.entity.WalletEntity;
 import com.qpay.paymentmanager.service.exception.NoWalletFoundException;
@@ -33,7 +34,9 @@ class WalletControllerIntegrationTest {
     @MockBean
     private WalletServiceImpl walletService;
 
-    private static final WalletModification WALLET_MODIFICATION = WalletModification.builder().name("wallet").balance(new BigDecimal(0)).userId(1L).userType(UserType.CUSTOMER).build();
+    private static final WalletCreation WALLET_CREATION = WalletCreation.builder().name("wallet").userId(1L).userType(UserType.CUSTOMER).build();
+
+    private static final WalletModification WALLET_MODIFICATION = WalletModification.builder().name("wallet").build();
 
     private static final WalletEntity WALLET_ENTITY = WalletEntity.builder().name("wallet").balance(new BigDecimal(0)).userId(1L).userType(UserType.CUSTOMER).build();
 
@@ -75,14 +78,14 @@ class WalletControllerIntegrationTest {
     @Test
     void should_returnWallet_when_walletAdded() throws Exception {
         // given
-        given(walletService.addWallet(WALLET_MODIFICATION)).willReturn(WALLET_ENTITY);
+        given(walletService.addWallet(WALLET_CREATION)).willReturn(WALLET_ENTITY);
 
         // when
         var responseBody = mockMvc
                 .perform(MockMvcRequestBuilders
                         .post(PathUtils.WALLET_PATH)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(WALLET_MODIFICATION)))
+                        .content(objectMapper.writeValueAsString(WALLET_CREATION)))
                 .andReturn()
                 .getResponse()
                 .getContentAsString();

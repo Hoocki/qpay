@@ -7,7 +7,7 @@ import com.qpay.paymentmanager.model.dto.WalletModification;
 import com.qpay.paymentmanager.model.entity.WalletEntity;
 import com.qpay.paymentmanager.service.exception.NoWalletFoundException;
 import com.qpay.paymentmanager.service.impl.WalletServiceImpl;
-import com.qpay.paymentmanager.utility.PathUtils;
+import com.qpay.paymentmanager.utils.PathUtils;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -100,7 +100,6 @@ class WalletControllerIntegrationTest {
         // given
         var invalidWallet = WalletModification
                 .builder()
-                .name("")
                 .build();
 
         // when
@@ -144,7 +143,6 @@ class WalletControllerIntegrationTest {
         // given
         var invalidWallet = WalletModification
                 .builder()
-                .name("")
                 .build();
 
         // when

@@ -1,4 +1,4 @@
-package com.qpay.paymentmanager.utility;
+package com.qpay.paymentmanager.utils;
 
 import lombok.experimental.UtilityClass;
 

@@ -4,7 +4,6 @@ plugins {
     id("io.spring.dependency-management") version "1.1.3"
 }
 
-
 java {
     sourceCompatibility = JavaVersion.VERSION_21
 }

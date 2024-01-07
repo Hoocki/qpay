@@ -4,7 +4,7 @@ import com.qpay.paymentmanager.model.dto.WalletCreation;
 import com.qpay.paymentmanager.model.dto.WalletModification;
 import com.qpay.paymentmanager.model.entity.WalletEntity;
 import com.qpay.paymentmanager.service.WalletService;
-import com.qpay.paymentmanager.utility.PathUtils;
+import com.qpay.paymentmanager.utils.PathUtils;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;

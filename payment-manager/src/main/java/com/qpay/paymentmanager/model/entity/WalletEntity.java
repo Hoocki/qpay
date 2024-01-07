@@ -32,7 +32,8 @@ public class WalletEntity {
 
     private String name;
 
-    private BigDecimal balance;
+    @Builder.Default
+    private BigDecimal balance = new BigDecimal(0);
 
     private long userId;
 

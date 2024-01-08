@@ -184,15 +184,7 @@ class WalletControllerIntegrationTest {
     @Test
     void should_returnUpdatedWallet_when_providePaymentBetweenWallets() throws Exception {
         // given
-        var id = 1L;
-        var walletBeforePayment = WalletEntity.builder()
-                .name("wallet")
-                .balance(new BigDecimal(100))
-                .userId(1L)
-                .userType(UserType.CUSTOMER)
-                .build();
-
-        given(walletService.paymentWallet(WALLET_PAYMENT)).willReturn(WALLET_ENTITY);
+        given(walletService.makePayment(WALLET_PAYMENT)).willReturn(WALLET_ENTITY);
 
         // when
         var responseBody = mockMvc
@@ -220,7 +212,7 @@ class WalletControllerIntegrationTest {
                 .userType(UserType.CUSTOMER)
                 .build();
 
-        given(walletService.topUpWallet(WALLET_TOP_UP, id)).willReturn(expectedWallet);
+        given(walletService.topUp(WALLET_TOP_UP, id)).willReturn(expectedWallet);
 
         // when
         var responseBody = mockMvc

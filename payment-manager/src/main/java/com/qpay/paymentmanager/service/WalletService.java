@@ -16,7 +16,7 @@ public interface WalletService {
 
     void deleteWallet(long id);
 
-    WalletEntity paymentWallet(WalletPayment walletPayment);
+    WalletEntity makePayment(WalletPayment walletPayment);
 
-    WalletEntity topUpWallet(WalletTopUp walletTopUp, long id);
+    WalletEntity topUp(WalletTopUp walletTopUp, long id);
 }

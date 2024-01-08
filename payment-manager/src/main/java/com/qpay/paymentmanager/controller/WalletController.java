@@ -9,14 +9,14 @@ import com.qpay.paymentmanager.service.WalletService;
 import com.qpay.paymentmanager.utils.PathUtils;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.DeleteMapping;
 
 @RestController
 @RequiredArgsConstructor
@@ -48,13 +48,13 @@ public class WalletController {
 
     @PostMapping("/p2b")
     public WalletEntity paymentWallet(@RequestBody final WalletPayment walletPayment) {
-        return walletService.paymentWallet(walletPayment);
+        return walletService.makePayment(walletPayment);
     }
 
     @PostMapping("/topUp/{id}")
-    public WalletEntity topUpWallet(@RequestBody final WalletTopUp walletTopUp,
-                                    @PathVariable final long id) {
-        return walletService.topUpWallet(walletTopUp, id);
+    public WalletEntity topUpWallet(@PathVariable final long id,
+                                    @RequestBody final WalletTopUp walletTopUp) {
+        return walletService.topUp(walletTopUp, id);
     }
 
 }

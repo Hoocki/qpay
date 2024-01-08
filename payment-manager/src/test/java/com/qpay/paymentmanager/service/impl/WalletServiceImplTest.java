@@ -114,7 +114,7 @@ class WalletServiceImplTest {
     }
 
     @Test
-    void should_providePaymentBetweenBalanceWallet() {
+    void should_makePaymentBetweenWallets() {
         // when
         var fromId = 1L;
         var toId = 2L;
@@ -162,7 +162,7 @@ class WalletServiceImplTest {
         given(walletRepository.save(expectedToWallet)).willReturn(expectedToWallet);
 
         // when
-        var result = walletService.paymentWallet(walletPayment);
+        var result = walletService.makePayment(walletPayment);
 
         // then
         assertThat(result).isEqualTo(expectedFromWallet);
@@ -182,7 +182,7 @@ class WalletServiceImplTest {
         given(walletRepository.findById(fromId)).willReturn(Optional.empty());
 
         // when
-        var thrown = catchThrowable(() -> walletService.paymentWallet(walletPayment));
+        var thrown = catchThrowable(() -> walletService.makePayment(walletPayment));
 
         // then
         assertThat(thrown).isInstanceOf(NoWalletFoundException.class);
@@ -219,7 +219,7 @@ class WalletServiceImplTest {
         given(walletRepository.findById(toId)).willReturn(Optional.of(toWallet));
 
         // when
-        var thrown = catchThrowable(() -> walletService.paymentWallet(walletPayment));
+        var thrown = catchThrowable(() -> walletService.makePayment(walletPayment));
 
         // then
         assertThat(thrown).isInstanceOf(NotEnoughMoneyWalletException.class);
@@ -244,7 +244,7 @@ class WalletServiceImplTest {
         given(walletRepository.save(expectedWallet)).willReturn(expectedWallet);
 
         // when
-        var result = walletService.topUpWallet(walletTopUp, id);
+        var result = walletService.topUp(walletTopUp, id);
 
         // then
         assertThat(result).isEqualTo(expectedWallet);
@@ -259,7 +259,7 @@ class WalletServiceImplTest {
                 .build();
 
         // when
-        var thrown = catchThrowable(() -> walletService.topUpWallet(walletTopUp, id));
+        var thrown = catchThrowable(() -> walletService.topUp(walletTopUp, id));
 
         // then
         assertThat(thrown).isInstanceOf(NotEnoughMoneyWalletException.class);
@@ -276,7 +276,7 @@ class WalletServiceImplTest {
         given(walletRepository.findById(id)).willReturn(Optional.empty());
 
         // when
-        var thrown = catchThrowable(() -> walletService.topUpWallet(walletTopUp, id));
+        var thrown = catchThrowable(() -> walletService.topUp(walletTopUp, id));
 
         // then
         assertThat(thrown).isInstanceOf(NoWalletFoundException.class);

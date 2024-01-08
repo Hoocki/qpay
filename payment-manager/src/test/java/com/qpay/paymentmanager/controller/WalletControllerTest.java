@@ -83,7 +83,7 @@ class WalletControllerTest {
     }
 
     @Test
-    void should_paymentWallet() {
+    void should_makePaymentBetweenWallets() {
         // given
         var walletPayment = WalletPayment.builder()
                 .walletIdFrom(1L)
@@ -91,7 +91,7 @@ class WalletControllerTest {
                 .amount(BigDecimal.valueOf(100))
                 .build();
 
-        given(walletService.paymentWallet(walletPayment)).willReturn(WALLET_ENTITY);
+        given(walletService.makePayment(walletPayment)).willReturn(WALLET_ENTITY);
 
         // when
         var result = walletController.paymentWallet(walletPayment);
@@ -115,10 +115,10 @@ class WalletControllerTest {
                 .userType(UserType.CUSTOMER)
                 .build();
 
-        given(walletService.topUpWallet(walletTopUp, id)).willReturn(expectedWallet);
+        given(walletService.topUp(walletTopUp, id)).willReturn(expectedWallet);
 
         // when
-        var result = walletController.topUpWallet(walletTopUp, id);
+        var result = walletController.topUpWallet(id, walletTopUp);
 
         // then
         assertThat(result).isEqualTo(expectedWallet);

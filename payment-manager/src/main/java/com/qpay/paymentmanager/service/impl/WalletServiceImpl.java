@@ -12,6 +12,7 @@ import com.qpay.paymentmanager.service.exception.NoWalletFoundException;
 import com.qpay.paymentmanager.service.exception.NotEnoughMoneyWalletException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
@@ -43,35 +44,30 @@ public class WalletServiceImpl implements WalletService {
         walletRepository.deleteById(id);
     }
 
-    @Transactional
-    public WalletEntity paymentWallet(final WalletPayment walletPayment) {
+    @Transactional(isolation = Isolation.READ_COMMITTED)
+    public WalletEntity makePayment(final WalletPayment walletPayment) {
         isEnoughMoneyInWallet(walletPayment.amount());
         final var fromWallet = getWalletById(walletPayment.walletIdFrom());
         final var toWallet = getWalletById(walletPayment.walletIdTo());
-        final var fromWalletBalance = fromWallet.getBalance();
-        final var toWalletBalance = toWallet.getBalance();
-
-        final var currentFromWalletBalance = fromWalletBalance.subtract(walletPayment.amount());
-        isEnoughMoneyInWallet(currentFromWalletBalance);
-        fromWallet.setBalance(currentFromWalletBalance);
-        walletRepository.save(fromWallet);
-
-        final var currentToWalletBalance = toWalletBalance.add(walletPayment.amount());
-        isEnoughMoneyInWallet(currentToWalletBalance);
-        toWallet.setBalance(currentToWalletBalance);
-        walletRepository.save(toWallet);
-
+        final var updatedFromWalletBalance = fromWallet.getBalance().subtract(walletPayment.amount());
+        updateBalance(updatedFromWalletBalance, fromWallet);
+        final var updatedToWalletBalance = toWallet.getBalance().add(walletPayment.amount());
+        updateBalance(updatedToWalletBalance, toWallet);
         return fromWallet;
     }
 
-    public WalletEntity topUpWallet(final WalletTopUp walletTopUp, final long id) {
+    public WalletEntity topUp(final WalletTopUp walletTopUp, final long id) {
         isEnoughMoneyInWallet(walletTopUp.amount());
         final var walletEntity = getWalletById(id);
-        final var currentBalanceWallet = walletEntity.getBalance();
-        final var newBalanceWallet = currentBalanceWallet.add(walletTopUp.amount());
-        isEnoughMoneyInWallet(newBalanceWallet);
-        walletEntity.setBalance(newBalanceWallet);
-        return walletRepository.save(walletEntity);
+        final var balanceWallet = walletEntity.getBalance();
+        final var updatedBalanceWallet = balanceWallet.add(walletTopUp.amount());
+        return updateBalance(updatedBalanceWallet, walletEntity);
+    }
+
+    private WalletEntity updateBalance(final BigDecimal balance, final WalletEntity wallet) {
+        isEnoughMoneyInWallet(balance);
+        wallet.setBalance(balance);
+        return walletRepository.save(wallet);
     }
 
     private void isEnoughMoneyInWallet(final BigDecimal balance) {

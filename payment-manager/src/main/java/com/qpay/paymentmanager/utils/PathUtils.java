@@ -6,4 +6,6 @@ import lombok.experimental.UtilityClass;
 public class PathUtils {
     public static final String WALLET_PATH = "/api/v1/wallets";
 
+    public static final String PAYMENT_PATH = "/api/v1/payments";
+
 }

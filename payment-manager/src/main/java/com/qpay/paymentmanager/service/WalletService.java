@@ -2,8 +2,6 @@ package com.qpay.paymentmanager.service;
 
 import com.qpay.paymentmanager.model.dto.WalletCreation;
 import com.qpay.paymentmanager.model.dto.WalletModification;
-import com.qpay.paymentmanager.model.dto.WalletPayment;
-import com.qpay.paymentmanager.model.dto.WalletTopUp;
 import com.qpay.paymentmanager.model.entity.WalletEntity;
 
 public interface WalletService {
@@ -15,8 +13,4 @@ public interface WalletService {
     WalletEntity updateWallet(WalletModification walletModification, long id);
 
     void deleteWallet(long id);
-
-    WalletEntity makePayment(WalletPayment walletPayment);
-
-    WalletEntity topUp(WalletTopUp walletTopUp, long id);
 }

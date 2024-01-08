@@ -4,8 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.qpay.libs.models.UserType;
 import com.qpay.paymentmanager.model.dto.WalletCreation;
 import com.qpay.paymentmanager.model.dto.WalletModification;
-import com.qpay.paymentmanager.model.dto.WalletPayment;
-import com.qpay.paymentmanager.model.dto.WalletTopUp;
 import com.qpay.paymentmanager.model.entity.WalletEntity;
 import com.qpay.paymentmanager.service.exception.NoWalletFoundException;
 import com.qpay.paymentmanager.service.impl.WalletServiceImpl;
@@ -39,10 +37,6 @@ class WalletControllerIntegrationTest {
     private static final WalletCreation WALLET_CREATION = WalletCreation.builder().name("wallet").userId(1L).userType(UserType.CUSTOMER).build();
 
     private static final WalletModification WALLET_MODIFICATION = WalletModification.builder().name("wallet").build();
-
-    private static final WalletTopUp WALLET_TOP_UP = WalletTopUp.builder().amount(BigDecimal.valueOf(100)).build();
-
-    private static final WalletPayment WALLET_PAYMENT = WalletPayment.builder().walletIdFrom(1L).walletIdTo(2L).amount(BigDecimal.valueOf(100)).build();
 
     private static final WalletEntity WALLET_ENTITY = WalletEntity.builder().name("wallet").balance(new BigDecimal(0)).userId(1L).userType(UserType.CUSTOMER).build();
 
@@ -179,54 +173,6 @@ class WalletControllerIntegrationTest {
 
         // then
         assertThat(status).isEqualTo(HttpStatus.OK.value());
-    }
-
-    @Test
-    void should_returnUpdatedWallet_when_providePaymentBetweenWallets() throws Exception {
-        // given
-        given(walletService.makePayment(WALLET_PAYMENT)).willReturn(WALLET_ENTITY);
-
-        // when
-        var responseBody = mockMvc
-                .perform(MockMvcRequestBuilders
-                        .post(PathUtils.WALLET_PATH + "/p2b")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(WALLET_PAYMENT)))
-                .andReturn()
-                .getResponse()
-                .getContentAsString();
-
-        // then
-        var expectedResponseBody = objectMapper.writeValueAsString(WALLET_ENTITY);
-        assertThat(responseBody).isEqualTo(expectedResponseBody);
-    }
-
-    @Test
-    void should_returnUpdatedWallet_when_walletTopUp() throws Exception {
-        // given
-        var id = 1L;
-        var expectedWallet = WalletEntity.builder()
-                .name("wallet")
-                .balance(new BigDecimal(100))
-                .userId(1L)
-                .userType(UserType.CUSTOMER)
-                .build();
-
-        given(walletService.topUp(WALLET_TOP_UP, id)).willReturn(expectedWallet);
-
-        // when
-        var responseBody = mockMvc
-                .perform(MockMvcRequestBuilders
-                        .post(PathUtils.WALLET_PATH + "/topUp/{id}", id)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(WALLET_TOP_UP)))
-                .andReturn()
-                .getResponse()
-                .getContentAsString();
-
-        // then
-        var expectedResponseBody = objectMapper.writeValueAsString(expectedWallet);
-        assertThat(responseBody).isEqualTo(expectedResponseBody);
     }
 
 }

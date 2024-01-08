@@ -45,6 +45,21 @@ class WalletControllerTest {
     }
 
     @Test
+    void should_returnWalletByUserId() {
+        //given
+        var userId = 1L;
+        var userType = UserType.MERCHANT;
+
+        given(walletService.getWalletByUser(userId, userType)).willReturn(WALLET_ENTITY);
+
+        //when
+        var result = walletController.getWalletByUser(userId, userType);
+
+        //then
+        assertThat(result).isEqualTo(WALLET_ENTITY);
+    }
+
+    @Test
     void should_addWallet() {
         // given
         given(walletService.addWallet(WALLET_CREATION)).willReturn(WALLET_ENTITY);

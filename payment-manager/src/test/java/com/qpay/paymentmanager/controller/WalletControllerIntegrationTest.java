@@ -76,6 +76,49 @@ class WalletControllerIntegrationTest {
     }
 
     @Test
+    void should_returnWalletByUser() throws Exception {
+        // given
+        var userId = 1L;
+        var userType = UserType.MERCHANT;
+        given(walletService.getWalletByUser(userId, userType)).willReturn(WALLET_ENTITY);
+
+        // when
+        var responseBody = mockMvc
+                .perform(MockMvcRequestBuilders
+                        .get(PathUtils.WALLET_PATH + "/user/{id}", userId)
+                        .param("userType", "MERCHANT")
+                )
+                .andReturn()
+                .getResponse()
+                .getContentAsString();
+
+        // then
+        var expectedResponseBody = objectMapper.writeValueAsString(WALLET_ENTITY);
+        assertThat(responseBody).isEqualTo(expectedResponseBody);
+    }
+
+    @Test
+    void should_returnException_when_walletByUserDoesNotExist() throws Exception {
+        // given
+        var userType = UserType.MERCHANT;
+        var userId = 1L;
+        given(walletService.getWalletByUser(userId, userType)).willThrow(new NoWalletFoundException());
+
+        // when
+        var status = mockMvc
+                .perform(MockMvcRequestBuilders
+                        .get(PathUtils.WALLET_PATH + "/user/{id}", userId)
+                        .param("userType", "MERCHANT")
+                )
+                .andReturn()
+                .getResponse()
+                .getStatus();
+
+        // then
+        assertThat(status).isEqualTo(HttpStatus.NOT_FOUND.value());
+    }
+
+    @Test
     void should_returnWallet_when_walletAdded() throws Exception {
         // given
         given(walletService.addWallet(WALLET_CREATION)).willReturn(WALLET_ENTITY);

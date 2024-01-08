@@ -3,6 +3,8 @@ package com.qpay.paymentmanager.controller;
 import com.qpay.libs.models.UserType;
 import com.qpay.paymentmanager.model.dto.WalletCreation;
 import com.qpay.paymentmanager.model.dto.WalletModification;
+import com.qpay.paymentmanager.model.dto.WalletPayment;
+import com.qpay.paymentmanager.model.dto.WalletTopUp;
 import com.qpay.paymentmanager.model.entity.WalletEntity;
 import com.qpay.paymentmanager.service.WalletService;
 import org.junit.jupiter.api.Test;
@@ -78,5 +80,47 @@ class WalletControllerTest {
 
         // then
         then(walletService).should().deleteWallet(id);
+    }
+
+    @Test
+    void should_paymentWallet() {
+        // given
+        var walletPayment = WalletPayment.builder()
+                .walletIdFrom(1L)
+                .walletIdTo(2L)
+                .amount(BigDecimal.valueOf(100))
+                .build();
+
+        given(walletService.paymentWallet(walletPayment)).willReturn(WALLET_ENTITY);
+
+        // when
+        var result = walletController.paymentWallet(walletPayment);
+
+        // then
+        assertThat(result).isEqualTo(WALLET_ENTITY);
+    }
+
+    @Test
+    void should_topUpWallet() {
+        // given
+        var id = 1L;
+        var walletTopUp = WalletTopUp.builder()
+                .amount(BigDecimal.valueOf(100))
+                .build();
+
+        var expectedWallet = WalletEntity.builder()
+                .name("wallet")
+                .balance(new BigDecimal(100))
+                .userId(id)
+                .userType(UserType.CUSTOMER)
+                .build();
+
+        given(walletService.topUpWallet(walletTopUp, id)).willReturn(expectedWallet);
+
+        // when
+        var result = walletController.topUpWallet(walletTopUp, id);
+
+        // then
+        assertThat(result).isEqualTo(expectedWallet);
     }
 }

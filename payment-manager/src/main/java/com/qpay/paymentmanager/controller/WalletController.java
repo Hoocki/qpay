@@ -2,6 +2,8 @@ package com.qpay.paymentmanager.controller;
 
 import com.qpay.paymentmanager.model.dto.WalletCreation;
 import com.qpay.paymentmanager.model.dto.WalletModification;
+import com.qpay.paymentmanager.model.dto.WalletPayment;
+import com.qpay.paymentmanager.model.dto.WalletTopUp;
 import com.qpay.paymentmanager.model.entity.WalletEntity;
 import com.qpay.paymentmanager.service.WalletService;
 import com.qpay.paymentmanager.utils.PathUtils;
@@ -42,6 +44,17 @@ public class WalletController {
     @DeleteMapping("{id}")
     public void deleteWallet(@PathVariable final long id) {
         walletService.deleteWallet(id);
+    }
+
+    @PostMapping("/p2b")
+    public WalletEntity paymentWallet(@RequestBody final WalletPayment walletPayment) {
+        return walletService.paymentWallet(walletPayment);
+    }
+
+    @PostMapping("/topUp/{id}")
+    public WalletEntity topUpWallet(@RequestBody final WalletTopUp walletTopUp,
+                                    @PathVariable final long id) {
+        return walletService.topUpWallet(walletTopUp, id);
     }
 
 }

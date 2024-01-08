@@ -174,4 +174,5 @@ class WalletControllerIntegrationTest {
         // then
         assertThat(status).isEqualTo(HttpStatus.OK.value());
     }
+
 }

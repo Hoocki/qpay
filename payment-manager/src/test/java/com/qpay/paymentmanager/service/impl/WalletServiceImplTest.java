@@ -41,7 +41,7 @@ class WalletServiceImplTest {
 
     @Test
     void should_getWalletById() {
-        //when
+        //given
         var id = 1L;
 
         given(walletRepository.findById(id)).willReturn(Optional.of(WALLET_ENTITY));
@@ -63,6 +63,37 @@ class WalletServiceImplTest {
         var thrown = catchThrowable(() -> walletService.getWalletById(id));
 
         // then
+        assertThat(thrown)
+                .isInstanceOf(NoWalletFoundException.class);
+    }
+
+    @Test
+    void should_getWalletByUser() {
+        //given
+        var userId = 1L;
+        var userType = UserType.MERCHANT;
+
+        given(walletRepository.findWalletEntityByUserIdAndUserType(userId, userType)).willReturn(WALLET_ENTITY);
+
+        //when
+        var result = walletService.getWalletByUser(userId, userType);
+
+        //then
+        assertThat(result).isEqualTo(WALLET_ENTITY);
+    }
+
+    @Test
+    void should_throwNoWalletFoundException_when_walletByUserNotFound() {
+        //given
+        var userId = 1L;
+        var userType = UserType.MERCHANT;
+
+        given(walletRepository.findWalletEntityByUserIdAndUserType(userId, userType)).willReturn(null);
+
+        //when
+        var thrown = catchThrowable(() -> walletService.getWalletByUser(userId, userType));
+
+        //then
         assertThat(thrown)
                 .isInstanceOf(NoWalletFoundException.class);
     }

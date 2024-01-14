@@ -8,3 +8,5 @@ CREATE TABLE IF NOT EXISTS wallets
     created_at TIMESTAMP(6),
     updated_at TIMESTAMP(6)
 );
+
+CREATE INDEX IF NOT EXISTS user_id_index ON wallets(user_id);

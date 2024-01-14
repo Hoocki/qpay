@@ -30,7 +30,7 @@ public class WalletController {
         return walletService.getWalletById(id);
     }
 
-    @GetMapping("user/{userId}")
+    @GetMapping("users/{userId}")
     public WalletEntity getWalletByUser(@PathVariable final long userId, @RequestParam final UserType userType) {
         return walletService.getWalletByUser(userId, userType);
     }

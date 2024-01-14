@@ -85,7 +85,7 @@ class WalletControllerIntegrationTest {
         // when
         var responseBody = mockMvc
                 .perform(MockMvcRequestBuilders
-                        .get(PathUtils.WALLET_PATH + "/user/{id}", userId)
+                        .get(PathUtils.WALLET_PATH + "/users/{id}", userId)
                         .param("userType", "MERCHANT")
                 )
                 .andReturn()
@@ -107,7 +107,7 @@ class WalletControllerIntegrationTest {
         // when
         var status = mockMvc
                 .perform(MockMvcRequestBuilders
-                        .get(PathUtils.WALLET_PATH + "/user/{id}", userId)
+                        .get(PathUtils.WALLET_PATH + "/users/{id}", userId)
                         .param("userType", "MERCHANT")
                 )
                 .andReturn()

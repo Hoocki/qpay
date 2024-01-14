@@ -24,7 +24,7 @@ public class WalletServiceImpl implements WalletService {
     }
 
     public WalletEntity getWalletByUser(final long userId, final UserType userType) {
-        final WalletEntity walletEntity = walletRepository.findWalletEntityByUserIdAndUserType(userId, userType);
+        final var walletEntity = walletRepository.findWalletEntityByUserIdAndUserType(userId, userType);
         if (walletEntity == null) {
             throw new NoWalletFoundException();
         }

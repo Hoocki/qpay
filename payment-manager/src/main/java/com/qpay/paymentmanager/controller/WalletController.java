@@ -1,5 +1,6 @@
 package com.qpay.paymentmanager.controller;
 
+import com.qpay.libs.models.UserType;
 import com.qpay.paymentmanager.model.dto.WalletCreation;
 import com.qpay.paymentmanager.model.dto.WalletModification;
 import com.qpay.paymentmanager.model.entity.WalletEntity;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 @RequiredArgsConstructor
@@ -26,6 +28,11 @@ public class WalletController {
     @GetMapping("{id}")
     public WalletEntity getWalletById(@PathVariable final long id) {
         return walletService.getWalletById(id);
+    }
+
+    @GetMapping("users/{userId}")
+    public WalletEntity getWalletByUser(@PathVariable final long userId, @RequestParam final UserType userType) {
+        return walletService.getWalletByUser(userId, userType);
     }
 
     @PostMapping

@@ -1,5 +1,6 @@
 package com.qpay.paymentmanager.service.impl;
 
+import com.qpay.libs.models.UserType;
 import com.qpay.paymentmanager.mapper.WalletMapper;
 import com.qpay.paymentmanager.model.dto.WalletCreation;
 import com.qpay.paymentmanager.model.dto.WalletModification;
@@ -20,6 +21,14 @@ public class WalletServiceImpl implements WalletService {
 
     public WalletEntity getWalletById(final long id) {
         return walletRepository.findById(id).orElseThrow(NoWalletFoundException::new);
+    }
+
+    public WalletEntity getWalletByUser(final long userId, final UserType userType) {
+        final var walletEntity = walletRepository.findWalletEntityByUserIdAndUserType(userId, userType);
+        if (walletEntity == null) {
+            throw new NoWalletFoundException();
+        }
+        return walletEntity;
     }
 
     public WalletEntity addWallet(final WalletCreation walletCreation) {

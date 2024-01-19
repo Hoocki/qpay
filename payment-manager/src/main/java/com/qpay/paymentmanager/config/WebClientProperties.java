@@ -11,13 +11,11 @@ public class WebClientProperties {
 
     private ServiceUrl notificationManager;
 
-    private ServiceUrl transactionManager;
-
+    private ServiceUrl transactionHistoryManager;
 
     @Data
     public static class ServiceUrl {
 
         private String baseUrl;
-
     }
 }

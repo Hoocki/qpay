@@ -1,5 +1,7 @@
 package com.qpay.paymentmanager.service.impl;
 
+import com.qpay.paymentmanager.client.TransactionHistoryClient;
+import com.qpay.paymentmanager.model.dto.TransactionCreation;
 import com.qpay.paymentmanager.client.NotificationClient;
 import com.qpay.paymentmanager.model.dto.WalletPayment;
 import com.qpay.paymentmanager.model.dto.WalletTopUp;
@@ -29,6 +31,8 @@ public class PaymentServiceImpl implements PaymentService {
 
     private final NotificationClient notificationClient;
 
+    private final TransactionHistoryClient transactionHistoryClient;
+
     public WalletEntity makePayment(final WalletPayment walletPayment) {
         isEnoughMoneyInWallet(walletPayment.amount());
         final var fromWallet = walletService.getWalletById(walletPayment.walletIdFrom());
@@ -40,6 +44,14 @@ public class PaymentServiceImpl implements PaymentService {
         updateBalance(updatedToWalletBalance, toWallet);
 
         executorService.execute(() -> notificationClient.sendNotification(walletPayment));
+        transactionHistoryClient.saveTransactionToHistory(new TransactionCreation(
+                fromWallet.getName(),
+                toWallet.getName(),
+                walletPayment.walletIdFrom(),
+                walletPayment.walletIdTo(),
+                walletPayment.amount()
+                ));
+
         return fromWallet;
     }
 

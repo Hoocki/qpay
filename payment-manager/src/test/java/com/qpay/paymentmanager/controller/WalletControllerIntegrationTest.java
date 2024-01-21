@@ -34,11 +34,25 @@ class WalletControllerIntegrationTest {
     @MockBean
     private WalletServiceImpl walletService;
 
-    private static final WalletCreation WALLET_CREATION = WalletCreation.builder().name("wallet").userId(1L).userType(UserType.CUSTOMER).build();
+    private static final WalletCreation WALLET_CREATION = WalletCreation
+            .builder()
+            .name("wallet")
+            .userId(1L)
+            .userType(UserType.CUSTOMER)
+            .build();
 
-    private static final WalletModification WALLET_MODIFICATION = WalletModification.builder().name("wallet").build();
+    private static final WalletModification WALLET_MODIFICATION = WalletModification
+            .builder()
+            .name("wallet")
+            .build();
 
-    private static final WalletEntity WALLET_ENTITY = WalletEntity.builder().name("wallet").balance(new BigDecimal(0)).userId(1L).userType(UserType.CUSTOMER).build();
+    private static final WalletEntity WALLET_ENTITY = WalletEntity
+            .builder()
+            .name("wallet")
+            .balance(new BigDecimal(0))
+            .userId(1L)
+            .userType(UserType.CUSTOMER)
+            .build();
 
     @Test
     void should_returnWallet() throws Exception {

@@ -15,10 +15,13 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.math.BigDecimal;
+import java.util.concurrent.ExecutorService;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.BDDMockito.willDoNothing;
 
 @ExtendWith(MockitoExtension.class)
 class PaymentServiceImplTest {
@@ -32,7 +35,16 @@ class PaymentServiceImplTest {
     @Mock
     private WalletService walletService;
 
-    private static final WalletEntity WALLET_ENTITY = WalletEntity.builder().name("wallet").balance(new BigDecimal(0)).userId(1L).userType(UserType.CUSTOMER).build();
+    @Mock
+    private ExecutorService executorService;
+
+    private static final WalletEntity WALLET_ENTITY = WalletEntity
+            .builder()
+            .name("wallet")
+            .balance(new BigDecimal(0))
+            .userId(1L)
+            .userType(UserType.CUSTOMER)
+            .build();
 
     @Test
     void should_makePaymentBetweenWallets() {
@@ -81,9 +93,11 @@ class PaymentServiceImplTest {
         given(walletService.getWalletById(toId)).willReturn(toWallet);
         given(walletRepository.save(expectedFromWallet)).willReturn(expectedFromWallet);
         given(walletRepository.save(expectedToWallet)).willReturn(expectedToWallet);
+        willDoNothing().given(executorService).execute(any());
 
         // when
         var result = paymentService.makePayment(walletPayment);
+
 
         // then
         assertThat(result).isEqualTo(expectedFromWallet);

@@ -1,5 +1,6 @@
 package com.qpay.paymentmanager.service.impl;
 
+import com.qpay.paymentmanager.client.NotificationClient;
 import com.qpay.paymentmanager.model.dto.WalletPayment;
 import com.qpay.paymentmanager.model.dto.WalletTopUp;
 import com.qpay.paymentmanager.model.entity.WalletEntity;
@@ -13,6 +14,7 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.util.concurrent.ExecutorService;
 
 @Service
 @RequiredArgsConstructor
@@ -22,6 +24,10 @@ public class PaymentServiceImpl implements PaymentService {
     private final WalletRepository walletRepository;
 
     private final WalletService walletService;
+
+    private final ExecutorService executorService;
+
+    private final NotificationClient notificationClient;
 
     public WalletEntity makePayment(final WalletPayment walletPayment) {
         isEnoughMoneyInWallet(walletPayment.amount());
@@ -33,6 +39,7 @@ public class PaymentServiceImpl implements PaymentService {
         final var updatedToWalletBalance = toWallet.getBalance().add(walletPayment.amount());
         updateBalance(updatedToWalletBalance, toWallet);
 
+        executorService.execute(() -> notificationClient.sendNotification(walletPayment));
         return fromWallet;
     }
 

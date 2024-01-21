@@ -2,7 +2,6 @@ package com.qpay.paymentmanager.mapper;
 
 import com.qpay.libs.models.UserType;
 import com.qpay.paymentmanager.model.dto.WalletCreation;
-import com.qpay.paymentmanager.model.dto.WalletModification;
 import com.qpay.paymentmanager.model.entity.WalletEntity;
 import org.junit.jupiter.api.Test;
 

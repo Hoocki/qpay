@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -32,12 +33,26 @@ class PaymentControllerIntegrationTest {
     @MockBean
     private PaymentService paymentService;
 
-    private static final WalletTopUp WALLET_TOP_UP = WalletTopUp.builder().amount(BigDecimal.valueOf(100)).build();
+    private static final WalletTopUp WALLET_TOP_UP = WalletTopUp
+            .builder()
+            .amount(BigDecimal.valueOf(100))
+            .build();
 
-    private static final WalletPayment WALLET_PAYMENT = WalletPayment.builder().walletIdFrom(1L).walletIdTo(2L).amount(BigDecimal.valueOf(100)).build();
+    private static final WalletPayment WALLET_PAYMENT = WalletPayment
+            .builder()
+            .emailFrom("example1@gmail.com")
+            .walletIdFrom(1L)
+            .emailTo("example2@gmail.com")
+            .walletIdTo(2L)
+            .amount(BigDecimal.valueOf(100))
+            .build();
 
-    private static final WalletEntity WALLET_ENTITY = WalletEntity.builder().name("wallet").balance(new BigDecimal(0)).userId(1L).userType(UserType.CUSTOMER).build();
-
+    private static final WalletEntity WALLET_ENTITY = WalletEntity
+            .builder()
+            .name("wallet")
+            .balance(new BigDecimal(0)).userId(1L)
+            .userType(UserType.CUSTOMER)
+            .build();
 
     @Test
     void should_returnUpdatedWallet_when_makePaymentBetweenWallets() throws Exception {
@@ -57,6 +72,32 @@ class PaymentControllerIntegrationTest {
         // then
         var expectedResponseBody = objectMapper.writeValueAsString(WALLET_ENTITY);
         assertThat(responseBody).isEqualTo(expectedResponseBody);
+    }
+
+    @Test
+    void should_throwException_when_walletPaymentHasInvalidInput() throws Exception {
+        // given
+        final var invalidWalletPayment = WalletPayment
+                .builder()
+                .emailFrom("example@gmail.com")
+                .walletIdFrom(1L)
+                .emailTo("")
+                .walletIdTo(2L)
+                .amount(BigDecimal.valueOf(100))
+                .build();
+
+        // when
+        var status = mockMvc
+                .perform(MockMvcRequestBuilders
+                        .post(PathUtils.PAYMENT_PATH + "/p2b")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(invalidWalletPayment)))
+                .andReturn()
+                .getResponse()
+                .getStatus();
+
+        // then
+        assertThat(status).isEqualTo(HttpStatus.BAD_REQUEST.value());
     }
 
     @Test

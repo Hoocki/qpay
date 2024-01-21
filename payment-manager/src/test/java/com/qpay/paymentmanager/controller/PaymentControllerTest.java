@@ -25,7 +25,13 @@ class PaymentControllerTest {
     @Mock
     private PaymentService paymentService;
 
-    private static final WalletEntity WALLET_ENTITY = WalletEntity.builder().name("wallet").balance(new BigDecimal(0)).userId(1L).userType(UserType.CUSTOMER).build();
+    private static final WalletEntity WALLET_ENTITY = WalletEntity
+            .builder()
+            .name("wallet")
+            .balance(new BigDecimal(0))
+            .userId(1L)
+            .userType(UserType.CUSTOMER)
+            .build();
 
     @Test
     void should_makePaymentBetweenWallets() {

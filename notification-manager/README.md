@@ -1,2 +1,2 @@
 # Notification manager
-Service for sends information about transaction to email
+Service for sending emails about payments

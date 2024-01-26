@@ -1,3 +1,10 @@
+webclient:
+  services:
+    notification-manager:
+      base-url: http://localhost:8183
+    transaction-manager:
+      base-url: http://localhost:8184
+
 spring:
   jpa:
     show-sql: true

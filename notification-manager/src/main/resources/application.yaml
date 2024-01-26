@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: notification-manager
+
+server:
+  port: 8083

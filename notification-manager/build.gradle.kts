@@ -17,6 +17,7 @@ configurations {
 dependencies {
 	annotationProcessor("org.projectlombok:lombok")
 
+	implementation(project(":libs"))
 	implementation("org.springframework.boot:spring-boot-starter-mail")
 	implementation("org.springframework.boot:spring-boot-starter-web")
 

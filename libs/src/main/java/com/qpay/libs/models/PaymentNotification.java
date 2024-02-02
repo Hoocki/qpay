@@ -1,5 +1,4 @@
-package com.qpay.paymentmanager.model.dto;
-
+package com.qpay.libs.models;
 
 import lombok.Builder;
 

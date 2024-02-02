@@ -1,7 +1,7 @@
 package com.qpay.paymentmanager.client;
 
+import com.qpay.libs.models.PaymentNotification;
 import com.qpay.paymentmanager.config.WebClientConfig;
-import com.qpay.paymentmanager.model.dto.PaymentNotification;
 import com.qpay.paymentmanager.model.dto.WalletPayment;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;

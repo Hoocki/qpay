@@ -1,9 +1,9 @@
 webclient:
   services:
     notification-manager:
-      base-url: http://localhost:8183
+      base-url: http://localhost:8083
     transaction-history-manager:
-      base-url: http://localhost:8184
+      base-url: http://localhost:8084
 
 spring:
   application:

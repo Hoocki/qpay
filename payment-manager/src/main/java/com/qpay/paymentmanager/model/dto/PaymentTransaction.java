@@ -5,7 +5,7 @@ import lombok.Builder;
 import java.math.BigDecimal;
 
 @Builder
-public record TransactionCreation (
+public record PaymentTransaction(
 
    String nameFrom,
 

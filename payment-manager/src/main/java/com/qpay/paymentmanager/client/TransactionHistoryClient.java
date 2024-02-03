@@ -1,7 +1,7 @@
 package com.qpay.paymentmanager.client;
 
 import com.qpay.paymentmanager.config.WebClientConfig;
-import com.qpay.paymentmanager.model.dto.TransactionCreation;
+import com.qpay.paymentmanager.model.dto.PaymentTransaction;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -18,11 +18,11 @@ public class TransactionHistoryClient {
         this.webClient = webClient;
     }
 
-    public ResponseEntity<Void> saveTransactionToHistory(final TransactionCreation transactionCreation) {
+    public ResponseEntity<Void> saveTransactionToHistory(final PaymentTransaction paymentTransaction) {
         return webClient
                 .post()
                 .uri(TRANSACTION_HISTORY_PATH)
-                .bodyValue(transactionCreation)
+                .bodyValue(paymentTransaction)
                 .retrieve()
                 .toBodilessEntity()
                 .block();

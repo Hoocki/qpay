@@ -3,12 +3,11 @@ package com.qpay.paymentmanager.client;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.tomakehurst.wiremock.junit5.WireMockTest;
-import com.qpay.paymentmanager.model.dto.TransactionCreation;
+import com.qpay.paymentmanager.model.dto.PaymentTransaction;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
-import org.springframework.test.context.ActiveProfiles;
 
 import java.math.BigDecimal;
 
@@ -29,7 +28,7 @@ class TransactionHistoryClientIntegrationTest {
     @Test
     void should_returnOK_when_sentTransactionToHistory() throws JsonProcessingException {
         // given
-        var transaction = TransactionCreation
+        var transaction = PaymentTransaction
                 .builder()
                 .nameFrom("bob")
                 .nameTo("tom")

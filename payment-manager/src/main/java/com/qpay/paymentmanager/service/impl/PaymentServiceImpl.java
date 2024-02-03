@@ -1,7 +1,7 @@
 package com.qpay.paymentmanager.service.impl;
 
 import com.qpay.paymentmanager.client.TransactionHistoryClient;
-import com.qpay.paymentmanager.model.dto.TransactionCreation;
+import com.qpay.paymentmanager.model.dto.PaymentTransaction;
 import com.qpay.paymentmanager.client.NotificationClient;
 import com.qpay.paymentmanager.model.dto.WalletPayment;
 import com.qpay.paymentmanager.model.dto.WalletTopUp;
@@ -44,13 +44,13 @@ public class PaymentServiceImpl implements PaymentService {
         updateBalance(updatedToWalletBalance, toWallet);
 
         executorService.execute(() -> notificationClient.sendNotification(walletPayment));
-        transactionHistoryClient.saveTransactionToHistory(new TransactionCreation(
+        saveTransactionToHistory(
                 fromWallet.getName(),
                 toWallet.getName(),
                 walletPayment.walletIdFrom(),
                 walletPayment.walletIdTo(),
                 walletPayment.amount()
-                ));
+                );
 
         return fromWallet;
     }
@@ -73,6 +73,17 @@ public class PaymentServiceImpl implements PaymentService {
         if (balance.compareTo(BigDecimal.ZERO) < 0) {
             throw new NotEnoughMoneyWalletException();
         }
+    }
+
+    private void saveTransactionToHistory(final String nameFrom, final String nameTo, final long idFrom, final long idTo, final BigDecimal amount) {
+        final var transaction = PaymentTransaction.builder()
+                .nameFrom(nameFrom)
+                .nameTo(nameTo)
+                .idFrom(idFrom)
+                .idTo(idTo)
+                .amount(amount)
+                .build();
+        transactionHistoryClient.saveTransactionToHistory(transaction);
     }
 
 }

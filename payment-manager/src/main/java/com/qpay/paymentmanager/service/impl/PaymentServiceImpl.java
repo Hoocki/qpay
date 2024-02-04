@@ -47,9 +47,7 @@ public class PaymentServiceImpl implements PaymentService {
         saveTransactionToHistory(
                 fromWallet.getName(),
                 toWallet.getName(),
-                walletPayment.walletIdFrom(),
-                walletPayment.walletIdTo(),
-                walletPayment.amount()
+                walletPayment
                 );
 
         return fromWallet;
@@ -75,13 +73,13 @@ public class PaymentServiceImpl implements PaymentService {
         }
     }
 
-    private void saveTransactionToHistory(final String nameFrom, final String nameTo, final long idFrom, final long idTo, final BigDecimal amount) {
+    private void saveTransactionToHistory(final String nameFrom, final String nameTo, final WalletPayment walletPayment) {
         final var transaction = PaymentTransaction.builder()
                 .nameFrom(nameFrom)
                 .nameTo(nameTo)
-                .idFrom(idFrom)
-                .idTo(idTo)
-                .amount(amount)
+                .idFrom(walletPayment.walletIdFrom())
+                .idTo(walletPayment.walletIdTo())
+                .amount(walletPayment.amount())
                 .build();
         transactionHistoryClient.saveTransactionToHistory(transaction);
     }

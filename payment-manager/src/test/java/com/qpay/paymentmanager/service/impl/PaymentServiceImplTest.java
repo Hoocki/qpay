@@ -1,6 +1,7 @@
 package com.qpay.paymentmanager.service.impl;
 
 import com.qpay.libs.models.UserType;
+import com.qpay.paymentmanager.client.TransactionHistoryClient;
 import com.qpay.paymentmanager.model.dto.WalletPayment;
 import com.qpay.paymentmanager.model.dto.WalletTopUp;
 import com.qpay.paymentmanager.model.entity.WalletEntity;
@@ -37,6 +38,9 @@ class PaymentServiceImplTest {
 
     @Mock
     private ExecutorService executorService;
+
+    @Mock
+    private TransactionHistoryClient transactionHistoryClient;
 
     private static final WalletEntity WALLET_ENTITY = WalletEntity
             .builder()
@@ -97,7 +101,6 @@ class PaymentServiceImplTest {
 
         // when
         var result = paymentService.makePayment(walletPayment);
-
 
         // then
         assertThat(result).isEqualTo(expectedFromWallet);

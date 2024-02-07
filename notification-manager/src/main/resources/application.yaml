@@ -1,3 +1,22 @@
 spring:
   application:
     name: notification-manager
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: -----
+    password: -----
+    properties:
+      mail:
+        debug: true
+        transport:
+          protocol: smtp
+        smtp:
+          starttls:
+            enable: true
+          auth: true
+
+email-template:
+  payment:
+    subject: "Payment Notification"
+    text: "You received a payment of %s. Thank you for using our service."

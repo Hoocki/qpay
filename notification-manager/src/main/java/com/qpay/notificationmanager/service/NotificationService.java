@@ -5,5 +5,5 @@ import com.qpay.libs.models.PaymentNotification;
 
 public interface NotificationService {
 
-    PaymentNotification sendMessage(PaymentNotification paymentNotification);
+    void sendMessage(PaymentNotification paymentNotification);
 }

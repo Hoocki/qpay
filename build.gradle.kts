@@ -15,5 +15,7 @@ allprojects {
 		set("h2", "2.2.224")
 		set("webFlux", "3.2.2")
 		set("wireMock", "3.3.1")
+		set("zxingCore", "3.5.3")
+		set("zxingJavaSe", "3.5.3")
 	}
 }

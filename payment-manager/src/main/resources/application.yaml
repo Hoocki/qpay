@@ -1,9 +1,6 @@
-webclient:
-  services:
-    notification-manager:
-      base-url: http://localhost:8083
-    transaction-history-manager:
-      base-url: http://localhost:8084
+broker:
+  topics:
+    payment-topic: payment
 
 spring:
   application:
@@ -17,3 +14,8 @@ spring:
         default_schema: payment
     hibernate:
       ddl-auto: validate
+  kafka:
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      acks: 1

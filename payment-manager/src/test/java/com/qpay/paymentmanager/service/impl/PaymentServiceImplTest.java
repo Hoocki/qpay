@@ -2,6 +2,7 @@ package com.qpay.paymentmanager.service.impl;
 
 import com.qpay.libs.models.UserType;
 import com.qpay.paymentmanager.client.TransactionHistoryClient;
+import com.qpay.paymentmanager.event.PaymentNotificationProducer;
 import com.qpay.paymentmanager.model.dto.WalletPayment;
 import com.qpay.paymentmanager.model.dto.WalletTopUp;
 import com.qpay.paymentmanager.model.entity.WalletEntity;
@@ -16,13 +17,10 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.math.BigDecimal;
-import java.util.concurrent.ExecutorService;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.BDDMockito.willDoNothing;
 
 @ExtendWith(MockitoExtension.class)
 class PaymentServiceImplTest {
@@ -37,7 +35,7 @@ class PaymentServiceImplTest {
     private WalletService walletService;
 
     @Mock
-    private ExecutorService executorService;
+    private PaymentNotificationProducer paymentNotificationProducer;
 
     @Mock
     private TransactionHistoryClient transactionHistoryClient;
@@ -97,7 +95,6 @@ class PaymentServiceImplTest {
         given(walletService.getWalletById(toId)).willReturn(toWallet);
         given(walletRepository.save(expectedFromWallet)).willReturn(expectedFromWallet);
         given(walletRepository.save(expectedToWallet)).willReturn(expectedToWallet);
-        willDoNothing().given(executorService).execute(any());
 
         // when
         var result = paymentService.makePayment(walletPayment);

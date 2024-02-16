@@ -1,6 +1,5 @@
 package com.qpay.qrgenerator.model.dto;
 
-
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
@@ -12,7 +11,7 @@ public record QrCodeCreation (
         long walletId,
 
         @NotBlank(message = "Username is required")
-        String userName,
+        String name,
 
         @NotNull(message = "Money is required")
         BigDecimal money

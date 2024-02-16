@@ -4,6 +4,6 @@ import lombok.experimental.UtilityClass;
 
 @UtilityClass
 public class PathUtils {
-    public static final String QR_GENERATOR_PATH = "/api/v1/qr";
+    public static final String QR_GENERATOR_BASE_PATH = "/api/v1/qrcode";
 
 }

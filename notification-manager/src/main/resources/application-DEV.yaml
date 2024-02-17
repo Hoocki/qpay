@@ -1,4 +1,14 @@
+spring:
+  kafka:
+    bootstrap-servers: localhost:9092
+
 server:
   port: 8083
   error:
     include-message: always
+
+broker:
+  groups:
+    payment-group: local_payment_group_1
+  topics:
+    payment-topic: local_payment

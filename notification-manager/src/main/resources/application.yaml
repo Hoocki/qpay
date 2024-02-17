@@ -15,8 +15,22 @@ spring:
           starttls:
             enable: true
           auth: true
+  kafka:
+    consumer:
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      auto-offset-reset: latest
+      properties:
+        spring.json.trusted.packages: com.qpay.libs.models
+
 
 email-template:
   payment:
     subject: "Payment Notification"
     text: "You received a payment of %s. Thank you for using our service."
+
+broker:
+  groups:
+    payment-group: payment_group_1
+  topics:
+    payment-topic: payment

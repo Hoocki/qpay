@@ -22,3 +22,7 @@ spring:
     driverClassName: org.h2.Driver
   flyway:
     schemas: TEST_WALLETS
+
+broker:
+  topics:
+    payment-topic: local_payment

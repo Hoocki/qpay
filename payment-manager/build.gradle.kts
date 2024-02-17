@@ -20,6 +20,7 @@ val junitJupiterApiVersion = rootProject.extra["junit-jupiter-api"]
 val h2Version = rootProject.extra["h2"]
 val webFluxVersion = rootProject.extra["webFlux"]
 val wireMockVersion = rootProject.extra["wireMock"]
+val kafkaVersion = rootProject.extra["kafka"]
 
 dependencies {
     annotationProcessor("org.projectlombok:lombok")
@@ -31,6 +32,7 @@ dependencies {
     implementation("org.flywaydb:flyway-core:$flywayVersion")
     implementation("org.postgresql:postgresql:$postgresqlVersion")
     implementation("org.springframework.boot:spring-boot-starter-webflux:$webFluxVersion")
+    implementation("org.springframework.kafka:spring-kafka:$kafkaVersion")
 
     compileOnly("org.projectlombok:lombok")
 

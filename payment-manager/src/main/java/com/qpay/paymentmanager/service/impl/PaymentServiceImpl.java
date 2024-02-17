@@ -1,8 +1,9 @@
 package com.qpay.paymentmanager.service.impl;
 
+import com.qpay.libs.models.PaymentNotification;
 import com.qpay.paymentmanager.client.TransactionHistoryClient;
+import com.qpay.paymentmanager.event.PaymentNotificationProducer;
 import com.qpay.paymentmanager.model.dto.PaymentTransaction;
-import com.qpay.paymentmanager.client.NotificationClient;
 import com.qpay.paymentmanager.model.dto.WalletPayment;
 import com.qpay.paymentmanager.model.dto.WalletTopUp;
 import com.qpay.paymentmanager.model.entity.WalletEntity;
@@ -16,7 +17,6 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
-import java.util.concurrent.ExecutorService;
 
 @Service
 @RequiredArgsConstructor
@@ -27,11 +27,9 @@ public class PaymentServiceImpl implements PaymentService {
 
     private final WalletService walletService;
 
-    private final ExecutorService executorService;
-
-    private final NotificationClient notificationClient;
-
     private final TransactionHistoryClient transactionHistoryClient;
+
+    private final PaymentNotificationProducer paymentNotificationProducer;
 
     public WalletEntity makePayment(final WalletPayment walletPayment) {
         isEnoughMoneyInWallet(walletPayment.amount());
@@ -43,13 +41,12 @@ public class PaymentServiceImpl implements PaymentService {
         final var updatedToWalletBalance = toWallet.getBalance().add(walletPayment.amount());
         updateBalance(updatedToWalletBalance, toWallet);
 
-        executorService.execute(() -> notificationClient.sendNotification(walletPayment));
+        sendMessageToKafka(walletPayment);
         saveTransactionToHistory(
                 fromWallet.getName(),
                 toWallet.getName(),
                 walletPayment
                 );
-
         return fromWallet;
     }
 
@@ -82,6 +79,15 @@ public class PaymentServiceImpl implements PaymentService {
                 .amount(walletPayment.amount())
                 .build();
         transactionHistoryClient.saveTransactionToHistory(transaction);
+    }
+
+    private void sendMessageToKafka(final WalletPayment walletPayment) {
+        final var paymentNotification  = PaymentNotification.builder()
+                .amount(walletPayment.amount())
+                .emailFrom(walletPayment.emailFrom())
+                .emailTo(walletPayment.emailTo())
+                .build();
+        paymentNotificationProducer.publishPaymentNotification(paymentNotification );
     }
 
 }

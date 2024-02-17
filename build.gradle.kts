@@ -11,9 +11,7 @@ allprojects {
 	repositories {
 		mavenCentral()
 	}
-}
 
-allprojects {
 	ext {
 		set("flyway", "9.22.2")
 		set("postgresql", "42.6.0")

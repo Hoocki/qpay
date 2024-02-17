@@ -37,12 +37,13 @@ class QrGeneratorControllerIntegrationTest {
                 .name("bob")
                 .money(new BigDecimal(1234))
                 .build();
-        given(qrGeneratorService.generateQrCode(qrCodeCreation)).willReturn(new byte[1]);
+        var qrCodeBytes = "Qr code data".getBytes();
+        given(qrGeneratorService.generateQrCode(qrCodeCreation)).willReturn(qrCodeBytes);
 
         //when
         var responseBody = mockMvc
                 .perform(MockMvcRequestBuilders
-                        .post(PathUtils.QR_GENERATOR_BASE_PATH + "/qrcode")
+                        .post(PathUtils.QR_GENERATOR_BASE_PATH)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(qrCodeCreation)))
                 .andReturn()
@@ -50,6 +51,6 @@ class QrGeneratorControllerIntegrationTest {
                 .getContentAsByteArray();
 
         //then
-        assertThat(responseBody).isInstanceOf(byte[].class);
+        assertThat(responseBody).isEqualTo(qrCodeBytes);
     }
 }

@@ -4,7 +4,7 @@ package com.qpay.paymentmanager.client;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.tomakehurst.wiremock.junit5.WireMockTest;
-import com.qpay.paymentmanager.model.dto.PaymentNotification;
+import com.qpay.libs.models.PaymentNotification;
 import com.qpay.paymentmanager.model.dto.WalletPayment;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

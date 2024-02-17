@@ -5,7 +5,21 @@ spring:
     password: password
   jpa:
     show-sql: true
+  kafka:
+    bootstrap-servers: localhost:9092
+
 server:
   port: 8082
   error:
     include-message: always
+
+webclient:
+  services:
+    notification-manager:
+      base-url: http://localhost:8083
+    transaction-history-manager:
+      base-url: http://localhost:8084
+
+broker:
+  topics:
+    payment-topic: local_payment

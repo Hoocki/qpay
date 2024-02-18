@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="QrGeneratorApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
-    <option name="ACTIVE_PROFILES" value="DEV" />
+    <option name="ACTIVE_PROFILES" value="local" />
     <module name="qpay.qr-generator.main" />
     <option name="SPRING_BOOT_MAIN_CLASS" value="com.qpay.qrgenerator.QrGeneratorApplication" />
     <extension name="coverage">

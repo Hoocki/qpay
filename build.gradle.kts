@@ -25,3 +25,8 @@ allprojects {
 		set("zxingJavaSe", "3.5.3")
 	}
 }
+
+tasks.wrapper {
+	gradleVersion = "8.6"
+	distributionType = Wrapper.DistributionType.ALL
+}

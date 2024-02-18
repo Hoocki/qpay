@@ -1,2 +1,5 @@
 # QR Generator
-Microservice for QR generating
+### Service for generating QR-codes.
+
+## How to run
+- Run the service.

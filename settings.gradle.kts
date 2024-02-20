@@ -20,5 +20,6 @@ include(
         "payment-manager",
         "qr-generator",
         "notification-manager",
-        ":libs"
+        ":libs",
+        "auth-manager"
 )

@@ -2,7 +2,7 @@ package com.qpay.authmanager.controller;
 
 import com.qpay.authmanager.model.dto.UserModification;
 import com.qpay.authmanager.model.entity.UserEntity;
-import com.qpay.authmanager.service.UserService;
+import com.qpay.authmanager.service.user.UserService;
 import com.qpay.libs.models.UserType;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

@@ -12,7 +12,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.dao.DuplicateKeyException;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
+import java.util.ArrayList;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
@@ -142,4 +145,25 @@ class UserServiceImplTest {
         // then
         assertThat(thrown).isInstanceOf(UserNotFoundException.class);
     }
+
+    @Test
+    void should_returnUserDetails_when_emailCorrect() {
+        // given
+        var expectedUser = User
+                .builder()
+                .username(EMAIL)
+                .password("password")
+                .authorities(new ArrayList<>())
+                .build();
+
+        given(userRepository.findByEmail(EMAIL)).willReturn(USER_CUSTOMER);
+
+        // when
+        var result = userService.loadUserByUsername(EMAIL);
+
+        // then
+        assertThat(result).isEqualTo(expectedUser);
+
+    }
+
 }

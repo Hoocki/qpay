@@ -1,4 +1,4 @@
-package com.qpay.authmanager.service.impl;
+package com.qpay.authmanager.service.user.impl;
 
 import com.qpay.authmanager.mapper.UserMapper;
 import com.qpay.authmanager.model.dto.UserModification;
@@ -14,9 +14,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import static org.mockito.BDDMockito.given;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
+import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
 
 @ExtendWith(MockitoExtension.class)

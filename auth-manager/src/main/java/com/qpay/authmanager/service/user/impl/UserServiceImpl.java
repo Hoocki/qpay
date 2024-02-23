@@ -7,12 +7,17 @@ import com.qpay.authmanager.repository.UserRepository;
 import com.qpay.authmanager.service.user.UserService;
 import com.qpay.authmanager.service.exception.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+
 @Service
 @RequiredArgsConstructor
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService, UserDetailsService {
 
     private final UserRepository userRepository;
 
@@ -44,5 +49,15 @@ public class UserServiceImpl implements UserService {
             throw new UserNotFoundException();
         }
         return userEntity;
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(final String email) {
+        final var userEntity = getUserByEmail(email);
+        return new User(
+                userEntity.getEmail(),
+                userEntity.getPassword(),
+                new ArrayList<>()
+        );
     }
 }

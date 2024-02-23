@@ -1,10 +1,10 @@
-package com.qpay.authmanager.service.impl;
+package com.qpay.authmanager.service.user.impl;
 
 import com.qpay.authmanager.mapper.UserMapper;
 import com.qpay.authmanager.model.dto.UserModification;
 import com.qpay.authmanager.model.entity.UserEntity;
 import com.qpay.authmanager.repository.UserRepository;
-import com.qpay.authmanager.service.UserService;
+import com.qpay.authmanager.service.user.UserService;
 import com.qpay.authmanager.service.exception.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -38,7 +38,7 @@ public class UserServiceImpl implements UserService {
         userRepository.delete(userEntity);
     }
 
-    private UserEntity getUserByEmail(final String email) {
+    public UserEntity getUserByEmail(final String email) {
         final var userEntity = userRepository.findByEmail(email);
         if (userEntity == null) {
             throw new UserNotFoundException();

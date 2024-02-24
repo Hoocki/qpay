@@ -1,13 +1,10 @@
 package com.qpay.authmanager.service.jwt;
 
-import com.qpay.authmanager.model.dto.JwtAuthenticationResponse;
-import com.qpay.authmanager.model.entity.UserEntity;
-
 public interface JwtService {
 
-    JwtAuthenticationResponse generate(UserEntity user);
+    String generateToken(String email);
 
     String extractEmail(String token);
 
-    boolean isValid(String token, String email);
+    boolean validateToken(String token, String email);
 }

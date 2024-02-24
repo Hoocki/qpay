@@ -18,7 +18,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     public JwtAuthenticationResponse signIn(final AuthCredentials authCredentials) {
         final var userEntity = userService.getUserByEmail(authCredentials.email());
-        return jwtService.generate(userEntity);
+        final var generatedToken = jwtService.generateToken(userEntity.getEmail());
+        return new JwtAuthenticationResponse(generatedToken);
     }
 
 }

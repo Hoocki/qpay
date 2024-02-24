@@ -14,6 +14,9 @@ configurations {
 	}
 }
 
+val tokenVersion = rootProject.extra["jsonwebtoken"]
+val jjwtImplVersion = rootProject.extra["jjwt-impl"]
+val jjwtJacksonVersion = rootProject.extra["jjwt-jackson"]
 
 dependencies {
 	annotationProcessor("org.projectlombok:lombok")
@@ -23,9 +26,13 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-security")
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("org.springframework.boot:spring-boot-starter-validation")
+	implementation("io.jsonwebtoken:jjwt-api:$tokenVersion")
 
 	compileOnly("org.projectlombok:lombok")
-	
+
+	runtimeOnly("io.jsonwebtoken:jjwt-impl:$jjwtImplVersion")
+	runtimeOnly("io.jsonwebtoken:jjwt-jackson:$jjwtJacksonVersion")
+
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.springframework.security:spring-security-test")
 }

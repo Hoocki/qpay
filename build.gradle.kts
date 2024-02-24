@@ -23,6 +23,9 @@ allprojects {
 		set("kafka", "3.1.1")
 		set("zxingCore", "3.5.3")
 		set("zxingJavaSe", "3.5.3")
+		set("jsonwebtoken", "0.11.5")
+		set("jjwt-impl", "0.11.5")
+		set("jjwt-jackson", "0.11.5")
 	}
 }
 

@@ -13,10 +13,8 @@ configurations {
     }
 }
 
-val jakartaValidation = rootProject.extra["jakartaValidation"]
-
 dependencies {
 
-    implementation("jakarta.validation:jakarta.validation-api:$jakartaValidation")
+    implementation("jakarta.validation:jakarta.validation-api:${Versions.JAKARTA_VALIDATION}")
 
 }

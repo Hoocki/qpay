@@ -14,15 +14,13 @@ configurations {
 	}
 }
 
-val kafkaVersion = rootProject.extra["kafka"]
-
 dependencies {
 	annotationProcessor("org.projectlombok:lombok")
 
 	implementation(project(":libs"))
 	implementation("org.springframework.boot:spring-boot-starter-mail")
 	implementation("org.springframework.boot:spring-boot-starter-web")
-	implementation("org.springframework.kafka:spring-kafka:$kafkaVersion")
+	implementation("org.springframework.kafka:spring-kafka:${Versions.KAFKA}")
 
 	compileOnly("org.projectlombok:lombok")
 

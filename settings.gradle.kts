@@ -8,9 +8,3 @@ include(
         "transaction-history-manager",
         ":libs"
 )
-
-dependencyResolutionManagement {
-        repositories {
-                mavenCentral()
-        }
-}

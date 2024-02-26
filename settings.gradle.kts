@@ -7,3 +7,9 @@ include(
         "notification-manager",
         ":libs"
 )
+
+dependencyResolutionManagement {
+        repositories {
+                mavenCentral()
+        }
+}

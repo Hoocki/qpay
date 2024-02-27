@@ -14,14 +14,6 @@ configurations {
     }
 }
 
-val flywayVersion = rootProject.extra["flyway"]
-val postgresqlVersion = rootProject.extra["postgresql"]
-val junitJupiterApiVersion = rootProject.extra["junit-jupiter-api"]
-val h2Version = rootProject.extra["h2"]
-val webFluxVersion = rootProject.extra["webFlux"]
-val wireMockVersion = rootProject.extra["wireMock"]
-val kafkaVersion = rootProject.extra["kafka"]
-
 dependencies {
     annotationProcessor("org.projectlombok:lombok")
 
@@ -29,17 +21,17 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-validation")
-    implementation("org.flywaydb:flyway-core:$flywayVersion")
-    implementation("org.postgresql:postgresql:$postgresqlVersion")
-    implementation("org.springframework.boot:spring-boot-starter-webflux:$webFluxVersion")
-    implementation("org.springframework.kafka:spring-kafka:$kafkaVersion")
+    implementation("org.flywaydb:flyway-core:${Versions.FLYWAY}")
+    implementation("org.postgresql:postgresql:${Versions.POSTGRESQL}")
+    implementation("org.springframework.boot:spring-boot-starter-webflux:${Versions.WEBFLUX}")
+    implementation("org.springframework.kafka:spring-kafka:${Versions.KAFKA}")
 
     compileOnly("org.projectlombok:lombok")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
-    testImplementation("org.junit.jupiter:junit-jupiter-api:$junitJupiterApiVersion")
-    testImplementation("com.h2database:h2:$h2Version")
-    testImplementation("org.wiremock:wiremock-standalone:$wireMockVersion")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:${Versions.JUNIT_JUPITER_API}")
+    testImplementation("com.h2database:h2:${Versions.H2}")
+    testImplementation("org.wiremock:wiremock-standalone:${Versions.WIREMOCK}")
 }
 
 tasks.withType<Test> {

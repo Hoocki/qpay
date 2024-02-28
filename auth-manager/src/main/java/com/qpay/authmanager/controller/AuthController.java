@@ -13,17 +13,17 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(path = PathUtils.AUTH_PATH)
+@RequestMapping(path = PathUtils.BASE_AUTH_PATH)
 public class AuthController {
 
     private final AuthenticationService authenticationService;
 
-    @PostMapping("/signIn")
+    @PostMapping(PathUtils.SIGN_IN)
     public JwtAuthenticationResponse signIn(@RequestBody final AuthCredentials authCredentials) {
         return authenticationService.signIn(authCredentials);
     }
 
-    @GetMapping("/validate")
+    @GetMapping(PathUtils.VALIDATE)
     public void validateToken() {
     }
 }

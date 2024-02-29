@@ -1,11 +1,9 @@
 package com.qpay.usermanager.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.qpay.usermanager.model.dto.customer.CustomerModification;
 import com.qpay.usermanager.model.dto.merchant.MerchantCreation;
 import com.qpay.usermanager.model.entity.merchant.MerchantEntity;
 import com.qpay.usermanager.service.exception.CustomerAlreadyExistsException;
-import com.qpay.usermanager.service.exception.EmailAlreadyExistsException;
 import com.qpay.usermanager.service.exception.NoMerchantFoundException;
 import com.qpay.usermanager.service.impl.MerchantServiceImpl;
 import com.qpay.usermanager.utility.PathsUtils;
@@ -20,11 +18,10 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.BDDMockito.willThrow;
 
 
 @WebMvcTest(controllers = MerchantController.class)
-class MerchantControllerIntergrationTest {
+class MerchantControllerIntegrationTest {
 
     @Autowired
     private MockMvc mockMvc;

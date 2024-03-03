@@ -2,6 +2,7 @@ plugins {
 	java
 	id("org.springframework.boot")
 	id("io.spring.dependency-management")
+	id("com.qpay.java.tests")
 }
 
 java {
@@ -24,9 +25,4 @@ dependencies {
 
 	compileOnly("org.projectlombok:lombok")
 
-	testImplementation("org.springframework.boot:spring-boot-starter-test")
-}
-
-tasks.withType<Test> {
-	useJUnitPlatform()
 }

@@ -2,6 +2,7 @@ plugins {
     java
     id("org.springframework.boot")
     id("io.spring.dependency-management")
+    id("com.qpay.java.tests")
 }
 
 java {
@@ -27,13 +28,4 @@ dependencies {
     implementation("org.springframework.kafka:spring-kafka:${Versions.KAFKA}")
 
     compileOnly("org.projectlombok:lombok")
-
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
-    testImplementation("org.junit.jupiter:junit-jupiter-api:${Versions.JUNIT_JUPITER_API}")
-    testImplementation("com.h2database:h2:${Versions.H2}")
-    testImplementation("org.wiremock:wiremock-standalone:${Versions.WIREMOCK}")
-}
-
-tasks.withType<Test> {
-    useJUnitPlatform()
 }

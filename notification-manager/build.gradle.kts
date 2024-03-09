@@ -1,8 +1,7 @@
 plugins {
-	java
 	id("org.springframework.boot")
 	id("io.spring.dependency-management")
-	id("com.qpay.java.tests")
+	id("com.qpay.java.base")
 }
 
 java {
@@ -16,13 +15,9 @@ configurations {
 }
 
 dependencies {
-	annotationProcessor("org.projectlombok:lombok")
-
 	implementation(project(":libs"))
-	implementation("org.springframework.boot:spring-boot-starter-mail")
 	implementation("org.springframework.boot:spring-boot-starter-web")
+	implementation("org.springframework.boot:spring-boot-starter-validation")
+	implementation("org.springframework.boot:spring-boot-starter-mail")
 	implementation("org.springframework.kafka:spring-kafka:${Versions.KAFKA}")
-
-	compileOnly("org.projectlombok:lombok")
-
 }

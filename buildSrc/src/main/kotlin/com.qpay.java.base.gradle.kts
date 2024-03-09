@@ -18,9 +18,5 @@ configurations {
 
 dependencies {
     annotationProcessor("org.projectlombok:lombok")
-
-    implementation("org.springframework.boot:spring-boot-starter-web")
-    implementation("org.springframework.boot:spring-boot-starter-validation")
-
     compileOnly("org.projectlombok:lombok")
 }

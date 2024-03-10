@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(path = PathUtils.USER_PATH)
+@RequestMapping(path = PathUtils.BASE_USER_PATH)
 public class UserController {
 
     private final UserService userService;
@@ -25,13 +25,13 @@ public class UserController {
         return userService.addUser(userModification);
     }
 
-    @PutMapping("{email}")
+    @PutMapping(PathUtils.USER_EMAIL)
     public UserEntity updateUser(@RequestBody final UserModification userModification,
                                  @PathVariable final String email) {
         return userService.updateUser(userModification, email);
     }
 
-    @DeleteMapping("{email}")
+    @DeleteMapping(PathUtils.USER_EMAIL)
     public void deleteUser(@PathVariable final String email) {
         userService.deleteUser(email);
     }

@@ -10,5 +10,7 @@ object Versions {
     const val KAFKA = "3.1.1"
     const val ZXING_CORE = "3.5.3"
     const val ZXING_JAVASE = "3.5.3"
-
+    const val JSON_WEBTOKEN = "0.11.5"
+    const val JJWT_IMPL = "0.11.5"
+    const val JJWT_JACKSON = "0.11.5"
 }

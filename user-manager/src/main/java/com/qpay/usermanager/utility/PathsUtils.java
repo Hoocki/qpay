@@ -1,8 +1,9 @@
 package com.qpay.usermanager.utility;
 
-import lombok.experimental.UtilityClass;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
-@UtilityClass
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class PathsUtils {
     public static final String CUSTOMER_PATH = "/api/v1/customers";
 

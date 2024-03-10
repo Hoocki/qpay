@@ -10,5 +10,5 @@ object Versions {
     const val KAFKA = "3.1.1"
     const val ZXING_CORE = "3.5.3"
     const val ZXING_JAVASE = "3.5.3"
-
+    const val SPRING_CLOUD = "2023.0.0"
 }

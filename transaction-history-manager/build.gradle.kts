@@ -1,7 +1,7 @@
 plugins {
-    java
     id("org.springframework.boot")
     id("io.spring.dependency-management")
+    id("com.qpay.java.base")
 }
 
 java {
@@ -15,17 +15,7 @@ configurations {
 }
 
 dependencies {
-    annotationProcessor("org.projectlombok:lombok")
-
     implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
     implementation("org.springframework.boot:spring-boot-starter-validation")
     implementation("org.springframework.boot:spring-boot-starter-web")
-
-    compileOnly("org.projectlombok:lombok")
-
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
-}
-
-tasks.withType<Test> {
-    useJUnitPlatform()
 }

@@ -1,3 +1,24 @@
 spring:
   application:
     name: api-gateway
+  cloud:
+      gateway:
+        routes:
+          - id: user-manager
+            uri: http://localhost:8081
+            predicates:
+              - Path=/api/v1/customers/**,/api/v1/merchants/**
+          - id: payment-manager
+            uri: http://localhost:8082
+            predicates:
+              - Path=/api/v1/wallets/**,/api/v1/payments/**
+          - id: notification-manager
+            uri: http://localhost:8083
+          - id: qr-generator
+            uri: http://localhost:8085
+            predicates:
+              - Path=/api/v1/qrcode/**
+          - id: auth-manager
+            uri: http://localhost:8086
+            predicates:
+              - Path=/api/v1/auth/**

@@ -12,7 +12,7 @@ public class PathUtils {
 
     public static final String VALIDATE = "/validate";
 
-    public static final String BASE_USER_PATH = "/api/v1/users";
+    public static final String BASE_USER_PATH = "/api/v1/credentials/users";
 
     public static final String BASE_AUTH_PATH = "/api/v1/auth";
 

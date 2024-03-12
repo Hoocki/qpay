@@ -85,7 +85,7 @@ class MerchantControllerIntegrationTest {
         //when
         var responseBody = mockMvc
                 .perform(MockMvcRequestBuilders
-                        .post(PathsUtils.MERCHANTS_PATH)
+                        .post(PathsUtils.MERCHANTS_PATH + PathsUtils.SIGNUP_PATH)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(MERCHANT_CREATION)))
                 .andReturn()
@@ -109,7 +109,7 @@ class MerchantControllerIntegrationTest {
         //when
         var status = mockMvc
                 .perform(MockMvcRequestBuilders
-                        .post(PathsUtils.MERCHANTS_PATH)
+                        .post(PathsUtils.MERCHANTS_PATH + PathsUtils.SIGNUP_PATH)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(invalidMerchantCreation)))
                 .andReturn()
@@ -135,7 +135,7 @@ class MerchantControllerIntegrationTest {
         // when
         var status = mockMvc
                 .perform(MockMvcRequestBuilders
-                        .post(PathsUtils.MERCHANTS_PATH)
+                        .post(PathsUtils.MERCHANTS_PATH + PathsUtils.SIGNUP_PATH)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(merchantCreation)))
                 .andReturn()

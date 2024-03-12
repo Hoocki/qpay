@@ -27,7 +27,7 @@ public class CustomerController {
         return customerService.getCustomerById(id);
     }
 
-    @PostMapping
+    @PostMapping(PathsUtils.SIGNUP_PATH)
     public CustomerEntity addCustomer(@Valid @RequestBody final CustomerModification customerModification) {
         return customerService.addCustomer(customerModification);
     }

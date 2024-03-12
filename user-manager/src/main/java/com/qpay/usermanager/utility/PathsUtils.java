@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 public class PathsUtils {
     public static final String CUSTOMER_PATH = "/api/v1/customers";
 
+    public static final String SIGNUP_PATH = "/signup";
+
     public static final String MERCHANTS_PATH = "/api/v1/merchants";
 
 }

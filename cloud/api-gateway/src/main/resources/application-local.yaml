@@ -7,3 +7,8 @@ logging:
   level:
     org.springframework.cloud.gateway: DEBUG
     reactor.netty.http.client: DEBUG
+
+webclient:
+  services:
+    user-manager:
+      base-url: http://localhost:8086

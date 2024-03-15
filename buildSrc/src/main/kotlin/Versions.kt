@@ -14,4 +14,6 @@ object Versions {
     const val JSON_WEBTOKEN = "0.11.5"
     const val JJWT_IMPL = "0.11.5"
     const val JJWT_JACKSON = "0.11.5"
+    const val CIRCUIT_BREAKER = "3.0.4"
+    const val ACTUATOR = "3.2.3"
 }

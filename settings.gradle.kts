@@ -21,5 +21,6 @@ include(
         "qr-generator",
         "notification-manager",
         ":libs",
-        "auth-manager"
+        "auth-manager",
+        "cloud:api-gateway"
 )

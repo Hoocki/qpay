@@ -3,6 +3,7 @@ package com.qpay.usermanager.controller;
 import com.qpay.usermanager.model.dto.merchant.MerchantCreation;
 import com.qpay.usermanager.model.entity.merchant.MerchantEntity;
 import com.qpay.usermanager.service.MerchantService;
+import com.qpay.usermanager.utility.PathsUtils;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -28,7 +29,7 @@ public class MerchantController {
         return merchantService.getMerchantById(id);
     }
 
-    @PostMapping
+    @PostMapping(PathsUtils.SIGNUP_PATH)
     public MerchantEntity addMerchant(@Valid @RequestBody final MerchantCreation merchantCreation) {
         return merchantService.addMerchant(merchantCreation);
     }

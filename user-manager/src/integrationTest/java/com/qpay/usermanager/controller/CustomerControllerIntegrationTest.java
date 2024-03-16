@@ -89,7 +89,7 @@ class CustomerControllerIntegrationTest {
         // when
         var responseBody = mockMvc
                 .perform(MockMvcRequestBuilders
-                        .post(PathsUtils.CUSTOMER_PATH)
+                        .post(PathsUtils.CUSTOMER_PATH + PathsUtils.SIGNUP_PATH)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(CUSTOMER_MODIFICATION)))
                 .andReturn()
@@ -114,7 +114,7 @@ class CustomerControllerIntegrationTest {
         // when
         var status = mockMvc
                 .perform(MockMvcRequestBuilders
-                        .post(PathsUtils.CUSTOMER_PATH)
+                        .post(PathsUtils.CUSTOMER_PATH + PathsUtils.SIGNUP_PATH)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(invalidCustomerModification)))
                 .andReturn()
@@ -140,7 +140,7 @@ class CustomerControllerIntegrationTest {
         // when
         var status = mockMvc
                 .perform(MockMvcRequestBuilders
-                        .post(PathsUtils.CUSTOMER_PATH)
+                        .post(PathsUtils.CUSTOMER_PATH + PathsUtils.SIGNUP_PATH)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(customerModification)))
                 .andReturn()

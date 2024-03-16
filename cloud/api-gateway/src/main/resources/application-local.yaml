@@ -1,0 +1,26 @@
+server:
+  port: 8080
+  error:
+    include-message: always
+
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG
+    reactor.netty.http.client: DEBUG
+
+management:
+  health:
+    circuitbreakers:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: health
+  endpoint:
+    health:
+      show-details: always
+
+webclient:
+  services:
+    user-manager:
+      base-url: http://localhost:8086

@@ -2,9 +2,10 @@ package com.qpay.usermanager.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.qpay.usermanager.model.dto.merchant.MerchantCreation;
+import com.qpay.usermanager.model.dto.merchant.MerchantModification;
 import com.qpay.usermanager.model.entity.merchant.MerchantEntity;
-import com.qpay.usermanager.service.exception.CustomerAlreadyExistsException;
 import com.qpay.usermanager.service.exception.NoMerchantFoundException;
+import com.qpay.usermanager.service.exception.UserAlreadyExistsException;
 import com.qpay.usermanager.service.impl.MerchantServiceImpl;
 import com.qpay.usermanager.utility.PathsUtils;
 import org.junit.jupiter.api.Test;
@@ -39,6 +40,12 @@ class MerchantControllerIntegrationTest {
             .build();
 
     private static final MerchantCreation MERCHANT_CREATION = MerchantCreation.builder()
+            .name("bob")
+            .email("bob@gmail.com")
+            .password("word")
+            .build();
+
+    private static final MerchantModification MERCHANT_MODIFICATION = MerchantModification.builder()
             .name("bob")
             .email("bob@gmail.com")
             .password("word")
@@ -130,7 +137,7 @@ class MerchantControllerIntegrationTest {
                 .password("s")
                 .build();
 
-        given(merchantService.addMerchant(merchantCreation)).willThrow(CustomerAlreadyExistsException.class);
+        given(merchantService.addMerchant(merchantCreation)).willThrow(UserAlreadyExistsException.class);
 
         // when
         var status = mockMvc
@@ -149,14 +156,14 @@ class MerchantControllerIntegrationTest {
     @Test
     void should_returnMerchant_when_merchantUpdated() throws Exception {
         //given
-        given(merchantService.updateMerchant(1L, MERCHANT_CREATION)).willReturn(MERCHANT_ENTITY);
+        given(merchantService.updateMerchant(1L, MERCHANT_MODIFICATION)).willReturn(MERCHANT_ENTITY);
 
         //when
         var responseBody = mockMvc
                 .perform(MockMvcRequestBuilders
                         .put(PathsUtils.MERCHANTS_PATH + "/{id}", 1L)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(MERCHANT_CREATION)))
+                        .content(objectMapper.writeValueAsString(MERCHANT_MODIFICATION)))
                 .andReturn()
                 .getResponse()
                 .getContentAsString();
@@ -169,21 +176,21 @@ class MerchantControllerIntegrationTest {
     @Test
     void should_returnException_when_updatedMerchantEmailAlreadyExistsInCustomers() throws Exception {
         // given
-        var merchantCreation = MerchantCreation
+        var merchantModification = MerchantModification
                 .builder()
                 .name("s")
                 .email("s")
                 .password("s")
                 .build();
 
-        given(merchantService.updateMerchant(1L, merchantCreation)).willThrow(CustomerAlreadyExistsException.class);
+        given(merchantService.updateMerchant(1L, merchantModification)).willThrow(UserAlreadyExistsException.class);
 
         // when
         var status = mockMvc
                 .perform(MockMvcRequestBuilders
                         .put(PathsUtils.MERCHANTS_PATH + "/{id}", 1L)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(merchantCreation)))
+                        .content(objectMapper.writeValueAsString(merchantModification)))
                 .andReturn()
                 .getResponse()
                 .getStatus();

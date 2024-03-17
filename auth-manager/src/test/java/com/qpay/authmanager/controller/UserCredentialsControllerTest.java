@@ -1,8 +1,9 @@
 package com.qpay.authmanager.controller;
 
-import com.qpay.authmanager.model.dto.UserModification;
-import com.qpay.authmanager.model.entity.UserEntity;
-import com.qpay.authmanager.service.user.UserService;
+import com.qpay.authmanager.model.dto.UserCredentialsCreation;
+import com.qpay.authmanager.model.dto.UserCredentialsModification;
+import com.qpay.authmanager.model.entity.UserCredentialsEntity;
+import com.qpay.authmanager.service.user.UserCredentialsService;
 import com.qpay.libs.models.UserType;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -15,22 +16,28 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
 
 @ExtendWith(MockitoExtension.class)
-class UserControllerTest {
+class UserCredentialsControllerTest {
 
     @InjectMocks
-    private UserController userController;
+    private UserCredentialsController userCredentialsController;
 
     @Mock
-    private UserService userService;
+    private UserCredentialsService userCredentialsService;
 
-    private static final UserEntity USER_CUSTOMER = UserEntity
+    private static final UserCredentialsEntity USER_CUSTOMER = UserCredentialsEntity
             .builder()
             .email("user@mail.com")
             .userType(UserType.CUSTOMER)
             .password("password")
             .build();
 
-    private static final UserModification USER_MODIFICATION = UserModification
+    private static final UserCredentialsModification USER_MODIFICATION = UserCredentialsModification
+            .builder()
+            .email("user@mail.com")
+            .password("password")
+            .build();
+
+    private static final UserCredentialsCreation USER_CREATION = UserCredentialsCreation
             .builder()
             .email("user@mail.com")
             .userType(UserType.CUSTOMER)
@@ -42,10 +49,10 @@ class UserControllerTest {
     @Test
     void should_addUser() {
         // given
-        given(userService.addUser(USER_MODIFICATION)).willReturn(USER_CUSTOMER);
+        given(userCredentialsService.addUser(USER_CREATION)).willReturn(USER_CUSTOMER);
 
         // when
-        var result = userController.addUser(USER_MODIFICATION);
+        var result = userCredentialsController.addUser(USER_CREATION);
 
         // then
         assertThat(result).isEqualTo(USER_CUSTOMER);
@@ -55,10 +62,10 @@ class UserControllerTest {
     void should_updateUser() {
         // given
         var oldEmail = "oldUser@mail.com";
-        given(userService.updateUser(USER_MODIFICATION, oldEmail)).willReturn(USER_CUSTOMER);
+        given(userCredentialsService.updateUser(oldEmail, USER_MODIFICATION)).willReturn(USER_CUSTOMER);
 
         // when
-        var result = userController.updateUser(USER_MODIFICATION, oldEmail);
+        var result = userCredentialsController.updateUser(oldEmail, USER_MODIFICATION);
 
         // then
         assertThat(result).isEqualTo(USER_CUSTOMER);
@@ -67,10 +74,10 @@ class UserControllerTest {
     @Test
     void should_deleteUser() {
         // when
-        userController.deleteUser(EMAIL);
+        userCredentialsController.deleteUser(EMAIL);
 
         // then
-        then(userService).should().deleteUser(EMAIL);
+        then(userCredentialsService).should().deleteUser(EMAIL);
 
     }
 }

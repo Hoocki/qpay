@@ -4,16 +4,6 @@ plugins {
     id("com.qpay.java.base")
 }
 
-java {
-    sourceCompatibility = JavaVersion.VERSION_21
-}
-
-configurations {
-    compileOnly {
-        extendsFrom(configurations.annotationProcessor.get())
-    }
-}
-
 dependencies {
     implementation(project(":libs"))
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
@@ -21,6 +11,6 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-validation")
     implementation("org.flywaydb:flyway-core:${Versions.FLYWAY}")
     implementation("org.postgresql:postgresql:${Versions.POSTGRESQL}")
-    implementation("org.springframework.boot:spring-boot-starter-webflux:${Versions.WEBFLUX}")
+    implementation("org.springframework.cloud:spring-cloud-starter-openfeign:${Versions.OPENFEIGN}")
     implementation("org.springframework.kafka:spring-kafka:${Versions.KAFKA}")
 }

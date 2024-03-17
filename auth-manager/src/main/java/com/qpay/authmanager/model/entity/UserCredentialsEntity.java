@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 @Document(collection = "users")
 @Data
 @Builder
-public class UserEntity {
+public class UserCredentialsEntity {
 
     @Id
     private String id;

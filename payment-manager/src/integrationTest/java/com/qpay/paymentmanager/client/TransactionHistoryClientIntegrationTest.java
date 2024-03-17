@@ -7,13 +7,15 @@ import com.qpay.paymentmanager.model.dto.PaymentTransaction;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.HttpStatus;
 
 import java.math.BigDecimal;
 
-import static com.github.tomakehurst.wiremock.client.WireMock.*;
+import static com.github.tomakehurst.wiremock.client.WireMock.equalToJson;
+import static com.github.tomakehurst.wiremock.client.WireMock.ok;
+import static com.github.tomakehurst.wiremock.client.WireMock.post;
+import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
+import static com.github.tomakehurst.wiremock.client.WireMock.urlPathEqualTo;
 import static com.qpay.paymentmanager.client.TransactionHistoryClient.TRANSACTION_HISTORY_PATH;
-import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @WireMockTest(httpPort = 8184)
@@ -42,9 +44,6 @@ class TransactionHistoryClientIntegrationTest {
                 .withRequestBody(equalToJson(objectMapper.writeValueAsString(transaction)))
                 .willReturn(ok()));
 
-        var res = transactionHistoryClient.saveTransactionToHistory(transaction).getStatusCode();
-
-        // then
-        assertThat(res).isEqualTo(HttpStatus.OK);
+        transactionHistoryClient.saveTransaction(transaction);
     }
 }

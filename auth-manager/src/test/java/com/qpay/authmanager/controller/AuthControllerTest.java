@@ -2,7 +2,7 @@ package com.qpay.authmanager.controller;
 
 import com.qpay.authmanager.model.dto.AuthCredentials;
 import com.qpay.authmanager.model.dto.JwtAuthenticationResponse;
-import com.qpay.authmanager.model.entity.UserEntity;
+import com.qpay.authmanager.model.entity.UserCredentialsEntity;
 import com.qpay.authmanager.service.authentication.AuthenticationService;
 import com.qpay.libs.models.UserType;
 import org.junit.jupiter.api.Test;
@@ -31,7 +31,7 @@ class AuthControllerTest {
                 .password("password")
                 .build();
 
-        var userEntity = UserEntity
+        var userEntity = UserCredentialsEntity
                 .builder()
                 .email("user@mail.com")
                 .userType(UserType.CUSTOMER)

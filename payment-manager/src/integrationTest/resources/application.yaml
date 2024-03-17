@@ -1,10 +1,3 @@
-webclient:
-  services:
-    notification-manager:
-      base-url: http://localhost:8183
-    transaction-history-manager:
-      base-url: http://localhost:8184
-
 spring:
   jpa:
     show-sql: true
@@ -22,6 +15,16 @@ spring:
     driverClassName: org.h2.Driver
   flyway:
     schemas: TEST_WALLETS
+  cloud:
+    openfeign:
+      client:
+        config:
+          notification:
+            url: http://localhost:8183
+            logger-level: basic
+          transactionHistory:
+            url: http://localhost:8184
+            logger-level: basic
 
 broker:
   topics:

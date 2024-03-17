@@ -1,30 +1,15 @@
 package com.qpay.paymentmanager.client;
 
-import com.qpay.paymentmanager.config.WebClientConfig;
 import com.qpay.paymentmanager.model.dto.PaymentTransaction;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Component;
-import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.PostMapping;
 
-@Component
-public class TransactionHistoryClient {
+@FeignClient(name = "transactionHistory")
+public interface TransactionHistoryClient {
 
-    private final WebClient webClient;
+    String TRANSACTION_HISTORY_PATH = "/api/v1/history";
 
-    public static final String TRANSACTION_HISTORY_PATH = "/api/v1/history";
+    @PostMapping(value = TRANSACTION_HISTORY_PATH)
+    void saveTransaction(PaymentTransaction paymentTransaction);
 
-    public TransactionHistoryClient(@Qualifier(WebClientConfig.TRANSACTION_HISTORY_WEB_CLIENT_NAME) final WebClient webClient) {
-        this.webClient = webClient;
-    }
-
-    public ResponseEntity<Void> saveTransactionToHistory(final PaymentTransaction paymentTransaction) {
-        return webClient
-                .post()
-                .uri(TRANSACTION_HISTORY_PATH)
-                .bodyValue(paymentTransaction)
-                .retrieve()
-                .toBodilessEntity()
-                .block();
-    }
 }

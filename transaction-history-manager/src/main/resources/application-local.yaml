@@ -1,0 +1,8 @@
+spring:
+  data:
+    mongodb:
+      database: qpay
+server:
+  port: 8084
+  error:
+    include-message: always

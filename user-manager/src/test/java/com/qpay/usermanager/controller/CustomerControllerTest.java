@@ -1,5 +1,6 @@
 package com.qpay.usermanager.controller;
 
+import com.qpay.usermanager.model.dto.customer.CustomerCreation;
 import com.qpay.usermanager.model.dto.customer.CustomerModification;
 import com.qpay.usermanager.model.entity.customer.CustomerEntity;
 import com.qpay.usermanager.service.CustomerService;
@@ -45,7 +46,7 @@ class CustomerControllerTest {
     @Test
     void should_addCustomer() {
         // given
-        var customerModification = CustomerModification.builder()
+        var customerCreation = CustomerCreation.builder()
                 .name("Roman")
                 .email("admin@gmail.com")
                 .password("password")
@@ -57,10 +58,10 @@ class CustomerControllerTest {
                 .password("password")
                 .build();
 
-        given(customerService.addCustomer(customerModification)).willReturn(expectedCustomer);
+        given(customerService.addCustomer(customerCreation)).willReturn(expectedCustomer);
 
         // when
-        var result = customerController.addCustomer(customerModification);
+        var result = customerController.addCustomer(customerCreation);
 
         // then
         assertThat(result).isEqualTo(expectedCustomer);

@@ -1,19 +1,23 @@
 package com.qpay.usermanager.service.impl;
 
+import com.qpay.libs.models.UserType;
+import com.qpay.usermanager.client.AuthenticationClient;
+import com.qpay.usermanager.mapper.UserCredentialsMapper;
 import com.qpay.usermanager.mapper.CustomerMapper;
+import com.qpay.usermanager.model.dto.authuser.UserCredentialsCreation;
+import com.qpay.usermanager.model.dto.authuser.UserCredentialsModification;
+import com.qpay.usermanager.model.dto.customer.CustomerCreation;
 import com.qpay.usermanager.model.dto.customer.CustomerModification;
 import com.qpay.usermanager.model.entity.customer.CustomerEntity;
 import com.qpay.usermanager.repository.CustomerRepository;
 import com.qpay.usermanager.repository.MerchantRepository;
-import com.qpay.usermanager.service.exception.CustomerAlreadyExistsException;
 import com.qpay.usermanager.service.exception.CustomerNotFoundException;
-import com.qpay.usermanager.service.exception.EmailAlreadyExistsException;
+import com.qpay.usermanager.service.exception.UserAlreadyExistsException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.dao.DataIntegrityViolationException;
 
 import java.util.Optional;
 
@@ -36,6 +40,12 @@ class CustomerServiceImplTest {
 
     @Mock
     private CustomerMapper customerMapper;
+
+    @Mock
+    private UserCredentialsMapper userCredentialsMapper;
+
+    @Mock
+    private AuthenticationClient authenticationClient;
 
     @Test
     void should_returnCustomer_when_idMatched() {
@@ -74,8 +84,7 @@ class CustomerServiceImplTest {
     @Test
     void should_addCustomer() {
         // given
-        var email = "admin@gmail.com";
-        var customerModification = CustomerModification.builder()
+        var customerCreation = CustomerCreation.builder()
                 .name("Roman")
                 .email("admin@gmail.com")
                 .password("password")
@@ -87,20 +96,28 @@ class CustomerServiceImplTest {
                 .password("password")
                 .build();
 
-        given(customerMapper.map(customerModification)).willReturn(expectedCustomer);
+        var createdUser = UserCredentialsCreation.builder()
+                .email("admin@gmail.com")
+                .password("password")
+                .userType(UserType.CUSTOMER)
+                .build();
+
+        given(customerMapper.map(customerCreation)).willReturn(expectedCustomer);
         given(customerRepository.save(expectedCustomer)).willReturn(expectedCustomer);
+        given(userCredentialsMapper.mapCustomerCreation(customerCreation)).willReturn(createdUser);
 
         // when
-        var result = customerService.addCustomer(customerModification);
+        var result = customerService.addCustomer(customerCreation);
 
         // then
         assertThat(result).isEqualTo(expectedCustomer);
+        then(authenticationClient).should().createUserCredentials(createdUser);
     }
 
     @Test
     void should_throwEmailAlreadyExistsException_when_addCustomerThatAlreadyExistsWithGivenEmailInMerchants() {
         // given
-        var customerModification = CustomerModification.builder()
+        var customerCreation = CustomerCreation.builder()
                 .name("Andrey")
                 .email("admin@gmail.com")
                 .password("qwerty")
@@ -109,16 +126,17 @@ class CustomerServiceImplTest {
         given(merchantRepository.existsByEmail("admin@gmail.com")).willReturn(true);
 
         //when
-        Throwable throwable = catchThrowable(() -> customerService.addCustomer(customerModification));
+        Throwable throwable = catchThrowable(() -> customerService.addCustomer(customerCreation));
 
         //then
-        assertThat(throwable).isInstanceOf(EmailAlreadyExistsException.class);;
+        assertThat(throwable).isInstanceOf(UserAlreadyExistsException.class);
     }
 
     @Test
     void should_updateCustomer() {
         // given
         var id = 1L;
+        var previousEmail = "admin@gmail.com";
         var customerModification = CustomerModification.builder()
                 .name("Andrey")
                 .email("newAdmin@gmail.com")
@@ -131,6 +149,11 @@ class CustomerServiceImplTest {
                 .password("password")
                 .build();
 
+        var updatedUser = UserCredentialsModification.builder()
+                .email("newAdmin@gmail.com")
+                .password("qwerty")
+                .build();
+
         var expectedCustomer = CustomerEntity.builder()
                 .name("Andrey")
                 .email("newAdmin@gmail.com")
@@ -140,12 +163,14 @@ class CustomerServiceImplTest {
         given(customerRepository.findById(id)).willReturn(Optional.of(customer));
         given(merchantRepository.existsByEmail(customerModification.email())).willReturn(false);
         given(customerRepository.save(expectedCustomer)).willReturn(expectedCustomer);
+        given(userCredentialsMapper.mapCustomerModification(customerModification)).willReturn(updatedUser);
 
         // when
         var result = customerService.updateCustomer(customerModification, id);
 
         // then
         assertThat(result).isEqualTo(expectedCustomer);
+        then(authenticationClient).should().updateUserCredentials(previousEmail, updatedUser);
     }
 
     @Test
@@ -183,18 +208,27 @@ class CustomerServiceImplTest {
         Throwable throwable = catchThrowable(() -> customerService.updateCustomer(customerModification, 1L));
 
         //then
-        assertThat(throwable).isInstanceOf(EmailAlreadyExistsException.class);;
+        assertThat(throwable).isInstanceOf(UserAlreadyExistsException.class);
     }
 
     @Test
     void should_deleteCustomer() {
         // given
         var id = 1L;
+        var email = "admin@gmail.com";
+        var customer = CustomerEntity.builder()
+                .name("Roman")
+                .email("admin@gmail.com")
+                .password("password")
+                .build();
+
+        given(customerRepository.findById(id)).willReturn(Optional.of(customer));
 
         // when
         customerService.deleteCustomer(id);
 
         // then
         then(customerRepository).should().deleteById(id);
+        then(authenticationClient).should().deleteUserCredentials(email);
     }
 }

@@ -9,7 +9,6 @@ import com.qpay.paymentmanager.model.dto.WalletPayment;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.HttpStatus;
 
 import java.math.BigDecimal;
 
@@ -19,7 +18,6 @@ import static com.github.tomakehurst.wiremock.client.WireMock.post;
 import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlPathEqualTo;
 import static com.qpay.paymentmanager.client.NotificationClient.NOTIFICATION_PATH;
-import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @WireMockTest(httpPort = 8183)
@@ -50,16 +48,18 @@ class NotificationClientIntegrationTest {
                 .amount(BigDecimal.valueOf(100))
                 .build();
 
+        var notificationCreation = PaymentNotification.builder()
+                .amount(walletPayment.amount())
+                .emailFrom(walletPayment.emailFrom())
+                .emailTo(walletPayment.emailTo())
+                .build();
+
 
         // when
         stubFor(post(urlPathEqualTo(NOTIFICATION_PATH))
                 .withRequestBody(equalToJson(objectMapper.writeValueAsString(paymentNotification)))
                 .willReturn(ok()));
 
-
-        var res = notificationClient.sendNotification(walletPayment).getStatusCode();
-
-        // then
-        assertThat(res).isEqualTo(HttpStatus.OK);
+        notificationClient.sendNotification(notificationCreation);
     }
 }

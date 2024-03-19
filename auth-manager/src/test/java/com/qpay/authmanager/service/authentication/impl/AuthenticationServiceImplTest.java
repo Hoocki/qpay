@@ -2,10 +2,10 @@ package com.qpay.authmanager.service.authentication.impl;
 
 import com.qpay.authmanager.model.dto.AuthCredentials;
 import com.qpay.authmanager.model.dto.JwtAuthenticationResponse;
-import com.qpay.authmanager.model.entity.UserEntity;
-import com.qpay.authmanager.service.exception.UserNotFoundException;
+import com.qpay.authmanager.model.entity.UserCredentialsEntity;
+import com.qpay.authmanager.service.exception.UserCredentialsNotFoundException;
 import com.qpay.authmanager.service.jwt.JwtService;
-import com.qpay.authmanager.service.user.UserService;
+import com.qpay.authmanager.service.user.UserCredentialsService;
 import com.qpay.libs.models.UserType;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -27,7 +27,7 @@ class AuthenticationServiceImplTest {
     private JwtService jwtService;
 
     @Mock
-    private UserService userService;
+    private UserCredentialsService userCredentialsService;
 
     @Test
     @Disabled
@@ -39,7 +39,7 @@ class AuthenticationServiceImplTest {
                 .password("password")
                 .build();
 
-        var userEntity = UserEntity
+        var userEntity = UserCredentialsEntity
                 .builder()
                 .email("user@mail.com")
                 .userType(UserType.CUSTOMER)
@@ -53,7 +53,7 @@ class AuthenticationServiceImplTest {
 
         var fakeToken = userEntity.getEmail();
 
-        given(userService.getUserByEmail(authCredentials.email())).willReturn(userEntity);
+        given(userCredentialsService.getUserByEmail(authCredentials.email())).willReturn(userEntity);
         given(jwtService.generateToken(userEntity.getEmail())).willReturn(fakeToken);
 
         // when
@@ -73,13 +73,13 @@ class AuthenticationServiceImplTest {
                 .password("password")
                 .build();
 
-        given(userService.getUserByEmail(authCredentials.email())).willThrow(UserNotFoundException.class);
+        given(userCredentialsService.getUserByEmail(authCredentials.email())).willThrow(UserCredentialsNotFoundException.class);
 
         // when
         var thrown = catchThrowable(() -> authenticationService.signIn(authCredentials));
 
         // then
-        assertThat(thrown).isInstanceOf(UserNotFoundException.class);
+        assertThat(thrown).isInstanceOf(UserCredentialsNotFoundException.class);
 
     }
 }

@@ -2,10 +2,11 @@ package com.qpay.authmanager.model.dto;
 
 import com.qpay.libs.models.UserType;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 
 @Builder
-public record UserModification (
+public record UserCredentialsCreation(
 
         @NotBlank(message = "Email is required")
         String email,
@@ -13,6 +14,8 @@ public record UserModification (
         @NotBlank(message = "Password is required")
         String password,
 
+        @NotNull
         UserType userType
 ) {
 }
+

@@ -1,12 +1,18 @@
 package com.qpay.usermanager.service.impl;
 
+import com.qpay.libs.models.UserType;
+import com.qpay.usermanager.client.AuthenticationClient;
+import com.qpay.usermanager.mapper.UserCredentialsMapper;
 import com.qpay.usermanager.mapper.MerchantMapper;
+import com.qpay.usermanager.model.dto.authuser.UserCredentialsCreation;
+import com.qpay.usermanager.model.dto.authuser.UserCredentialsModification;
 import com.qpay.usermanager.model.dto.merchant.MerchantCreation;
+import com.qpay.usermanager.model.dto.merchant.MerchantModification;
 import com.qpay.usermanager.model.entity.merchant.MerchantEntity;
 import com.qpay.usermanager.repository.CustomerRepository;
 import com.qpay.usermanager.repository.MerchantRepository;
-import com.qpay.usermanager.service.exception.CustomerAlreadyExistsException;
 import com.qpay.usermanager.service.exception.NoMerchantFoundException;
+import com.qpay.usermanager.service.exception.UserAlreadyExistsException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -35,9 +41,25 @@ class MerchantServiceImplTest {
     @Mock
     private MerchantMapper merchantMapper;
 
+    @Mock
+    private UserCredentialsMapper userCredentialsMapper;
+
+    @Mock
+    private AuthenticationClient authenticationClient;
+
     private static final String EMAIL = "bob@gmail.com";
 
-    private static final MerchantCreation MERCHANT_CREATION = MerchantCreation.builder().name("bob").email("bob@gmail.com").password("word").build();
+    private static final MerchantCreation MERCHANT_CREATION = MerchantCreation.builder()
+            .name("bob")
+            .email("bob@gmail.com")
+            .password("word")
+            .build();
+
+    private static final MerchantModification MERCHANT_MODIFICATION = MerchantModification.builder()
+            .name("bob")
+            .email("bob@gmail.com")
+            .password("word")
+            .build();
 
     @Test
     void should_returnMerchants() {
@@ -94,19 +116,34 @@ class MerchantServiceImplTest {
     @Test
     void should_addMerchant() {
         //given
-       var expectedMerchant = MerchantEntity.builder()
-               .name("bob")
-               .email(EMAIL)
-               .password("word")
-               .build();
+        var expectedMerchant = MerchantEntity.builder()
+                .name("bob")
+                .email(EMAIL)
+                .password("word")
+                .build();
 
-       given(merchantMapper.map(MERCHANT_CREATION)).willReturn(expectedMerchant);
+        var merchantCreation = MerchantCreation.builder()
+                .name("bob")
+                .email(EMAIL)
+                .password("word")
+                .build();
 
-       //when
-       var result = merchantService.addMerchant(MERCHANT_CREATION);
+        var createdUser = UserCredentialsCreation.builder()
+                .email(EMAIL)
+                .password("word")
+                .userType(UserType.MERCHANT)
+                .build();
 
-       //then
+        given(merchantMapper.map(MERCHANT_CREATION)).willReturn(expectedMerchant);
+        given(userCredentialsMapper.mapMerchantCreation(MERCHANT_CREATION)).willReturn(createdUser);
+        given(userCredentialsMapper.mapMerchantCreation(merchantCreation)).willReturn(createdUser);
+
+        //when
+        var result = merchantService.addMerchant(MERCHANT_CREATION);
+
+        //then
         assertThat(result).isEqualTo(expectedMerchant);
+        then(authenticationClient).should().createUserCredentials(createdUser);
     }
 
     @Test
@@ -118,26 +155,50 @@ class MerchantServiceImplTest {
         Throwable throwable = catchThrowable(() -> merchantService.addMerchant(MERCHANT_CREATION));
 
         //then
-        assertThat(throwable).isInstanceOf(CustomerAlreadyExistsException.class);
+        assertThat(throwable).isInstanceOf(UserAlreadyExistsException.class);
     }
 
     @Test
     void should_deleteMerchant() {
+        //given
+        var id = 1L;
+        var merchant = MerchantEntity.builder()
+                .name("bob")
+                .email(EMAIL)
+                .password("word")
+                .build();
+
+        given(merchantRepository.findById(id)).willReturn(Optional.of(merchant));
+
         //when
-        merchantService.deleteMerchant(1L);
+        merchantService.deleteMerchant(id);
 
         //then
-        then(merchantRepository).should().deleteById(1L);
+        then(merchantRepository).should().deleteById(id);
+        then(authenticationClient).should().deleteUserCredentials(EMAIL);
     }
 
     @Test
     void should_updateMerchant() {
         //given
+        var previousEmail = "greg@gmail.com";
+        var merchantModification = MerchantModification.builder()
+                .name("bob")
+                .email(EMAIL)
+                .password("word")
+                .build();
+
         var merchant = MerchantEntity.builder()
                 .name("greg")
                 .email("greg@gmail.com")
                 .password("pass")
                 .build();
+
+        var updatedUser = UserCredentialsModification.builder()
+                .email(EMAIL)
+                .password("word")
+                .build();
+
         var expectedMerchant = MerchantEntity.builder()
                 .name("bob")
                 .email(EMAIL)
@@ -145,12 +206,15 @@ class MerchantServiceImplTest {
                 .build();
 
         given(merchantRepository.findById(1L)).willReturn(Optional.of(merchant));
+        given(merchantRepository.save(expectedMerchant)).willReturn(expectedMerchant);
+        given(userCredentialsMapper.mapMerchantModification(merchantModification)).willReturn(updatedUser);
 
         //when
-        var result = merchantService.updateMerchant(1L, MERCHANT_CREATION);
+        var result = merchantService.updateMerchant(1L, MERCHANT_MODIFICATION);
 
         //then
         assertThat(result).isEqualTo(expectedMerchant);
+        then(authenticationClient).should().updateUserCredentials(previousEmail, updatedUser);
     }
 
     @Test
@@ -159,16 +223,16 @@ class MerchantServiceImplTest {
         given(customerRepository.existsByEmail("bob@gmail.com")).willReturn(true);
 
         //when
-        Throwable throwable = catchThrowable(() -> merchantService.updateMerchant(1L, MERCHANT_CREATION));
+        Throwable throwable = catchThrowable(() -> merchantService.updateMerchant(1L, MERCHANT_MODIFICATION));
 
         //then
-        assertThat(throwable).isInstanceOf(CustomerAlreadyExistsException.class);
+        assertThat(throwable).isInstanceOf(UserAlreadyExistsException.class);
     }
 
     @Test
     void should_throwNoMerchantFoundException_when_updateMerchantIdNotFound() {
         //when
-        Throwable throwable = catchThrowable(() -> merchantService.updateMerchant(1L, MERCHANT_CREATION));
+        Throwable throwable = catchThrowable(() -> merchantService.updateMerchant(1L, MERCHANT_MODIFICATION));
 
         //then
         assertThat(throwable).isInstanceOf(NoMerchantFoundException.class);

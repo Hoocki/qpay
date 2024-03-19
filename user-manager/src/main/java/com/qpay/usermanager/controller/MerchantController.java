@@ -1,6 +1,7 @@
 package com.qpay.usermanager.controller;
 
 import com.qpay.usermanager.model.dto.merchant.MerchantCreation;
+import com.qpay.usermanager.model.dto.merchant.MerchantModification;
 import com.qpay.usermanager.model.entity.merchant.MerchantEntity;
 import com.qpay.usermanager.service.MerchantService;
 import com.qpay.usermanager.utility.PathsUtils;
@@ -40,7 +41,7 @@ public class MerchantController {
     }
 
     @PutMapping("{id}")
-    public MerchantEntity updateMerchant(@PathVariable final long id, @Valid @RequestBody final MerchantCreation merchantCreation) {
-        return merchantService.updateMerchant(id, merchantCreation);
+    public MerchantEntity updateMerchant(@PathVariable final long id, @Valid @RequestBody final MerchantModification merchantModification) {
+        return merchantService.updateMerchant(id, merchantModification);
     }
 }

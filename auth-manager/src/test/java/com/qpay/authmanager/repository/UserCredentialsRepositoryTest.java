@@ -1,6 +1,6 @@
 package com.qpay.authmanager.repository;
 
-import com.qpay.authmanager.model.entity.UserEntity;
+import com.qpay.authmanager.model.entity.UserCredentialsEntity;
 import com.qpay.libs.models.UserType;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -15,10 +15,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 @DataMongoTest
 @ExtendWith(SpringExtension.class)
 @Disabled
-class UserRepositoryTest {
+class UserCredentialsRepositoryTest {
 
     @Autowired
-    private UserRepository userRepository;
+    private UserCredentialsRepository userCredentialsRepository;
 
     @Autowired
     private MongoTemplate mongoTemplate;
@@ -28,15 +28,15 @@ class UserRepositoryTest {
         var email = "user@mail.com";
         var userType = UserType.CUSTOMER;
         var user =
-                UserEntity.builder()
+                UserCredentialsEntity.builder()
                         .email(email)
                         .userType(userType)
                         .password("password")
                         .build();
-        var expectedUser = userRepository.save(user);
+        var expectedUser = userCredentialsRepository.save(user);
 
         // when
-        var result = userRepository.findByEmail(email);
+        var result = userCredentialsRepository.findByEmail(email);
 
         // then
         assertThat(result).isEqualTo(expectedUser);

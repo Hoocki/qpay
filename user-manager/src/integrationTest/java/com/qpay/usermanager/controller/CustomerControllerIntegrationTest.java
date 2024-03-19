@@ -1,10 +1,11 @@
 package com.qpay.usermanager.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.qpay.usermanager.model.dto.customer.CustomerCreation;
 import com.qpay.usermanager.model.dto.customer.CustomerModification;
 import com.qpay.usermanager.model.entity.customer.CustomerEntity;
 import com.qpay.usermanager.service.exception.CustomerNotFoundException;
-import com.qpay.usermanager.service.exception.EmailAlreadyExistsException;
+import com.qpay.usermanager.service.exception.UserAlreadyExistsException;
 import com.qpay.usermanager.service.impl.CustomerServiceImpl;
 import com.qpay.usermanager.utility.PathsUtils;
 import org.junit.jupiter.api.Test;
@@ -39,7 +40,7 @@ class CustomerControllerIntegrationTest {
             .password("password")
             .build();
 
-    private final CustomerModification CUSTOMER_MODIFICATION = CustomerModification
+    private final CustomerCreation CUSTOMER_CREATION = CustomerCreation
             .builder()
             .name("Roman")
             .email("admin@gmail.com")
@@ -84,14 +85,14 @@ class CustomerControllerIntegrationTest {
     @Test
     void should_returnCustomer_when_customerAdded() throws Exception {
         // given
-        given(customerService.addCustomer(CUSTOMER_MODIFICATION)).willReturn(CUSTOMER_ENTITY);
+        given(customerService.addCustomer(CUSTOMER_CREATION)).willReturn(CUSTOMER_ENTITY);
 
         // when
         var responseBody = mockMvc
                 .perform(MockMvcRequestBuilders
                         .post(PathsUtils.CUSTOMER_PATH + PathsUtils.SIGNUP_PATH)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(CUSTOMER_MODIFICATION)))
+                        .content(objectMapper.writeValueAsString(CUSTOMER_CREATION)))
                 .andReturn()
                 .getResponse()
                 .getContentAsString();
@@ -128,21 +129,21 @@ class CustomerControllerIntegrationTest {
     @Test
     void should_returnException_when_newCustomerEmailAlreadyExistsInMerchants() throws Exception {
         // given
-        var customerModification = CustomerModification
+        var customerCreation = CustomerCreation
                 .builder()
                 .name("s")
                 .email("s")
                 .password("s")
                 .build();
 
-        given(customerService.addCustomer(customerModification)).willThrow(EmailAlreadyExistsException.class);
+        given(customerService.addCustomer(customerCreation)).willThrow(UserAlreadyExistsException.class);
 
         // when
         var status = mockMvc
                 .perform(MockMvcRequestBuilders
                         .post(PathsUtils.CUSTOMER_PATH + PathsUtils.SIGNUP_PATH)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(customerModification)))
+                        .content(objectMapper.writeValueAsString(customerCreation)))
                 .andReturn()
                 .getResponse()
                 .getStatus();
@@ -193,7 +194,7 @@ class CustomerControllerIntegrationTest {
                 .password("s")
                 .build();
 
-        given(customerService.updateCustomer(customerModification, 1L)).willThrow(EmailAlreadyExistsException.class);
+        given(customerService.updateCustomer(customerModification, 1L)).willThrow(UserAlreadyExistsException.class);
 
         // when
         var status = mockMvc

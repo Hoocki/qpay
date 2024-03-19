@@ -1,7 +1,7 @@
 package com.qpay.authmanager.service.jwt.impl;
 
 import com.qpay.authmanager.model.dto.JwtAuthenticationResponse;
-import com.qpay.authmanager.model.entity.UserEntity;
+import com.qpay.authmanager.model.entity.UserCredentialsEntity;
 import com.qpay.libs.models.UserType;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -21,7 +21,7 @@ class JwtServiceImplTest {
     @Test
     void should_generateTokenBasedUserData() {
         // given
-        var userEntity = UserEntity.builder()
+        var userEntity = UserCredentialsEntity.builder()
                 .email("user@mail.com")
                 .userType(UserType.CUSTOMER)
                 .password("password")

@@ -46,7 +46,7 @@ public class PaymentServiceImpl implements PaymentService {
                 fromWallet.getName(),
                 toWallet.getName(),
                 walletPayment
-                );
+        );
         return fromWallet;
     }
 
@@ -78,16 +78,16 @@ public class PaymentServiceImpl implements PaymentService {
                 .idTo(walletPayment.walletIdTo())
                 .amount(walletPayment.amount())
                 .build();
-        transactionHistoryClient.saveTransactionToHistory(transaction);
+        transactionHistoryClient.saveTransaction(transaction);
     }
 
     private void sendMessageToKafka(final WalletPayment walletPayment) {
-        final var paymentNotification  = PaymentNotification.builder()
+        final var paymentNotification = PaymentNotification.builder()
                 .amount(walletPayment.amount())
                 .emailFrom(walletPayment.emailFrom())
                 .emailTo(walletPayment.emailTo())
                 .build();
-        paymentNotificationProducer.publishPaymentNotification(paymentNotification );
+        paymentNotificationProducer.publishPaymentNotification(paymentNotification);
     }
 
 }

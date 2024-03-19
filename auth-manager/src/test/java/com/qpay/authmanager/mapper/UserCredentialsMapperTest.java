@@ -1,32 +1,33 @@
 package com.qpay.authmanager.mapper;
 
-import com.qpay.authmanager.model.dto.UserModification;
-import com.qpay.authmanager.model.entity.UserEntity;
+import com.qpay.authmanager.model.dto.UserCredentialsCreation;
+import com.qpay.authmanager.model.entity.UserCredentialsEntity;
 import com.qpay.libs.models.UserType;
 import org.junit.jupiter.api.Test;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
-class UserMapperTest {
+class UserCredentialsMapperTest {
 
-    private final UserMapper userMapper = new UserMapper();
+    private final UserCredentialsMapper userCredentialsMapper = new UserCredentialsMapper();
 
     @Test
     void should_returnUserEntity_when_userModificationPassed() {
         // given
-        var userEntity = UserEntity
+        var userEntity = UserCredentialsEntity
                 .builder()
                 .email("user@mail.com")
                 .userType(UserType.CUSTOMER)
                 .build();
 
-        var userModification = UserModification
+        var userCreation = UserCredentialsCreation
                 .builder()
                 .email("user@mail.com")
                 .userType(UserType.CUSTOMER)
                 .build();
 
         // when
-        var result = userMapper.map(userModification);
+        var result = userCredentialsMapper.map(userCreation);
 
         // then
         assertThat(result).isEqualTo(userEntity);

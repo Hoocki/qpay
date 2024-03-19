@@ -15,3 +15,10 @@ spring:
     driverClassName: org.h2.Driver
   flyway:
     schemas: TEST_USERS
+  cloud:
+    openfeign:
+      client:
+        config:
+          auth:
+            url: http://localhost:8186
+            logger-level: basic

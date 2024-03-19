@@ -1,8 +1,7 @@
 package com.qpay.usermanager.model.dto.merchant;
 
-
 import jakarta.validation.constraints.NotBlank;
-import lombok.*;
+import lombok.Builder;
 
 @Builder
 public record MerchantCreation(

@@ -1,0 +1,6 @@
+server:
+  port: 8088
+eureka:
+  client:
+    registerWithEureka: false
+    fetchRegistry: false

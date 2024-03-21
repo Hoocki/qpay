@@ -27,6 +27,11 @@ server:
   error:
     include-message: always
 
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+
 broker:
   topics:
     payment-topic: local_payment

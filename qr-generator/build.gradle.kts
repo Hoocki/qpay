@@ -9,9 +9,3 @@ dependencies {
 	implementation("com.google.zxing:javase:${Versions.ZXING_JAVASE}")
 	implementation("org.springframework.boot:spring-boot-starter-validation")
 }
-
-dependencyManagement {
-	imports {
-		mavenBom("org.springframework.cloud:spring-cloud-dependencies:${Versions.SPRING_CLOUD}")
-	}
-}

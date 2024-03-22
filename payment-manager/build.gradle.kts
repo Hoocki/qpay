@@ -13,9 +13,3 @@ dependencies {
     implementation("org.springframework.cloud:spring-cloud-starter-openfeign:${Versions.OPENFEIGN}")
     implementation("org.springframework.kafka:spring-kafka:${Versions.KAFKA}")
 }
-
-dependencyManagement {
-    imports {
-        mavenBom("org.springframework.cloud:spring-cloud-dependencies:${Versions.SPRING_CLOUD}")
-    }
-}

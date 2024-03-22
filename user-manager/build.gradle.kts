@@ -12,9 +12,3 @@ dependencies {
     implementation("org.postgresql:postgresql:${Versions.POSTGRESQL}")
     implementation("org.springframework.boot:spring-boot-starter-validation")
 }
-
-dependencyManagement {
-    imports {
-        mavenBom("org.springframework.cloud:spring-cloud-dependencies:${Versions.SPRING_CLOUD}")
-    }
-}

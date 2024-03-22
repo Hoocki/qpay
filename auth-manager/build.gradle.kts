@@ -14,9 +14,3 @@ dependencies {
 	runtimeOnly("io.jsonwebtoken:jjwt-impl:${Versions.JJWT_IMPL}")
 	runtimeOnly("io.jsonwebtoken:jjwt-jackson:${Versions.JJWT_JACKSON}")
 }
-
-dependencyManagement {
-	imports {
-		mavenBom("org.springframework.cloud:spring-cloud-dependencies:${Versions.SPRING_CLOUD}")
-	}
-}

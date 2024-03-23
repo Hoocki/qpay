@@ -5,16 +5,7 @@ spring:
     password: password
   jpa:
     show-sql: true
-  cloud:
-    openfeign:
-      client:
-        config:
-          notification:
-            url: http://localhost:8083
-            logger-level: basic
-          transactionHistory:
-            url: http://localhost:8084
-            logger-level: basic
+
   kafka:
     bootstrap-servers: localhost:9092
 

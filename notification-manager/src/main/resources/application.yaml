@@ -1,6 +1,6 @@
 spring:
   application:
-    name: notification-manager
+    name: notification
   mail:
     host: smtp.gmail.com
     port: 587

@@ -5,13 +5,6 @@ spring:
     password: password
   jpa:
     show-sql: true
-  cloud:
-    openfeign:
-      client:
-        config:
-          auth:
-            url: http://localhost:8086
-            logger-level: basic
 
 logging:
   level:

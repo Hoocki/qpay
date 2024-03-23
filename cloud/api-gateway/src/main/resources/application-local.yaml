@@ -24,8 +24,3 @@ management:
   endpoint:
     health:
       show-details: always
-
-webclient:
-  services:
-    user-manager:
-      base-url: http://localhost:8086

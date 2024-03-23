@@ -11,16 +11,15 @@ import reactor.core.publisher.Mono;
 @RequiredArgsConstructor
 public class AuthClient {
 
-    public static final String VALIDATION_PATH = "/api/v1/auth/validate";
+    public static final String VALIDATION_PATH = "http://auth/api/v1/auth/validate";
 
-    private final WebClient webClient;
+    private final WebClient lbWebClient;
 
-    public Mono<Void> validateToken(final String token) {
-        return webClient.get()
+    public Mono<Void> validateToken(final String headerAuth) {
+        return lbWebClient.get()
                 .uri(VALIDATION_PATH)
-                .header(HttpHeaders.AUTHORIZATION, token)
-                .retrieve()
-                .bodyToMono(Void.class)
-                .onErrorResume(error -> Mono.error(new AuthorizationException(error.getMessage())));
+                .header(HttpHeaders.AUTHORIZATION, headerAuth)
+                .retrieve().bodyToMono(Void.class)
+                .onErrorResume(err -> Mono.error(new AuthorizationException(err.getMessage())));
     }
 }

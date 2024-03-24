@@ -12,6 +12,9 @@ eureka:
     service-url:
       defaultZone: http://localhost:8761/eureka
 
+email:
+  enabled: false
+
 broker:
   groups:
     payment-group: local_payment_group_1

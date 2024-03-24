@@ -11,7 +11,6 @@ public class MerchantMapper {
                 .builder()
                 .name(merchantCreation.name())
                 .email(merchantCreation.email())
-                .password(merchantCreation.password())
                 .build();
     }
 }

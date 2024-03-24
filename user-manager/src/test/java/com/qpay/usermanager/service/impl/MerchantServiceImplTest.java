@@ -67,13 +67,11 @@ class MerchantServiceImplTest {
         var merchant1 = MerchantEntity.builder()
                 .name("bob")
                 .email("cool_bob@gmail.com")
-                .password("1234")
                 .build();
 
         var merchant2 = MerchantEntity.builder()
                 .name("greg")
                 .email("geg@gmail.com")
-                .password("5678")
                 .build();
 
         List<MerchantEntity> list = List.of(merchant1, merchant2);
@@ -92,7 +90,6 @@ class MerchantServiceImplTest {
         var merchant1 = MerchantEntity.builder()
                 .name("bob")
                 .email("cool_bob@gmail.com")
-                .password("1234")
                 .build();
 
         given(merchantRepository.findById(1L)).willReturn(Optional.of(merchant1));
@@ -119,7 +116,6 @@ class MerchantServiceImplTest {
         var expectedMerchant = MerchantEntity.builder()
                 .name("bob")
                 .email(EMAIL)
-                .password("word")
                 .build();
 
         var merchantCreation = MerchantCreation.builder()
@@ -165,7 +161,6 @@ class MerchantServiceImplTest {
         var merchant = MerchantEntity.builder()
                 .name("bob")
                 .email(EMAIL)
-                .password("word")
                 .build();
 
         given(merchantRepository.findById(id)).willReturn(Optional.of(merchant));
@@ -191,7 +186,6 @@ class MerchantServiceImplTest {
         var merchant = MerchantEntity.builder()
                 .name("greg")
                 .email("greg@gmail.com")
-                .password("pass")
                 .build();
 
         var updatedUser = UserCredentialsModification.builder()
@@ -202,7 +196,6 @@ class MerchantServiceImplTest {
         var expectedMerchant = MerchantEntity.builder()
                 .name("bob")
                 .email(EMAIL)
-                .password("word")
                 .build();
 
         given(merchantRepository.findById(1L)).willReturn(Optional.of(merchant));

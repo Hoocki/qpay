@@ -26,7 +26,6 @@ class CustomerMapperTest {
         var expectedCustomerEntity = CustomerEntity.builder()
                 .name("Roman")
                 .email("admin@gmail.com")
-                .password("password")
                 .build();
 
         assertThat(result).isEqualTo(expectedCustomerEntity);

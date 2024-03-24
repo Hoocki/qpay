@@ -30,8 +30,6 @@ public class CustomerEntity {
 
     private String email;
 
-    private String password;
-
     @CreationTimestamp
     private LocalDateTime createdAt;
 

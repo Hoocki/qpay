@@ -71,7 +71,6 @@ public class MerchantServiceImpl implements MerchantService {
         final var previousEmail = merchantEntity.getEmail();
         merchantEntity.setName(merchantModification.name());
         merchantEntity.setEmail(merchantModification.email());
-        merchantEntity.setPassword(merchantModification.password());
         merchantRepository.save(merchantEntity);
         final var userCredentialsModification = userCredentialsMapper.mapMerchantModification(merchantModification);
         authenticationClient.updateUserCredentials(previousEmail, userCredentialsModification);

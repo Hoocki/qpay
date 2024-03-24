@@ -31,7 +31,6 @@ class CustomerControllerTest {
                 .id(id)
                 .name("Roman")
                 .email("admin@gmail.com")
-                .password("password")
                 .build();
 
         given(customerService.getCustomerById(id)).willReturn(customer1);
@@ -55,7 +54,6 @@ class CustomerControllerTest {
         var expectedCustomer = CustomerEntity.builder()
                 .name("Roman")
                 .email("admin@gmail.com")
-                .password("password")
                 .build();
 
         given(customerService.addCustomer(customerCreation)).willReturn(expectedCustomer);
@@ -80,7 +78,6 @@ class CustomerControllerTest {
         var expectedCustomer = CustomerEntity.builder()
                 .name("Andrey")
                 .email("qwerty@gmail.com")
-                .password("password1234")
                 .build();
 
         given(customerService.updateCustomer(customerModification, id)).willReturn(expectedCustomer);

@@ -29,7 +29,6 @@ class CustomerRepositoryIntegrationTest {
                 CustomerEntity.builder()
                         .name("Roman")
                         .email("admin@gmail.com")
-                        .password("password")
                         .build()
         );
 

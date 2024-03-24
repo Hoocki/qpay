@@ -55,7 +55,6 @@ class CustomerServiceImplTest {
                 .id(id)
                 .name("Roman")
                 .email("admin@gmail.com")
-                .password("password")
                 .build();
 
         given(customerRepository.findById(id)).willReturn(Optional.of(customer1));
@@ -93,7 +92,6 @@ class CustomerServiceImplTest {
         var expectedCustomer = CustomerEntity.builder()
                 .name("Roman")
                 .email("admin@gmail.com")
-                .password("password")
                 .build();
 
         var createdUser = UserCredentialsCreation.builder()
@@ -146,7 +144,6 @@ class CustomerServiceImplTest {
         var customer = CustomerEntity.builder()
                 .name("Roman")
                 .email("admin@gmail.com")
-                .password("password")
                 .build();
 
         var updatedUser = UserCredentialsModification.builder()
@@ -157,7 +154,6 @@ class CustomerServiceImplTest {
         var expectedCustomer = CustomerEntity.builder()
                 .name("Andrey")
                 .email("newAdmin@gmail.com")
-                .password("qwerty")
                 .build();
 
         given(customerRepository.findById(id)).willReturn(Optional.of(customer));
@@ -219,7 +215,6 @@ class CustomerServiceImplTest {
         var customer = CustomerEntity.builder()
                 .name("Roman")
                 .email("admin@gmail.com")
-                .password("password")
                 .build();
 
         given(customerRepository.findById(id)).willReturn(Optional.of(customer));

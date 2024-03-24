@@ -37,7 +37,6 @@ class CustomerControllerIntegrationTest {
             .builder()
             .name("Roman")
             .email("admin@gmail.com")
-            .password("password")
             .build();
 
     private final CustomerCreation CUSTOMER_CREATION = CustomerCreation
@@ -164,7 +163,6 @@ class CustomerControllerIntegrationTest {
         var expectedCustomer = CustomerEntity.builder()
                 .name("Anatoly")
                 .email("anatoly@gmail.com")
-                .password("password1234")
                 .build();
 
         given(customerService.updateCustomer(customerModificationAnother, id)).willReturn(expectedCustomer);

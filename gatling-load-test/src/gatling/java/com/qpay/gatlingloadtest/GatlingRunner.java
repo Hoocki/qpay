@@ -10,7 +10,7 @@ public class GatlingRunner {
                 .resourcesDirectory("src/gatling/resources")
                 .resultsDirectory("build/reports/gatling")
                 .binariesDirectory("build/classes/java/gatling")
-                .simulationClass("com.qpay.gatlingloadtest.simulation.UserSimulation");
+                .simulationClass("com.qpay.gatlingloadtest.test.simulation.UserManager");
         Gatling.fromMap(props.build());
     }
 

@@ -15,4 +15,6 @@ object Versions {
     const val OPENFEIGN = "4.1.0"
     const val CIRCUIT_BREAKER = "3.0.4"
     const val ACTUATOR = "3.2.3"
+    const val GATLING_APP = "3.9.0"
+    const val GATLING_CHARTS = "3.10.5"
 }

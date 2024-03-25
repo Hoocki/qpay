@@ -5,13 +5,6 @@ spring:
     password: password
   jpa:
     show-sql: true
-  cloud:
-    openfeign:
-      client:
-        config:
-          auth:
-            url: http://localhost:8086
-            logger-level: basic
 
 logging:
   level:
@@ -21,3 +14,8 @@ server:
   port: 8081
   error:
     include-message: always
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka

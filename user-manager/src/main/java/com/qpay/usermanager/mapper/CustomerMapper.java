@@ -11,7 +11,6 @@ public class CustomerMapper {
         return CustomerEntity.builder()
                 .name(customerCreation.name())
                 .email(customerCreation.email())
-                .password(customerCreation.password())
                 .build();
     }
 }

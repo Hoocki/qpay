@@ -17,7 +17,6 @@ class MerchantMapperTest {
         var expectedMerchantEntity = MerchantEntity.builder()
                 .name("bob")
                 .email("bob@gmail.com")
-                .password("word")
                 .build();
 
         //when

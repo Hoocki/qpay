@@ -23,5 +23,6 @@ include(
         "transaction-history-manager",
         ":libs",
         "auth-manager",
-        "cloud:api-gateway"
+        "cloud:api-gateway",
+        "cloud:service-discovery"
 )

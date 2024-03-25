@@ -36,7 +36,6 @@ class MerchantControllerIntegrationTest {
     private static final MerchantEntity MERCHANT_ENTITY = MerchantEntity.builder()
             .name("bob")
             .email("bob@gmail.com")
-            .password("1234")
             .build();
 
     private static final MerchantCreation MERCHANT_CREATION = MerchantCreation.builder()

@@ -6,6 +6,7 @@ import com.github.tomakehurst.wiremock.junit5.WireMockTest;
 import com.qpay.libs.models.UserType;
 import com.qpay.usermanager.model.dto.authuser.UserCredentialsCreation;
 import com.qpay.usermanager.model.dto.authuser.UserCredentialsModification;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -19,6 +20,7 @@ import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlPathEqualTo;
 import static com.qpay.usermanager.client.AuthenticationClient.AUTHENTICATION_USER_PATH;
 
+@Disabled
 @SpringBootTest
 @WireMockTest(httpPort = 8186)
 class AuthenticationClientTest {

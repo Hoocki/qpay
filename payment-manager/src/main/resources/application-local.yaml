@@ -5,16 +5,7 @@ spring:
     password: password
   jpa:
     show-sql: true
-  cloud:
-    openfeign:
-      client:
-        config:
-          notification:
-            url: http://localhost:8083
-            logger-level: basic
-          transactionHistory:
-            url: http://localhost:8084
-            logger-level: basic
+
   kafka:
     bootstrap-servers: localhost:9092
 
@@ -26,6 +17,11 @@ server:
   port: 8082
   error:
     include-message: always
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
 
 broker:
   topics:

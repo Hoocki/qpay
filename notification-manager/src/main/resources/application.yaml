@@ -1,6 +1,6 @@
 spring:
   application:
-    name: notification-manager
+    name: notification
   mail:
     host: smtp.gmail.com
     port: 587
@@ -28,6 +28,9 @@ email-template:
   payment:
     subject: "Payment Notification"
     text: "You received a payment of %s. Thank you for using our service."
+
+email:
+  enabled: true
 
 broker:
   groups:

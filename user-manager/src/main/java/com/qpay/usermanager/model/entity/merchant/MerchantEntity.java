@@ -30,8 +30,6 @@ public class MerchantEntity {
 
     private String email;
 
-    private String password;
-
     @CreationTimestamp
     private LocalDateTime createdAt;
 

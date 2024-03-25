@@ -58,7 +58,6 @@ public class CustomerServiceImpl implements CustomerService {
         final var previousEmail = customerEntity.getEmail();
         customerEntity.setEmail(customerModification.email());
         customerEntity.setName(customerModification.name());
-        customerEntity.setPassword(customerModification.password());
         final var savedCustomerEntity = customerRepository.save(customerEntity);
         final var userCredentialsModification = userCredentialsMapper.mapCustomerModification(customerModification);
         authenticationClient.updateUserCredentials(previousEmail, userCredentialsModification);

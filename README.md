@@ -43,3 +43,36 @@ Architecture: https://drive.google.com/file/d/1Jn5VrUUoQQtLY0N9Jk_7VIYwRXwG2yOq/
 - [Databases] Postgres, MongoDB
 
 - [Tools] Docker, Kafka, API-Gateway, Circuit-breaker, Service Discovery
+
+## Load Test
+
+### Scenario
+
+Send several payments in one time from customers to one merchant
+
+### Server Configuration
+
+OS: Windows 10
+
+RAM: 16 GB
+
+CPU: i5-8400
+
+GPU: RTX-3060 12 GB
+
+### Load test results
+Time: 60 sec
+
+RPS (mean): 72
+
+RPS (max): 212
+
+Total requests: 600
+
+Response time (99th percentile): 171 ms
+
+Response time (mean): 80 ms
+
+### Conclusion
+During the test with 10 or more requests per merchant, there was a problem with the transaction interrupting requests so as not to violate data integrity.
+

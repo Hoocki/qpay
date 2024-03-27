@@ -75,7 +75,7 @@ public class PaymentManager extends Simulation {
     {
         setUp(
                 scn.injectOpen(
-                        constantUsersPerSec(1).during(Duration.of(30, SECONDS))
+                        constantUsersPerSec(1).during(Duration.of(60, SECONDS))
 
                 )
         ).protocols(httpProtocol)

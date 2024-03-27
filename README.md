@@ -48,7 +48,7 @@ Architecture: https://drive.google.com/file/d/1Jn5VrUUoQQtLY0N9Jk_7VIYwRXwG2yOq/
 
 ### Scenario
 
-Send several payments in one time from customers to one merchant
+Make payments from customers to merchants
 
 ### Server Configuration
 
@@ -60,19 +60,20 @@ CPU: i5-8400
 
 GPU: RTX-3060 12 GB
 
-### Load test results
+### Results
 Time: 60 sec
 
-RPS (mean): 72
+RPS (mean): 10
 
-RPS (max): 212
+RPS (max): 13
 
 Total requests: 600
 
-Response time (99th percentile): 171 ms
-
 Response time (mean): 80 ms
 
-### Conclusion
-During the test with 10 or more requests per merchant, there was a problem with the transaction interrupting requests so as not to violate data integrity.
+Response time (99th percentile): 171 ms
 
+### Conclusion
+When we run 10 or more payment RPS per merchant, 
+we face issue of concurrent locks during transaction since we are using Repeatable Read isolation level to achieve ACID. 
+To resolve problem, DB throws error and user has to make a payment again.

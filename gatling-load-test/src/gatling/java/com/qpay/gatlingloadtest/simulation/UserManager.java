@@ -34,6 +34,7 @@ public class UserManager extends Simulation {
                 )
         ).protocols(httpProtocol)
                 .assertions(
+                        global().responseTime().max().lte(1000),
                         global().successfulRequests().percent().gte(99.999)
                 );
     }

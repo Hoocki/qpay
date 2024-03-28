@@ -1,8 +1,10 @@
 package com.qpay.usermanager.service.impl;
 
 import com.qpay.usermanager.client.AuthenticationClient;
+import com.qpay.usermanager.client.WalletClient;
 import com.qpay.usermanager.mapper.CustomerMapper;
 import com.qpay.usermanager.mapper.UserCredentialsMapper;
+import com.qpay.usermanager.mapper.WalletMapper;
 import com.qpay.usermanager.model.dto.customer.CustomerCreation;
 import com.qpay.usermanager.model.dto.customer.CustomerModification;
 import com.qpay.usermanager.model.entity.customer.CustomerEntity;
@@ -28,11 +30,15 @@ public class CustomerServiceImpl implements CustomerService {
 
     private final CustomerMapper customerMapper;
 
+    private final WalletMapper walletMapper;
+
     private final UserCredentialsMapper userCredentialsMapper;
 
     private final MerchantRepository merchantRepository;
 
     private final AuthenticationClient authenticationClient;
+
+    private final WalletClient walletClient;
 
     public CustomerEntity getCustomerById(final long id) {
         return customerRepository.findById(id).orElseThrow(CustomerNotFoundException::new);
@@ -49,6 +55,8 @@ public class CustomerServiceImpl implements CustomerService {
         }
         final var createUserCredentials  = userCredentialsMapper.mapCustomerCreation(customerCreation);
         authenticationClient.createUserCredentials(createUserCredentials);
+        final var walletCreation = walletMapper.map(customerEntity);
+        walletClient.createWallet(walletCreation);
         return customerEntity;
     }
 

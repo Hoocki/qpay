@@ -1,5 +1,6 @@
 package com.qpay.transactionhistorymanager.model.dto;
 
+import com.qpay.transactionhistorymanager.model.TransactionType;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
@@ -20,6 +21,9 @@ public record TransactionModification(
         long idTo,
 
         @NotNull(message = "amount is required")
-        BigDecimal amount
+        BigDecimal amount,
+
+        @NotNull(message = "transactionType is required")
+        TransactionType transactionType
 ) {
 }

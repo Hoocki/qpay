@@ -1,5 +1,6 @@
 package com.qpay.transactionhistorymanager.mapper;
 
+import com.qpay.transactionhistorymanager.model.TransactionType;
 import com.qpay.transactionhistorymanager.model.dto.TransactionModification;
 import com.qpay.transactionhistorymanager.model.entity.TransactionEntity;
 import org.junit.jupiter.api.Test;
@@ -21,6 +22,7 @@ class TransactionMapperTest {
                 .nameTo("b")
                 .idTo(2)
                 .amount(new BigDecimal(1))
+                .transactionType(TransactionType.TRANSFER)
                 .build();
 
         //when
@@ -33,6 +35,7 @@ class TransactionMapperTest {
                 .nameTo("b")
                 .idTo(2)
                 .amount(new BigDecimal(1))
+                .transactionType(TransactionType.TRANSFER)
                 .build();
         assertThat(result).isEqualTo(expectedTransactionEntity);
     }

@@ -24,5 +24,6 @@ include(
         ":libs",
         "auth-manager",
         "cloud:api-gateway",
-        "cloud:service-discovery"
+        "cloud:service-discovery",
+        "gatling-load-test"
 )

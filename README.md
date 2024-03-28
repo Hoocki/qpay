@@ -43,3 +43,37 @@ Architecture: https://drive.google.com/file/d/1Jn5VrUUoQQtLY0N9Jk_7VIYwRXwG2yOq/
 - [Databases] Postgres, MongoDB
 
 - [Tools] Docker, Kafka, API-Gateway, Circuit-breaker, Service Discovery
+
+## Load Test
+
+### Scenario
+
+Make payments from customers to merchants
+
+### Server Configuration
+
+OS: Windows 10
+
+RAM: 16 GB
+
+CPU: i5-8400
+
+GPU: RTX-3060 12 GB
+
+### Results
+Time: 60 sec
+
+RPS (mean): 10
+
+RPS (max): 13
+
+Total requests: 600
+
+Response time (mean): 80 ms
+
+Response time (99th percentile): 171 ms
+
+### Conclusion
+When we run 10 or more payment RPS per merchant, 
+we face issue of concurrent locks during transaction since we are using Repeatable Read isolation level to achieve ACID. 
+To resolve problem, DB throws error and user has to make a payment again.

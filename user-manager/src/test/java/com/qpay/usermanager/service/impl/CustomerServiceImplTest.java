@@ -2,12 +2,15 @@ package com.qpay.usermanager.service.impl;
 
 import com.qpay.libs.models.UserType;
 import com.qpay.usermanager.client.AuthenticationClient;
+import com.qpay.usermanager.client.WalletClient;
 import com.qpay.usermanager.mapper.UserCredentialsMapper;
 import com.qpay.usermanager.mapper.CustomerMapper;
+import com.qpay.usermanager.mapper.WalletMapper;
 import com.qpay.usermanager.model.dto.authuser.UserCredentialsCreation;
 import com.qpay.usermanager.model.dto.authuser.UserCredentialsModification;
 import com.qpay.usermanager.model.dto.customer.CustomerCreation;
 import com.qpay.usermanager.model.dto.customer.CustomerModification;
+import com.qpay.usermanager.model.dto.wallet.WalletCreation;
 import com.qpay.usermanager.model.entity.customer.CustomerEntity;
 import com.qpay.usermanager.repository.CustomerRepository;
 import com.qpay.usermanager.repository.MerchantRepository;
@@ -42,10 +45,16 @@ class CustomerServiceImplTest {
     private CustomerMapper customerMapper;
 
     @Mock
+    private WalletMapper walletMapper;
+
+    @Mock
     private UserCredentialsMapper userCredentialsMapper;
 
     @Mock
     private AuthenticationClient authenticationClient;
+
+    @Mock
+    private WalletClient walletClient;
 
     @Test
     void should_returnCustomer_when_idMatched() {
@@ -90,6 +99,7 @@ class CustomerServiceImplTest {
                 .build();
 
         var expectedCustomer = CustomerEntity.builder()
+                .id(1L)
                 .name("Roman")
                 .email("admin@gmail.com")
                 .build();
@@ -100,9 +110,16 @@ class CustomerServiceImplTest {
                 .userType(UserType.CUSTOMER)
                 .build();
 
+        var walletCreation = WalletCreation.builder()
+                .name("wallet")
+                .userId(1L)
+                .userType(UserType.CUSTOMER)
+                .build();
+
         given(customerMapper.map(customerCreation)).willReturn(expectedCustomer);
         given(customerRepository.save(expectedCustomer)).willReturn(expectedCustomer);
         given(userCredentialsMapper.mapCustomerCreation(customerCreation)).willReturn(createdUser);
+        given(walletMapper.map(expectedCustomer)).willReturn(walletCreation);
 
         // when
         var result = customerService.addCustomer(customerCreation);
@@ -110,6 +127,7 @@ class CustomerServiceImplTest {
         // then
         assertThat(result).isEqualTo(expectedCustomer);
         then(authenticationClient).should().createUserCredentials(createdUser);
+        then(walletClient).should().createWallet(walletCreation);
     }
 
     @Test

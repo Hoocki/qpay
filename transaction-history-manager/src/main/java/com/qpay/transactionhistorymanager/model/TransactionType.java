@@ -1,6 +1,6 @@
 package com.qpay.transactionhistorymanager.model;
 
 public enum TransactionType {
-    TRANSFER,
+    PAYMENT,
     TOP_UP
 }

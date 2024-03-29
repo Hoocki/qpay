@@ -22,7 +22,7 @@ class TransactionMapperTest {
                 .nameTo("b")
                 .idTo(2)
                 .amount(new BigDecimal(1))
-                .transactionType(TransactionType.TRANSFER)
+                .transactionType(TransactionType.PAYMENT)
                 .build();
 
         //when
@@ -35,7 +35,7 @@ class TransactionMapperTest {
                 .nameTo("b")
                 .idTo(2)
                 .amount(new BigDecimal(1))
-                .transactionType(TransactionType.TRANSFER)
+                .transactionType(TransactionType.PAYMENT)
                 .build();
         assertThat(result).isEqualTo(expectedTransactionEntity);
     }

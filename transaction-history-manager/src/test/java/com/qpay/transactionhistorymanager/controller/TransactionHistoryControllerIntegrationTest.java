@@ -43,7 +43,7 @@ class TransactionHistoryControllerIntegrationTest {
                 .nameTo("b")
                 .idTo(2)
                 .amount(new BigDecimal(1))
-                .transactionType(TransactionType.TRANSFER)
+                .transactionType(TransactionType.PAYMENT)
                 .build();
 
         var transaction2 = TransactionEntity.builder()
@@ -52,7 +52,7 @@ class TransactionHistoryControllerIntegrationTest {
                 .nameTo("a")
                 .idTo(1)
                 .amount(new BigDecimal(2))
-                .transactionType(TransactionType.TRANSFER)
+                .transactionType(TransactionType.PAYMENT)
                 .build();
 
         var list = List.of(transaction1, transaction2);
@@ -84,7 +84,7 @@ class TransactionHistoryControllerIntegrationTest {
                 .nameTo("b")
                 .idTo(2)
                 .amount(new BigDecimal(1))
-                .transactionType(TransactionType.TRANSFER)
+                .transactionType(TransactionType.PAYMENT)
                 .build();
 
         var transaction2 = TransactionEntity.builder()
@@ -93,7 +93,7 @@ class TransactionHistoryControllerIntegrationTest {
                 .nameTo("a")
                 .idTo(1)
                 .amount(new BigDecimal(2))
-                .transactionType(TransactionType.TRANSFER)
+                .transactionType(TransactionType.PAYMENT)
                 .build();
 
         var list = List.of(transaction1, transaction2);

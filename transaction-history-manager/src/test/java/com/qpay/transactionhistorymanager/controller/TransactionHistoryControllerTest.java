@@ -1,5 +1,6 @@
 package com.qpay.transactionhistorymanager.controller;
 
+import com.qpay.transactionhistorymanager.model.TransactionType;
 import com.qpay.transactionhistorymanager.model.dto.TransactionModification;
 import com.qpay.transactionhistorymanager.model.entity.TransactionEntity;
 import com.qpay.transactionhistorymanager.service.TransactionHistoryService;
@@ -34,6 +35,7 @@ class TransactionHistoryControllerTest {
                 .nameTo("b")
                 .idTo(2)
                 .amount(new BigDecimal(1))
+                .transactionType(TransactionType.PAYMENT)
                 .build();
 
         var transaction2 = TransactionEntity.builder()
@@ -42,6 +44,7 @@ class TransactionHistoryControllerTest {
                 .nameTo("a")
                 .idTo(1)
                 .amount(new BigDecimal(2))
+                .transactionType(TransactionType.PAYMENT)
                 .build();
 
         var list = List.of(transaction1, transaction2);
@@ -64,6 +67,7 @@ class TransactionHistoryControllerTest {
                 .nameTo("b")
                 .idTo(2)
                 .amount(new BigDecimal(1))
+                .transactionType(TransactionType.PAYMENT)
                 .build();
 
         var transactionEntity = TransactionEntity.builder()
@@ -72,6 +76,7 @@ class TransactionHistoryControllerTest {
                 .nameTo("a")
                 .idTo(1)
                 .amount(new BigDecimal(2))
+                .transactionType(TransactionType.PAYMENT)
                 .build();
 
         given(transactionHistoryService.saveTransaction(transactionModification)).willReturn(transactionEntity);

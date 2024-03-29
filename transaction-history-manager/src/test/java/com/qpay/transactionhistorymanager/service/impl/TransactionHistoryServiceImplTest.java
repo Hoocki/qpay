@@ -1,6 +1,7 @@
 package com.qpay.transactionhistorymanager.service.impl;
 
 import com.qpay.transactionhistorymanager.mapper.TransactionMapper;
+import com.qpay.transactionhistorymanager.model.TransactionType;
 import com.qpay.transactionhistorymanager.model.dto.TransactionModification;
 import com.qpay.transactionhistorymanager.model.entity.TransactionEntity;
 import com.qpay.transactionhistorymanager.repository.TransactionRepository;
@@ -39,6 +40,7 @@ class TransactionHistoryServiceImplTest {
                 .nameTo("b")
                 .idTo(2)
                 .amount(new BigDecimal(1))
+                .transactionType(TransactionType.PAYMENT)
                 .build();
 
         var transaction2 = TransactionEntity.builder()
@@ -47,6 +49,7 @@ class TransactionHistoryServiceImplTest {
                 .nameTo("a")
                 .idTo(1)
                 .amount(new BigDecimal(2))
+                .transactionType(TransactionType.PAYMENT)
                 .build();
         var list = List.of(transaction1, transaction2);
         var pageable = PageRequest.of(0, 2);
@@ -69,6 +72,7 @@ class TransactionHistoryServiceImplTest {
                 .nameTo("b")
                 .idTo(2)
                 .amount(new BigDecimal(1))
+                .transactionType(TransactionType.PAYMENT)
                 .build();
 
         var transactionEntity = TransactionEntity.builder()
@@ -77,6 +81,7 @@ class TransactionHistoryServiceImplTest {
                 .nameTo("a")
                 .idTo(1)
                 .amount(new BigDecimal(2))
+                .transactionType(TransactionType.PAYMENT)
                 .build();
 
         given(transactionMapper.map(transactionModification)).willReturn(transactionEntity);

@@ -1,6 +1,7 @@
 package com.qpay.transactionhistorymanager.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.qpay.transactionhistorymanager.model.TransactionType;
 import com.qpay.transactionhistorymanager.model.entity.TransactionEntity;
 import com.qpay.transactionhistorymanager.service.impl.TransactionHistoryServiceImpl;
 import com.qpay.transactionhistorymanager.utility.PathUtils;
@@ -42,6 +43,7 @@ class TransactionHistoryControllerIntegrationTest {
                 .nameTo("b")
                 .idTo(2)
                 .amount(new BigDecimal(1))
+                .transactionType(TransactionType.PAYMENT)
                 .build();
 
         var transaction2 = TransactionEntity.builder()
@@ -50,6 +52,7 @@ class TransactionHistoryControllerIntegrationTest {
                 .nameTo("a")
                 .idTo(1)
                 .amount(new BigDecimal(2))
+                .transactionType(TransactionType.PAYMENT)
                 .build();
 
         var list = List.of(transaction1, transaction2);
@@ -81,6 +84,7 @@ class TransactionHistoryControllerIntegrationTest {
                 .nameTo("b")
                 .idTo(2)
                 .amount(new BigDecimal(1))
+                .transactionType(TransactionType.PAYMENT)
                 .build();
 
         var transaction2 = TransactionEntity.builder()
@@ -89,6 +93,7 @@ class TransactionHistoryControllerIntegrationTest {
                 .nameTo("a")
                 .idTo(1)
                 .amount(new BigDecimal(2))
+                .transactionType(TransactionType.PAYMENT)
                 .build();
 
         var list = List.of(transaction1, transaction2);

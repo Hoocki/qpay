@@ -1,5 +1,6 @@
 package com.qpay.transactionhistorymanager.model.entity;
 
+import com.qpay.transactionhistorymanager.model.TransactionType;
 import lombok.Builder;
 import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
@@ -26,6 +27,8 @@ public class TransactionEntity {
     private long idTo;
 
     private BigDecimal amount;
+
+    private TransactionType transactionType;
 
     @CreatedDate
     private LocalDateTime createdAt;

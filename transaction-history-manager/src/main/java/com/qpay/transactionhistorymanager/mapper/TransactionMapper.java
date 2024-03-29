@@ -14,6 +14,7 @@ public class TransactionMapper {
                 .idTo(transactionModification.idTo())
                 .nameTo(transactionModification.nameTo())
                 .amount(transactionModification.amount())
+                .transactionType(transactionModification.transactionType())
                 .build();
     }
 }

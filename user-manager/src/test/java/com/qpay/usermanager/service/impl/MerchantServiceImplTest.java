@@ -2,12 +2,15 @@ package com.qpay.usermanager.service.impl;
 
 import com.qpay.libs.models.UserType;
 import com.qpay.usermanager.client.AuthenticationClient;
+import com.qpay.usermanager.client.WalletClient;
 import com.qpay.usermanager.mapper.UserCredentialsMapper;
 import com.qpay.usermanager.mapper.MerchantMapper;
+import com.qpay.usermanager.mapper.WalletMapper;
 import com.qpay.usermanager.model.dto.authuser.UserCredentialsCreation;
 import com.qpay.usermanager.model.dto.authuser.UserCredentialsModification;
 import com.qpay.usermanager.model.dto.merchant.MerchantCreation;
 import com.qpay.usermanager.model.dto.merchant.MerchantModification;
+import com.qpay.usermanager.model.dto.wallet.WalletCreation;
 import com.qpay.usermanager.model.entity.merchant.MerchantEntity;
 import com.qpay.usermanager.repository.CustomerRepository;
 import com.qpay.usermanager.repository.MerchantRepository;
@@ -42,10 +45,16 @@ class MerchantServiceImplTest {
     private MerchantMapper merchantMapper;
 
     @Mock
+    private WalletMapper walletMapper;
+
+    @Mock
     private UserCredentialsMapper userCredentialsMapper;
 
     @Mock
     private AuthenticationClient authenticationClient;
+
+    @Mock
+    private WalletClient walletClient;
 
     private static final String EMAIL = "bob@gmail.com";
 
@@ -114,14 +123,9 @@ class MerchantServiceImplTest {
     void should_addMerchant() {
         //given
         var expectedMerchant = MerchantEntity.builder()
+                .id(1L)
                 .name("bob")
                 .email(EMAIL)
-                .build();
-
-        var merchantCreation = MerchantCreation.builder()
-                .name("bob")
-                .email(EMAIL)
-                .password("word")
                 .build();
 
         var createdUser = UserCredentialsCreation.builder()
@@ -130,9 +134,15 @@ class MerchantServiceImplTest {
                 .userType(UserType.MERCHANT)
                 .build();
 
+        var walletCreation = WalletCreation.builder()
+                .name("wallet")
+                .userId(1L)
+                .userType(UserType.MERCHANT)
+                .build();
+
         given(merchantMapper.map(MERCHANT_CREATION)).willReturn(expectedMerchant);
         given(userCredentialsMapper.mapMerchantCreation(MERCHANT_CREATION)).willReturn(createdUser);
-        given(userCredentialsMapper.mapMerchantCreation(merchantCreation)).willReturn(createdUser);
+        given(walletMapper.map(expectedMerchant)).willReturn(walletCreation);
 
         //when
         var result = merchantService.addMerchant(MERCHANT_CREATION);
@@ -140,6 +150,7 @@ class MerchantServiceImplTest {
         //then
         assertThat(result).isEqualTo(expectedMerchant);
         then(authenticationClient).should().createUserCredentials(createdUser);
+        then(walletClient).should().createWallet(walletCreation);
     }
 
     @Test

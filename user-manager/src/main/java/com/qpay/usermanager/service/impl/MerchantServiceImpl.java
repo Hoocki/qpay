@@ -1,8 +1,10 @@
 package com.qpay.usermanager.service.impl;
 
 import com.qpay.usermanager.client.AuthenticationClient;
+import com.qpay.usermanager.client.WalletClient;
 import com.qpay.usermanager.mapper.MerchantMapper;
 import com.qpay.usermanager.mapper.UserCredentialsMapper;
+import com.qpay.usermanager.mapper.WalletMapper;
 import com.qpay.usermanager.model.dto.merchant.MerchantCreation;
 import com.qpay.usermanager.model.dto.merchant.MerchantModification;
 import com.qpay.usermanager.model.entity.merchant.MerchantEntity;
@@ -33,9 +35,13 @@ public class MerchantServiceImpl implements MerchantService {
 
     private final UserCredentialsMapper userCredentialsMapper;
 
+    private final WalletMapper walletMapper;
+
     private final CustomerRepository customerRepository;
 
     private final AuthenticationClient authenticationClient;
+
+    private final WalletClient walletClient;
 
     @Override
     public List<MerchantEntity> getMerchants() {
@@ -54,6 +60,8 @@ public class MerchantServiceImpl implements MerchantService {
         merchantRepository.save(merchantEntity);
         final var newUserCredentials  = userCredentialsMapper.mapMerchantCreation(merchantCreation);
         authenticationClient.createUserCredentials(newUserCredentials );
+        final var walletCreation = walletMapper.map(merchantEntity);
+        walletClient.createWallet(walletCreation);
         return merchantEntity;
     }
 

@@ -17,4 +17,5 @@ object Versions {
     const val ACTUATOR = "3.2.3"
     const val GATLING_APP = "3.9.0"
     const val GATLING_CHARTS = "3.10.5"
+    const val I_TEXT_PDF = "8.0.3"
 }

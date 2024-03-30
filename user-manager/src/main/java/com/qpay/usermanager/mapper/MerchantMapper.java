@@ -1,5 +1,6 @@
 package com.qpay.usermanager.mapper;
 
+import com.qpay.libs.models.MerchantReportInfo;
 import com.qpay.usermanager.model.dto.merchant.MerchantCreation;
 import com.qpay.usermanager.model.entity.merchant.MerchantEntity;
 import org.springframework.stereotype.Component;
@@ -11,6 +12,13 @@ public class MerchantMapper {
                 .builder()
                 .name(merchantCreation.name())
                 .email(merchantCreation.email())
+                .build();
+    }
+
+    public MerchantReportInfo map(final MerchantEntity merchant) {
+        return MerchantReportInfo.builder()
+                .email(merchant.getEmail())
+                .name(merchant.getName())
                 .build();
     }
 }

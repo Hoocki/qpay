@@ -39,6 +39,14 @@ spring:
               - name: CircuitBreaker
                 args:
                   name: GatewayCircuitBreaker
+          - id: transaction-history-manager
+            uri: lb://transaction-history
+            predicates:
+              - Path=/api/v1/transactions/**
+            filters:
+              - name: CircuitBreaker
+                args:
+                  name: GatewayCircuitBreaker
 
 resilience4j:
   circuitbreaker:

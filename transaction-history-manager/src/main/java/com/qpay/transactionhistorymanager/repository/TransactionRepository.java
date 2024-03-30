@@ -5,10 +5,18 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
 public interface TransactionRepository extends MongoRepository<TransactionEntity, String> {
 
-    List<TransactionEntity> findAllByIdFromOrIdToOrderByCreatedAt(long idFrom, long idTo, Pageable pageable);
+    List<TransactionEntity> findAllByIdFromOrderByCreatedAt(long idFrom, Pageable pageable);
+
+    List<TransactionEntity> findAllByIdToOrderByCreatedAt(long idTo, Pageable pageable);
+
+    List<TransactionEntity> findAllByIdFromAndCreatedAtBetween(long idFrom, LocalDateTime from, LocalDateTime to);
+
+    List<TransactionEntity> findAllByIdToAndCreatedAtBetween(long idTo, LocalDateTime from, LocalDateTime to);
 }

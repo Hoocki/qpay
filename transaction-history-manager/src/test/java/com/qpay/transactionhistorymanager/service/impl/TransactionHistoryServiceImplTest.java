@@ -1,5 +1,6 @@
 package com.qpay.transactionhistorymanager.service.impl;
 
+import com.qpay.libs.models.UserType;
 import com.qpay.transactionhistorymanager.mapper.TransactionMapper;
 import com.qpay.transactionhistorymanager.model.TransactionType;
 import com.qpay.transactionhistorymanager.model.dto.TransactionModification;
@@ -11,7 +12,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -44,20 +44,20 @@ class TransactionHistoryServiceImplTest {
                 .build();
 
         var transaction2 = TransactionEntity.builder()
-                .nameFrom("c")
-                .idFrom(3)
-                .nameTo("a")
-                .idTo(1)
+                .nameFrom("a")
+                .idFrom(1)
+                .nameTo("c")
+                .idTo(3)
                 .amount(new BigDecimal(2))
                 .transactionType(TransactionType.PAYMENT)
                 .build();
         var list = List.of(transaction1, transaction2);
         var pageable = PageRequest.of(0, 2);
-        given(transactionRepository.findAllByIdFromOrIdToOrderByCreatedAt(1, 1, pageable))
+        given(transactionRepository.findAllByIdFromOrderByCreatedAt(1, pageable))
                 .willReturn(list);
 
         //when
-        var result = transactionHistoryService.getPageOfTransactionsByUserId(1, pageable);
+        var result = transactionHistoryService.getPageOfTransactionsByUserId(1, pageable, UserType.CUSTOMER);
 
         //then
         assertThat(result).isEqualTo(list);

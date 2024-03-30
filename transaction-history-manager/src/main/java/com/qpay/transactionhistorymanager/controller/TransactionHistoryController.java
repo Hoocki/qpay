@@ -1,5 +1,6 @@
 package com.qpay.transactionhistorymanager.controller;
 
+import com.qpay.libs.models.UserType;
 import com.qpay.transactionhistorymanager.model.dto.TransactionModification;
 import com.qpay.transactionhistorymanager.model.entity.TransactionEntity;
 import com.qpay.transactionhistorymanager.service.TransactionHistoryService;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -30,9 +32,11 @@ public class TransactionHistoryController {
             @PathVariable
             final long userId,
             @SortDefault(sort = "createdAt", direction = Sort.Direction.DESC)
-            final Pageable pageable
+            final Pageable pageable,
+            @RequestParam
+            final UserType userType
     ) {
-        return transactionHistoryService.getPageOfTransactionsByUserId(userId, pageable);
+        return transactionHistoryService.getPageOfTransactionsByUserId(userId, pageable, userType);
     }
 
     @PostMapping

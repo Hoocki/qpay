@@ -1,6 +1,7 @@
 package com.qpay.usermanager.controller;
 
 import com.qpay.usermanager.model.dto.customer.CustomerCreation;
+import com.qpay.libs.models.CustomerReportInfo;
 import com.qpay.usermanager.model.dto.customer.CustomerModification;
 import com.qpay.usermanager.model.entity.customer.CustomerEntity;
 import com.qpay.usermanager.service.CustomerService;
@@ -31,6 +32,11 @@ public class CustomerController {
     @PostMapping(PathsUtils.SIGNUP_PATH)
     public CustomerEntity addCustomer(@Valid @RequestBody final CustomerCreation customerCreation) {
         return customerService.addCustomer(customerCreation);
+    }
+
+    @GetMapping("report/{id}")
+    public CustomerReportInfo getCustomerReportInfo(@PathVariable final long id) {
+        return customerService.getCustomerReportInfo(id);
     }
 
     @PutMapping("{id}")

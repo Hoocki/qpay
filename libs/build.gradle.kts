@@ -14,7 +14,6 @@ configurations {
 }
 
 dependencies {
-
     implementation("jakarta.validation:jakarta.validation-api:${Versions.JAKARTA_VALIDATION}")
-
+    implementation("com.itextpdf:itext7-core:${Versions.I_TEXT_PDF}")
 }

@@ -1,5 +1,6 @@
 package com.qpay.transactionhistorymanager.controller;
 
+import com.qpay.libs.models.UserType;
 import com.qpay.transactionhistorymanager.model.TransactionType;
 import com.qpay.transactionhistorymanager.model.dto.TransactionModification;
 import com.qpay.transactionhistorymanager.model.entity.TransactionEntity;
@@ -39,20 +40,20 @@ class TransactionHistoryControllerTest {
                 .build();
 
         var transaction2 = TransactionEntity.builder()
-                .nameFrom("c")
-                .idFrom(3)
-                .nameTo("a")
-                .idTo(1)
+                .nameFrom("a")
+                .idFrom(1)
+                .nameTo("c")
+                .idTo(3)
                 .amount(new BigDecimal(2))
                 .transactionType(TransactionType.PAYMENT)
                 .build();
 
         var list = List.of(transaction1, transaction2);
         var pageable = PageRequest.of(0, 2);
-        given(transactionHistoryService.getPageOfTransactionsByUserId(1, pageable)).willReturn(list);
+        given(transactionHistoryService.getPageOfTransactionsByUserId(1, pageable, UserType.CUSTOMER)).willReturn(list);
 
         //when
-        var result = transactionHistoryController.getPageOfTransactionsByUserId(1, pageable);
+        var result = transactionHistoryController.getPageOfTransactionsByUserId(1, pageable, UserType.CUSTOMER);
 
         //then
         assertThat(result).isEqualTo(list);

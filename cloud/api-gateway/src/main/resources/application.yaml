@@ -39,7 +39,7 @@ spring:
               - name: CircuitBreaker
                 args:
                   name: GatewayCircuitBreaker
-          - id: transaction-history-manager
+          - id: transaction-history
             uri: lb://transaction-history
             predicates:
               - Path=/api/v1/transactions/**
@@ -47,6 +47,7 @@ spring:
               - name: CircuitBreaker
                 args:
                   name: GatewayCircuitBreaker
+              - Authentication
 
 resilience4j:
   circuitbreaker:

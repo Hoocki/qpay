@@ -29,13 +29,15 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class PdfReportGeneratorOpenPdf implements PdfReportGeneratorService {
+public class PdfReportGeneratorITextPdf implements PdfReportGeneratorService {
 
     private final TransactionRepository transactionRepository;
 
     private final UserClient userClient;
 
     private static final String QPAY_LOGO_IMAGE_PATH = "transaction-history-manager/src/main/resources/image/logo.png";
+
+    private static final String PDF_PATH = "data/reports/";
 
     public void generateCustomerPdfReport(final PdfReportInfo pdfReportInfo) throws IOException {
         final CustomerReportInfo customerReportInfo = userClient.getCustomerReportInfo(pdfReportInfo.userId());
@@ -126,7 +128,7 @@ public class PdfReportGeneratorOpenPdf implements PdfReportGeneratorService {
     private String generatePath(final long userId) {
         final DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd:hh:mm:ss");
         final String currentDateTime = dateFormat.format(new Date());
-        return "data/reports/" + userId + "_" + currentDateTime + ".pdf";
+        return PDF_PATH + userId + "_" + currentDateTime + ".pdf";
     }
 
     private Table createTransactionsTable() {

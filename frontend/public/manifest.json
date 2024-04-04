@@ -1,0 +1,15 @@
+{
+  "short_name": "Qpay",
+  "name": "Payment system with QR code generation",
+  "start_url": ".",
+  "icons": [
+  {
+    "src": "Logo.png",
+    "type": "image/png",
+    "sizes": "512x512"
+  }
+],
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}

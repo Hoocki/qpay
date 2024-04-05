@@ -1,0 +1,15 @@
+.user-menu {
+    flex-grow: 0;
+}
+
+.user-icon-button {
+    align-self: center;
+}
+
+.user-settings-menu {
+    margin-top: 45px;
+}
+
+.typography {
+    text-align: center;
+}

@@ -1,11 +1,11 @@
 import React from 'react';
+import Providers from "./providers/Providers";
 
-function App() {
-  return (
-      <a>
-        Hello world !!!
-      </a>
-  );
+const App: React.FC = () => {
+
+    return (
+        <Providers/>
+    );
 }
 
 export default App;

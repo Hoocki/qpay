@@ -2,15 +2,16 @@ import {Box, Button} from '@mui/material';
 import React from 'react';
 import {DesktopMenuProps} from "./props";
 import './styles.css';
+import {HEADER_MAIN_TABS} from "../../../common/constansts/headers";
 
-const DesktopMenu: React.FC<DesktopMenuProps> = ({pages, handleCloseMenu}: DesktopMenuProps) => {
+const DesktopMenu: React.FC<DesktopMenuProps> = ({handleCloseMenu}: DesktopMenuProps) => {
     return (
         <Box className="desktop-menu">
-            {pages.map((page) => (
+            {HEADER_MAIN_TABS.map((page) => (
                 <Button
                     key={page}
                     onClick={(event) => handleCloseMenu(event)}
-                    className="button"
+                    className="page-button"
                 >
                     {page}
                 </Button>

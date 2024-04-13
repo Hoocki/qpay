@@ -2,21 +2,24 @@ import React, {useEffect, useState} from 'react';
 import {NavigateFunction, useNavigate} from "react-router-dom";
 import {HeaderProps} from "./props";
 import {IRoute, mainRoutes} from "../../routes/routesConfig";
-import {AppBar, Container, StyledEngineProvider, Toolbar} from '@mui/material';
+import {AppBar, Container, Toolbar} from '@mui/material';
 import DesktopLogo from "./desktopLogo/DesktopLogo";
 import MobileMenu from "./mobileMenu/MobileMenu";
 import MobileLogo from "./mobileLogo/MobileLogo";
 import DesktopMenu from "./desktopMenu/DesktopMenu";
 import UserMenu from "./userMenu/UserMenu";
 import './styles.css';
-import {Paths} from "../../constansts/paths";
-import {HEADER_MAIN_TABS, HEADER_SETTINGS_TABS} from "../../constansts/headers";
+import {Paths} from "../../common/constansts/paths";
+import {useAppDispatch} from "../../stores/redux/hooks";
+import {logOut} from "../../stores/redux/loggedUser/loggedUserSlice";
+import {Titles} from "../../common/constansts/titles";
 
 const Header: React.FC<HeaderProps> = ({isLogged}: HeaderProps) => {
 
     const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
     const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
     const navigate = useNavigate();
+    const dispatch = useAppDispatch();
 
     const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorElNav(event.currentTarget);
@@ -28,9 +31,11 @@ const Header: React.FC<HeaderProps> = ({isLogged}: HeaderProps) => {
     const handleCloseMenu = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorElNav(null);
         setAnchorElUser(null);
-        const component = event.currentTarget.textContent ?? '';
-        const route = findRouteByPath(component);
-        if (route) {
+        const pageName = event.currentTarget.textContent ?? '';
+        const route = findRouteByPath(pageName);
+        if (pageName === Titles.LOG_OUT) {
+            dispatch(logOut());
+        } else if (route) {
             navigate(route.path);
         }
     };
@@ -50,23 +55,21 @@ const Header: React.FC<HeaderProps> = ({isLogged}: HeaderProps) => {
     }, [isLogged, navigate]);
 
     return (
-        <StyledEngineProvider injectFirst>
-            <AppBar position="static" className="app-bar">
-                {isLogged && (
-                    <Container maxWidth="xl">
-                        <Toolbar disableGutters>
-                            <DesktopLogo/>
-                            <MobileMenu anchorEl={anchorElNav} handleCloseMenu={handleCloseMenu}
-                                        handleOpenNavMenu={handleOpenNavMenu} pages={HEADER_MAIN_TABS}/>
-                            <MobileLogo/>
-                            <DesktopMenu pages={HEADER_MAIN_TABS} handleCloseMenu={handleCloseMenu}/>
-                            <UserMenu anchorElUser={anchorElUser} handleCloseMenu={handleCloseMenu}
-                                      handleOpenUserMenu={handleOpenUserMenu} settings={HEADER_SETTINGS_TABS}/>
-                        </Toolbar>
-                    </Container>
-                )}
-            </AppBar>
-        </StyledEngineProvider>
+        <AppBar position="static" className="app-bar">
+            {isLogged && (
+                <Container maxWidth="xl">
+                    <Toolbar disableGutters>
+                        <DesktopLogo/>
+                        <MobileMenu anchorEl={anchorElNav} handleCloseMenu={handleCloseMenu}
+                                    handleOpenNavMenu={handleOpenNavMenu}/>
+                        <MobileLogo/>
+                        <DesktopMenu handleCloseMenu={handleCloseMenu}/>
+                        <UserMenu anchorElUser={anchorElUser} handleCloseMenu={handleCloseMenu}
+                                  handleOpenUserMenu={handleOpenUserMenu}/>
+                    </Toolbar>
+                </Container>
+            )}
+        </AppBar>
     );
 }
 

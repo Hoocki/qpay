@@ -3,8 +3,9 @@ import {Box, IconButton, Menu, MenuItem, Typography } from '@mui/material';
 import {MobileMenuProps} from "./props";
 import MenuIcon from "@mui/icons-material/Menu";
 import './styles.css';
+import {HEADER_MAIN_TABS} from "../../../common/constansts/headers";
 
-const MobileMenu: React.FC<MobileMenuProps> = ({ anchorEl, handleCloseMenu, handleOpenNavMenu, pages }: MobileMenuProps) => {
+const MobileMenu: React.FC<MobileMenuProps> = ({ anchorEl, handleCloseMenu, handleOpenNavMenu }: MobileMenuProps) => {
     return (
         <Box className="mobile-menu" >
             <IconButton
@@ -33,7 +34,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ anchorEl, handleCloseMenu, hand
                 onClose={handleCloseMenu}
                 className="settings-menu"
             >
-                {pages.map((page) => (
+                {HEADER_MAIN_TABS.map((page) => (
                     <MenuItem key={page} onClick={(event) => handleCloseMenu(event)}>
                         <Typography className="typography">{page}</Typography>
                     </MenuItem>

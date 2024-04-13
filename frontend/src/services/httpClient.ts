@@ -1,6 +1,6 @@
 import axios from "axios";
 import _ from "lodash";
-
+import {store} from "../stores/redux/store";
 
 const httpClient = axios.create({});
 
@@ -11,5 +11,13 @@ const handleErrors = (error: any) => {
 }
 
 httpClient.interceptors.response.use(config => config, handleErrors);
+
+httpClient.interceptors.request.use(config => {
+    const token = store.getState().loggedUserState?.token;
+    if (token) {
+        config.headers.Authorization = "Bearer " + token;
+    }
+    return config;
+}, handleErrors);
 
 export default httpClient;

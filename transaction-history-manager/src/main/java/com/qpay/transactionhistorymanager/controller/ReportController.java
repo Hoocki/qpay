@@ -1,8 +1,7 @@
 package com.qpay.transactionhistorymanager.controller;
 
-import com.qpay.libs.models.UserType;
-import com.qpay.libs.models.PdfReportInfo;
-import com.qpay.transactionhistorymanager.service.PdfReportGeneratorService;
+import com.qpay.libs.models.ReportInfo;
+import com.qpay.transactionhistorymanager.service.ReportGeneratorService;
 import com.qpay.transactionhistorymanager.utility.PathUtils;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -18,14 +17,10 @@ import java.io.IOException;
 @RequestMapping(path = PathUtils.HISTORY_PATH)
 public class ReportController {
 
-    private final PdfReportGeneratorService pdfReportGeneratorService;
+    private final ReportGeneratorService reportGeneratorService;
 
-    @PostMapping("report")
-    public void generateReportAndSendToEmail(@Valid @RequestBody final PdfReportInfo pdfReportInfo) throws IOException {
-        if (pdfReportInfo.userType() == UserType.CUSTOMER) {
-            pdfReportGeneratorService.generateCustomerPdfReport(pdfReportInfo);
-        } else {
-            pdfReportGeneratorService.generateMerchantPdfReport(pdfReportInfo);
-        }
+    @PostMapping(PathUtils.REPORT_PATH)
+    public void generateReport(@Valid @RequestBody final ReportInfo reportInfo) {
+        reportGeneratorService.generatePdfReport(reportInfo);
     }
 }

@@ -1,8 +1,8 @@
 package com.qpay.transactionhistorymanager.controller;
 
-import com.qpay.libs.models.PdfReportInfo;
+import com.qpay.libs.models.ReportInfo;
 import com.qpay.libs.models.UserType;
-import com.qpay.transactionhistorymanager.service.PdfReportGeneratorService;
+import com.qpay.transactionhistorymanager.service.ReportGeneratorService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -20,21 +20,21 @@ class ReportControllerTest {
     private ReportController reportController;
 
     @Mock
-    private PdfReportGeneratorService pdfReportGeneratorService;
+    private ReportGeneratorService reportGeneratorService;
 
     @Test
-    void should_generateReportAndSendToEmail() throws IOException {
+    void should_generateReport() {
         //given
-        var pdfReportInfo = PdfReportInfo.builder()
+        var pdfReportInfo = ReportInfo.builder()
                 .userId(1)
                 .userType(UserType.CUSTOMER)
                 .periodStart(LocalDateTime.now())
                 .periodEnd(LocalDateTime.now())
                 .build();
         //when
-        reportController.generateReportAndSendToEmail(pdfReportInfo);
+        reportController.generateReport(pdfReportInfo);
 
         //then
-        then(pdfReportGeneratorService).should().generateCustomerPdfReport(pdfReportInfo);
+        then(reportGeneratorService).should().generatePdfReport(pdfReportInfo);
     }
 }

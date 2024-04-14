@@ -1,6 +1,5 @@
 package com.qpay.usermanager.controller;
 
-import com.qpay.libs.models.MerchantReportInfo;
 import com.qpay.usermanager.model.dto.merchant.MerchantCreation;
 import com.qpay.usermanager.model.dto.merchant.MerchantModification;
 import com.qpay.usermanager.model.entity.merchant.MerchantEntity;
@@ -24,11 +23,6 @@ public class MerchantController {
     @GetMapping
     public List<MerchantEntity> getMerchants() {
         return merchantService.getMerchants();
-    }
-
-    @GetMapping("report/{id}")
-    public MerchantReportInfo getMerchantReportInfo(@PathVariable final long id) {
-        return merchantService.getMerchantReportInfo(id);
     }
 
     @GetMapping("{id}")

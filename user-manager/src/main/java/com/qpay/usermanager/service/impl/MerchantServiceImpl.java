@@ -1,6 +1,5 @@
 package com.qpay.usermanager.service.impl;
 
-import com.qpay.libs.models.MerchantReportInfo;
 import com.qpay.usermanager.client.AuthenticationClient;
 import com.qpay.usermanager.client.WalletClient;
 import com.qpay.usermanager.mapper.MerchantMapper;
@@ -84,11 +83,6 @@ public class MerchantServiceImpl implements MerchantService {
         final var userCredentialsModification = userCredentialsMapper.mapMerchantModification(merchantModification);
         authenticationClient.updateUserCredentials(previousEmail, userCredentialsModification);
         return merchantEntity;
-    }
-
-    public MerchantReportInfo getMerchantReportInfo(final long id) {
-        final var merchantEntity = getMerchantById(id);
-        return merchantMapper.map(merchantEntity);
     }
 
     private void existsCustomerByEmail(final String email) {

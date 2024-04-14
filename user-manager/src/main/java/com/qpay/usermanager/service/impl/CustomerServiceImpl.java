@@ -2,7 +2,6 @@ package com.qpay.usermanager.service.impl;
 
 import com.qpay.usermanager.client.AuthenticationClient;
 import com.qpay.usermanager.client.WalletClient;
-import com.qpay.libs.models.CustomerReportInfo;
 import com.qpay.usermanager.mapper.CustomerMapper;
 import com.qpay.usermanager.mapper.UserCredentialsMapper;
 import com.qpay.usermanager.mapper.WalletMapper;
@@ -77,11 +76,6 @@ public class CustomerServiceImpl implements CustomerService {
         final var customerEntity = getCustomerById(id);
         customerRepository.deleteById(id);
         authenticationClient.deleteUserCredentials(customerEntity.getEmail());
-    }
-
-    public CustomerReportInfo getCustomerReportInfo(final long id) {
-        final var customerEntity = getCustomerById(id);
-        return customerMapper.map(customerEntity);
     }
 
     private void existsMerchantByEmail(final String email) {

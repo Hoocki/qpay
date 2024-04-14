@@ -6,7 +6,7 @@ import lombok.Builder;
 import java.time.LocalDateTime;
 
 @Builder
-public record PdfReportInfo (
+public record ReportInfo(
 
         long userId,
 

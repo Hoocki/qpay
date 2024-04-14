@@ -30,7 +30,6 @@ public class TransactionHistoryServiceImpl implements TransactionHistoryService 
 
     public TransactionEntity saveTransaction(final TransactionModification transactionModification) {
         final var transactionEntity = transactionMapper.map(transactionModification);
-
         return transactionRepository.save(transactionEntity);
     }
 }

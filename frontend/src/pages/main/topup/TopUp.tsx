@@ -1,5 +1,5 @@
 import React from 'react';
-import {Titles} from "../../../constansts/titles";
+import {Titles} from "../../../common/constansts/titles";
 
 const TopUp: React.FC = () => {
     return (

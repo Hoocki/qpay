@@ -5,7 +5,7 @@ import Profile from "../pages/main/profile/Profile";
 import TopUp from "../pages/main/topup/TopUp";
 import Transactions from "../pages/main/transactions/Transactions";
 import Home from "../pages/main/home/Home";
-import {Paths} from "../constansts/paths";
+import {Paths} from "../common/constansts/paths";
 
 export interface IRoute {
     path: string

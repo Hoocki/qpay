@@ -1,12 +1,12 @@
 import React from 'react';
 import {Titles} from "../../../common/constansts/titles";
 
-const SignUp: React.FC = () => {
+const QRGeneration: React.FC = () => {
     return (
         <p>
-            {Titles.SIGN_UP}
+            {Titles.QR_GENERATION}
         </p>
     );
 }
 
-export default SignUp;
+export default QRGeneration;

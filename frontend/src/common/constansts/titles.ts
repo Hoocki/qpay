@@ -3,9 +3,10 @@ export enum Titles {
     QR_GENERATION = "QR Generation",
     TRANSACTIONS = "Transactions",
     HOME = "Home",
-    SIGN_IN = "Sign in",
     SIGN_UP = "Sign Up",
     PAYMENT = "Payment",
     PROFILE = "Profile",
-    TOP_UP = "Top up"
+    TOP_UP = "Top up",
+    LOG_OUT = "Log out",
+    SETTINGS_HINT = "Open settings"
 }

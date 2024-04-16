@@ -1,7 +1,7 @@
 import React from 'react';
 import {Typography} from "@mui/material";
 import './styles.css';
-import {Titles} from "../../../constansts/titles";
+import {Titles} from "../../../common/constansts/titles";
 
 const MobileLogo: React.FC = () => {
     return (

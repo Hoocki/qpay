@@ -10,6 +10,10 @@ import {User} from "../../../types/user";
 import {UserType} from "../../../types/userType";
 import {ILoggedUser} from "../../../types/loggedUser";
 import {decodeToken} from "../../../common/utils";
+import {showNotification} from "../../../stores/redux/notification/notificationSlice";
+import {createNotification} from "../../../components/notification/Notification";
+import {Notifications} from "../../../common/constansts/notifications";
+import {NotificationType} from "../../../types/notificationType";
 
 const SignIn: React.FC = () => {
     const dispatch = useAppDispatch()
@@ -31,6 +35,8 @@ const SignIn: React.FC = () => {
         const loggedUser = createLoggedUser(token, user);
         if (loggedUser) {
             dispatch(signIn(loggedUser));
+            const notification = createNotification(Notifications.SIGN_UP, NotificationType.SUCCESS);
+            dispatch(showNotification(notification));
         }
     }
 

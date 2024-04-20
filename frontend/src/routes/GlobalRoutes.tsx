@@ -5,6 +5,7 @@ import RouteAuth from "./RouteAuth";
 import {useAppSelector} from "../stores/redux/hooks";
 import {selectLoggedUser} from "../stores/redux/loggedUser/loggedUserSlice";
 import _ from "lodash";
+import Notification from "../components/notification/Notification";
 
 const GlobalRoutes: React.FC = () => {
 
@@ -23,6 +24,7 @@ const GlobalRoutes: React.FC = () => {
         <div>
             <Header isLogged={isLogged}></Header>
             {isLogged ? <RouteMain/> : <RouteAuth/>}
+            <Notification/>
         </div>
     );
 };

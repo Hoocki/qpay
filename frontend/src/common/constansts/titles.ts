@@ -1,5 +1,5 @@
 export enum Titles {
-    APP_NAME = "Qpay",
+    APP_NAME = "QPay",
     QR_GENERATION = "QR Generation",
     TRANSACTIONS = "Transactions",
     HOME = "Home",

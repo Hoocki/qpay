@@ -15,12 +15,8 @@ export const loggedUserSlice = createSlice({
     name: 'loggedUser',
     initialState,
     reducers: {
-        signIn: (state, action: PayloadAction<ILoggedUser>) => {
-            return {...action.payload}
-        },
-        logOut: state => {
-            return {...initialState}
-        }
+        signIn: (state, action: PayloadAction<ILoggedUser>) => ({...action.payload}),
+        logOut: state => ({...initialState})
     }
 })
 

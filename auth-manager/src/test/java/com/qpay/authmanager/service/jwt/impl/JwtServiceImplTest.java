@@ -1,6 +1,7 @@
 package com.qpay.authmanager.service.jwt.impl;
 
 import com.qpay.authmanager.model.dto.JwtAuthenticationResponse;
+import com.qpay.authmanager.model.dto.TokenData;
 import com.qpay.authmanager.model.entity.UserCredentialsEntity;
 import com.qpay.libs.models.UserType;
 import org.junit.jupiter.api.Disabled;
@@ -28,6 +29,13 @@ class JwtServiceImplTest {
                 .password("password")
                 .build();
 
+        var tokenData = TokenData
+                .builder()
+                .email("user@mail.com")
+                .userType(UserType.CUSTOMER)
+                .userId(1L)
+                .build();
+
         var expectedToken = JwtAuthenticationResponse
                 .builder()
                 .token(userEntity.toString())
@@ -36,7 +44,7 @@ class JwtServiceImplTest {
         var fakeToken = userEntity.getEmail();
 
         // when
-        var result = jwtService.generateToken(userEntity.getEmail(), userEntity.getUserId(), userEntity.getUserType());
+        var result = jwtService.generateToken(tokenData);
 
         // then
         assertThat(result).isEqualTo(fakeToken);

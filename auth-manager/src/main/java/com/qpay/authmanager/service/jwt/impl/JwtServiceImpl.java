@@ -1,7 +1,7 @@
 package com.qpay.authmanager.service.jwt.impl;
 
+import com.qpay.authmanager.model.dto.TokenData;
 import com.qpay.authmanager.service.jwt.JwtService;
-import com.qpay.libs.models.UserType;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -23,11 +23,11 @@ public class JwtServiceImpl implements JwtService {
     private String jwtSigningKey;
 
     @Override
-    public String generateToken(final String email, final long userId, final UserType userType) {
+    public String generateToken(final TokenData tokenData) {
         final Map<String, Object> claims = new HashMap<>();
-        claims.put("email", email);
-        claims.put("userId", userId);
-        claims.put("userType", userType);
+        claims.put("email", tokenData.email());
+        claims.put("userId", tokenData.userId());
+        claims.put("userType", tokenData.userType());
         return createToken(claims);
     }
 

@@ -4,6 +4,7 @@ import {MobileMenuProps} from "./props";
 import MenuIcon from "@mui/icons-material/Menu";
 import './styles.css';
 import {HEADER_MAIN_TABS} from "../../../common/constansts/headers";
+import {anchorOriginBottomLeft, transformOriginTopLeft} from "../../../common/constansts/positions";
 
 const MobileMenu: React.FC<MobileMenuProps> = ({ anchorEl, handleCloseMenu, handleOpenNavMenu }: MobileMenuProps) => {
     return (
@@ -21,21 +22,15 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ anchorEl, handleCloseMenu, hand
             <Menu
                 id="menu-appbar"
                 anchorEl={anchorEl}
-                anchorOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'left',
-                }}
+                anchorOrigin={anchorOriginBottomLeft}
                 keepMounted
-                transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'left',
-                }}
+                transformOrigin={transformOriginTopLeft}
                 open={Boolean(anchorEl)}
                 onClose={handleCloseMenu}
                 className="settings-menu"
             >
                 {HEADER_MAIN_TABS.map((page) => (
-                    <MenuItem key={page} onClick={(event) => handleCloseMenu(event)}>
+                    <MenuItem key={page} onClick={handleCloseMenu}>
                         <Typography className="typography">{page}</Typography>
                     </MenuItem>
                 ))}

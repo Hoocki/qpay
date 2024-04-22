@@ -6,6 +6,7 @@ import {useAppSelector} from "../../../stores/redux/hooks";
 import {selectLoggedUser} from "../../../stores/redux/loggedUser/loggedUserSlice";
 import {HEADER_SETTINGS_TABS} from "../../../common/constansts/headers";
 import {Titles} from "../../../common/constansts/titles";
+import {anchorOriginTopRight, transformOriginTopRight} from "../../../common/constansts/positions";
 
 const UserMenu: React.FC<UserMenuProps> = ({anchorElUser, handleCloseMenu, handleOpenUserMenu}: UserMenuProps) => {
     const loggedUser = useAppSelector(selectLoggedUser);
@@ -30,20 +31,14 @@ const UserMenu: React.FC<UserMenuProps> = ({anchorElUser, handleCloseMenu, handl
                 className="user-settings-menu"
                 id="menu-appbar"
                 anchorEl={anchorElUser}
-                anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                }}
+                anchorOrigin={anchorOriginTopRight}
                 keepMounted
-                transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                }}
+                transformOrigin={transformOriginTopRight}
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseMenu}
             >
                 {HEADER_SETTINGS_TABS.map((setting) => (
-                    <MenuItem key={setting} onClick={(event) => handleCloseMenu(event)}>
+                    <MenuItem key={setting} onClick={handleCloseMenu}>
                         <Typography className="typography">{setting}</Typography>
                     </MenuItem>
                 ))}

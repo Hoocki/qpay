@@ -8,7 +8,6 @@ const MobileLogo: React.FC = () => {
         <Typography
             variant="h5"
             noWrap
-            component="a"
             className="mobile-logo mobile-logo-typography"
         >
             {Titles.APP_NAME}

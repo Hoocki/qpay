@@ -10,7 +10,7 @@ const DesktopMenu: React.FC<DesktopMenuProps> = ({handleCloseMenu}: DesktopMenuP
             {HEADER_MAIN_TABS.map((page) => (
                 <Button
                     key={page}
-                    onClick={(event) => handleCloseMenu(event)}
+                    onClick={handleCloseMenu}
                     className="page-button"
                 >
                     {page}

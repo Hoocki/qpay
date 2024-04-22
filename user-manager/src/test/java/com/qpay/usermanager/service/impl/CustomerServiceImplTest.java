@@ -92,6 +92,7 @@ class CustomerServiceImplTest {
     @Test
     void should_addCustomer() {
         // given
+        var customerId = 1L;
         var customerCreation = CustomerCreation.builder()
                 .name("Roman")
                 .email("admin@gmail.com")
@@ -108,6 +109,7 @@ class CustomerServiceImplTest {
                 .email("admin@gmail.com")
                 .password("password")
                 .userType(UserType.CUSTOMER)
+                .userId(customerId)
                 .build();
 
         var walletCreation = WalletCreation.builder()
@@ -118,7 +120,7 @@ class CustomerServiceImplTest {
 
         given(customerMapper.map(customerCreation)).willReturn(expectedCustomer);
         given(customerRepository.save(expectedCustomer)).willReturn(expectedCustomer);
-        given(userCredentialsMapper.mapCustomerCreation(customerCreation)).willReturn(createdUser);
+        given(userCredentialsMapper.mapCustomerCreation(customerCreation, customerId)).willReturn(createdUser);
         given(walletMapper.map(expectedCustomer)).willReturn(walletCreation);
 
         // when

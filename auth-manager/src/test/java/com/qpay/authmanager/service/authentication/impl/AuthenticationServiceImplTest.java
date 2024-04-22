@@ -41,6 +41,7 @@ class AuthenticationServiceImplTest {
 
         var userEntity = UserCredentialsEntity
                 .builder()
+                .userId(1L)
                 .email("user@mail.com")
                 .userType(UserType.CUSTOMER)
                 .password("password")
@@ -54,7 +55,7 @@ class AuthenticationServiceImplTest {
         var fakeToken = userEntity.getEmail();
 
         given(userCredentialsService.getUserByEmail(authCredentials.email())).willReturn(userEntity);
-        given(jwtService.generateToken(userEntity.getEmail())).willReturn(fakeToken);
+        given(jwtService.generateToken(userEntity.getEmail(), userEntity.getUserId(), userEntity.getUserType())).willReturn(fakeToken);
 
         // when
         var result = authenticationService.signIn(authCredentials);

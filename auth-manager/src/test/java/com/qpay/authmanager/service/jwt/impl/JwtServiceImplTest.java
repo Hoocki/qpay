@@ -22,6 +22,7 @@ class JwtServiceImplTest {
     void should_generateTokenBasedUserData() {
         // given
         var userEntity = UserCredentialsEntity.builder()
+                .userId(1L)
                 .email("user@mail.com")
                 .userType(UserType.CUSTOMER)
                 .password("password")
@@ -35,7 +36,7 @@ class JwtServiceImplTest {
         var fakeToken = userEntity.getEmail();
 
         // when
-        var result = jwtService.generateToken(userEntity.getEmail());
+        var result = jwtService.generateToken(userEntity.getEmail(), userEntity.getUserId(), userEntity.getUserType());
 
         // then
         assertThat(result).isEqualTo(fakeToken);

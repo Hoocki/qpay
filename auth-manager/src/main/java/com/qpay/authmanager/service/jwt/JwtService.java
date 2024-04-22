@@ -1,8 +1,10 @@
 package com.qpay.authmanager.service.jwt;
 
+import com.qpay.libs.models.UserType;
+
 public interface JwtService {
 
-    String generateToken(String email);
+    String generateToken(String email, long userId, UserType userType);
 
     String extractEmail(String token);
 

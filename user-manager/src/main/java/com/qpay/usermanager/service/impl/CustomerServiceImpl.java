@@ -53,7 +53,7 @@ public class CustomerServiceImpl implements CustomerService {
             log.error(e.getMessage());
             throw new UserAlreadyExistsException(e.getMessage());
         }
-        final var createUserCredentials  = userCredentialsMapper.mapCustomerCreation(customerCreation);
+        final var createUserCredentials  = userCredentialsMapper.mapCustomerCreation(customerCreation, customerEntity.getId());
         authenticationClient.createUserCredentials(createUserCredentials);
         final var walletCreation = walletMapper.map(customerEntity);
         walletClient.createWallet(walletCreation);

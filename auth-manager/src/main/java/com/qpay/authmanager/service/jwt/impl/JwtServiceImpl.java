@@ -1,6 +1,7 @@
 package com.qpay.authmanager.service.jwt.impl;
 
 import com.qpay.authmanager.service.jwt.JwtService;
+import com.qpay.libs.models.UserType;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Component;
 
 import java.security.Key;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
@@ -21,14 +23,17 @@ public class JwtServiceImpl implements JwtService {
     private String jwtSigningKey;
 
     @Override
-    public String generateToken(final String email) {
-        return createToken(Map.of(), email);
+    public String generateToken(final String email, final long userId, final UserType userType) {
+        final Map<String, Object> claims = new HashMap<>();
+        claims.put("email", email);
+        claims.put("userId", userId);
+        claims.put("userType", userType);
+        return createToken(claims);
     }
 
-    private String createToken(final Map<String, Object> claims, final String email) {
+    private String createToken(final Map<String, Object> claims) {
         return Jwts.builder()
                 .setClaims(claims)
-                .setSubject(email)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
 //                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 30))
                 .signWith(getSigningKey(), SignatureAlgorithm.HS256).compact();

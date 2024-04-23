@@ -1,0 +1,22 @@
+.user-menu {
+    flex-grow: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.user-icon-button {
+    align-self: center;
+}
+
+.user-settings-menu {
+    margin-top: 45px;
+}
+
+.typography-username {
+    font-size: 1.4rem;
+    font-family: sans-serif;
+    color: black;
+    text-align: center;
+    margin-right: 1rem;
+}

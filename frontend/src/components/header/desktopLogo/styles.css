@@ -1,0 +1,11 @@
+.desktop-logo {
+    display: none;
+    margin-right: 5px;
+    width: 75px;
+}
+
+@media (min-width: 900px) {
+    .desktop-logo {
+        display: flex;
+    }
+}

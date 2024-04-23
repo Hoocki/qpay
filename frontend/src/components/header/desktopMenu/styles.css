@@ -1,0 +1,19 @@
+.desktop-menu {
+    display: none;
+    flex-grow: 1;
+}
+
+@media (min-width: 900px) {
+    .desktop-menu {
+        display: flex;
+    }
+}
+
+.page-button {
+    display: block;
+    margin-right: 2rem;
+    margin-left: 3rem;
+    font-size: 1rem;
+    font-family: sans-serif;
+    color: black;
+}

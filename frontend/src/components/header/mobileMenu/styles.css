@@ -1,0 +1,26 @@
+.mobile-menu {
+    display: flex;
+    flex-grow: 1;
+}
+
+.settings-menu {
+    display: block;
+}
+
+.mobile-menu-icon-button {
+    color: black;
+}
+
+.typography {
+    text-align: center;
+}
+
+@media (min-width: 900px) {
+    .mobile-menu {
+        display: none;
+    }
+
+    .settings-menu {
+        display: none;
+    }
+}

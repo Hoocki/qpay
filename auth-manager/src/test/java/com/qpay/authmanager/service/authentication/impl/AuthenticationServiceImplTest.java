@@ -1,7 +1,9 @@
 package com.qpay.authmanager.service.authentication.impl;
 
+import com.qpay.authmanager.mapper.TokenDataMapper;
 import com.qpay.authmanager.model.dto.AuthCredentials;
 import com.qpay.authmanager.model.dto.JwtAuthenticationResponse;
+import com.qpay.authmanager.model.dto.TokenData;
 import com.qpay.authmanager.model.entity.UserCredentialsEntity;
 import com.qpay.authmanager.service.exception.UserCredentialsNotFoundException;
 import com.qpay.authmanager.service.jwt.JwtService;
@@ -29,6 +31,9 @@ class AuthenticationServiceImplTest {
     @Mock
     private UserCredentialsService userCredentialsService;
 
+    @Mock
+    private TokenDataMapper tokenDataMapper;
+
     @Test
     @Disabled
     void should_signInUser_when_userExists() {
@@ -41,9 +46,17 @@ class AuthenticationServiceImplTest {
 
         var userEntity = UserCredentialsEntity
                 .builder()
+                .userId(1L)
                 .email("user@mail.com")
                 .userType(UserType.CUSTOMER)
                 .password("password")
+                .build();
+
+        var tokenData = TokenData
+                .builder()
+                .email("user@mail.com")
+                .userType(UserType.CUSTOMER)
+                .userId(1L)
                 .build();
 
         var expectedToken = JwtAuthenticationResponse
@@ -54,7 +67,8 @@ class AuthenticationServiceImplTest {
         var fakeToken = userEntity.getEmail();
 
         given(userCredentialsService.getUserByEmail(authCredentials.email())).willReturn(userEntity);
-        given(jwtService.generateToken(userEntity.getEmail())).willReturn(fakeToken);
+        given(tokenDataMapper.map(userEntity)).willReturn(tokenData);
+        given(jwtService.generateToken(tokenData)).willReturn(fakeToken);
 
         // when
         var result = authenticationService.signIn(authCredentials);

@@ -12,11 +12,12 @@ import org.springframework.stereotype.Component;
 @Component
 public class UserCredentialsMapper {
 
-    public UserCredentialsCreation mapCustomerCreation(final CustomerCreation customerCreation) {
+    public UserCredentialsCreation mapCustomerCreation(final CustomerCreation customerCreation, final long customerId) {
         return UserCredentialsCreation.builder()
                 .email(customerCreation.email())
                 .password(customerCreation.password())
                 .userType(UserType.CUSTOMER)
+                .userId(customerId)
                 .build();
     }
 
@@ -27,11 +28,12 @@ public class UserCredentialsMapper {
                 .build();
     }
 
-    public UserCredentialsCreation mapMerchantCreation(final MerchantCreation merchantCreation) {
+    public UserCredentialsCreation mapMerchantCreation(final MerchantCreation merchantCreation, final long merchantId) {
         return UserCredentialsCreation.builder()
                 .email(merchantCreation.email())
                 .password(merchantCreation.password())
                 .userType(UserType.MERCHANT)
+                .userId(merchantId)
                 .build();
     }
 

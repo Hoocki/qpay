@@ -1,6 +1,7 @@
 package com.qpay.usermanager.model.dto.authuser;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import com.qpay.libs.models.UserType;
 
@@ -14,6 +15,9 @@ public record UserCredentialsCreation(
         String password,
 
         @NotBlank(message = "UserType is required")
-        UserType userType
+        UserType userType,
+
+        @NotNull(message = "UserId couldn't be null")
+        long userId
 ) {
 }

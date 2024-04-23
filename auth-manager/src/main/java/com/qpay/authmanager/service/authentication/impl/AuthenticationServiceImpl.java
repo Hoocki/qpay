@@ -1,5 +1,6 @@
 package com.qpay.authmanager.service.authentication.impl;
 
+import com.qpay.authmanager.mapper.TokenDataMapper;
 import com.qpay.authmanager.model.dto.AuthCredentials;
 import com.qpay.authmanager.model.dto.JwtAuthenticationResponse;
 import com.qpay.authmanager.service.authentication.AuthenticationService;
@@ -20,9 +21,12 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     private final AuthenticationManager authenticationManager;
 
+    private final TokenDataMapper tokenDataMapper;
+
     public JwtAuthenticationResponse signIn(final AuthCredentials authCredentials) {
         final var userEntity = userCredentialsService.getUserByEmail(authCredentials.email());
-        final var generatedToken = jwtService.generateToken(userEntity.getEmail());
+        final var tokenData = tokenDataMapper.map(userEntity);
+        final var generatedToken = jwtService.generateToken(tokenData);
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authCredentials.email(), authCredentials.password()));
         return new JwtAuthenticationResponse(generatedToken);
     }

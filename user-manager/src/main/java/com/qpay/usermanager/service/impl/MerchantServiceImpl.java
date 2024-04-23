@@ -58,8 +58,8 @@ public class MerchantServiceImpl implements MerchantService {
         existsCustomerByEmail(merchantCreation.email());
         final var merchantEntity = merchantMapper.map(merchantCreation);
         merchantRepository.save(merchantEntity);
-        final var newUserCredentials  = userCredentialsMapper.mapMerchantCreation(merchantCreation);
-        authenticationClient.createUserCredentials(newUserCredentials );
+        final var newUserCredentials  = userCredentialsMapper.mapMerchantCreation(merchantCreation, merchantEntity.getId());
+        authenticationClient.createUserCredentials(newUserCredentials);
         final var walletCreation = walletMapper.map(merchantEntity);
         walletClient.createWallet(walletCreation);
         return merchantEntity;

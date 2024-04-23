@@ -11,6 +11,7 @@ public class UserCredentialsMapper {
         return UserCredentialsEntity.builder()
                 .email(userCredentialsCreation.email())
                 .userType(userCredentialsCreation.userType())
+                .userId(userCredentialsCreation.userId())
                 .build();
     }
 

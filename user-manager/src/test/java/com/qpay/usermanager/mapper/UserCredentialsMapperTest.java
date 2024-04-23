@@ -18,6 +18,7 @@ class UserCredentialsMapperTest {
     @Test
     void should_returnUserCredentialsCreation_when_givenCustomerCreation() {
         // given
+        var customerId = 1L;
         var customerCreation = CustomerCreation.builder()
                 .name("Roman")
                 .email("admin@gmail.com")
@@ -25,13 +26,14 @@ class UserCredentialsMapperTest {
                 .build();
 
         // when
-        var result = userCredentialsMapper.mapCustomerCreation(customerCreation);
+        var result = userCredentialsMapper.mapCustomerCreation(customerCreation, customerId);
 
         // then
         var expectedUser = UserCredentialsCreation.builder()
                 .email("admin@gmail.com")
                 .password("password")
                 .userType(UserType.CUSTOMER)
+                .userId(customerId)
                 .build();
 
         assertThat(result).isEqualTo(expectedUser);
@@ -61,6 +63,7 @@ class UserCredentialsMapperTest {
     @Test
     void should_returnUserCredentialsCreation_when_givenMerchantCreation() {
         // given
+        var merchantId = 1L;
         var merchantCreation = MerchantCreation.builder()
                 .name("Roman")
                 .email("admin@gmail.com")
@@ -68,13 +71,14 @@ class UserCredentialsMapperTest {
                 .build();
 
         // when
-        var result = userCredentialsMapper.mapMerchantCreation(merchantCreation);
+        var result = userCredentialsMapper.mapMerchantCreation(merchantCreation, merchantId);
 
         // then
         var expectedUser = UserCredentialsCreation.builder()
                 .email("admin@gmail.com")
                 .password("password")
                 .userType(UserType.MERCHANT)
+                .userId(merchantId)
                 .build();
 
         assertThat(result).isEqualTo(expectedUser);

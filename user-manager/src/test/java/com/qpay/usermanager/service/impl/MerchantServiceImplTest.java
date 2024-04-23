@@ -122,6 +122,7 @@ class MerchantServiceImplTest {
     @Test
     void should_addMerchant() {
         //given
+        var merchantId = 1L;
         var expectedMerchant = MerchantEntity.builder()
                 .id(1L)
                 .name("bob")
@@ -132,6 +133,7 @@ class MerchantServiceImplTest {
                 .email(EMAIL)
                 .password("word")
                 .userType(UserType.MERCHANT)
+                .userId(merchantId)
                 .build();
 
         var walletCreation = WalletCreation.builder()
@@ -141,7 +143,7 @@ class MerchantServiceImplTest {
                 .build();
 
         given(merchantMapper.map(MERCHANT_CREATION)).willReturn(expectedMerchant);
-        given(userCredentialsMapper.mapMerchantCreation(MERCHANT_CREATION)).willReturn(createdUser);
+        given(userCredentialsMapper.mapMerchantCreation(MERCHANT_CREATION, merchantId)).willReturn(createdUser);
         given(walletMapper.map(expectedMerchant)).willReturn(walletCreation);
 
         //when

@@ -29,6 +29,8 @@ public class UserCredentialsEntity {
     @Field(targetType = FieldType.STRING)
     private UserType userType;
 
+    private long userId;
+
     @CreatedDate
     private LocalDateTime createdAt;
 

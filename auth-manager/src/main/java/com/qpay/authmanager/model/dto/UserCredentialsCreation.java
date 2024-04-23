@@ -15,7 +15,10 @@ public record UserCredentialsCreation(
         String password,
 
         @NotNull
-        UserType userType
+        UserType userType,
+
+        @NotNull
+        long userId
 ) {
 }
 

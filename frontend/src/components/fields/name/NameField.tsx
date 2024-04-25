@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {NameFieldProps} from "./props";
-import {ValidationErrorMessages} from "../../../../../common/constansts/validationErrorMessages";
+import {ValidationErrorMessages} from "../../../common/constansts/validationErrorMessages";
 import {TextField} from "@mui/material";
-import {TEXT_FIELD_VALIDATION} from "../../../../../common/constansts/validation";
+import {TEXT_FIELD_VALIDATION} from "../../../common/constansts/validation";
 
 const NameField: React.FC<NameFieldProps> = ({defaultName, updateNameFields,}) => {
     const [name, setName] = useState<string>(defaultName);

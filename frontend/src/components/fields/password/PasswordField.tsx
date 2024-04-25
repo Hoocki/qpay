@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
-import {ValidationErrorMessages} from "../../common/constansts/validationErrorMessages";
+import {ValidationErrorMessages} from "../../../common/constansts/validationErrorMessages";
 import {TextField} from "@mui/material";
 import {PasswordFieldProps} from "./props";
-import {TEXT_FIELD_VALIDATION} from "../../common/constansts/validation";
+import {TEXT_FIELD_VALIDATION} from "../../../common/constansts/validation";
 
 const PasswordField: React.FC<PasswordFieldProps> = ({updatePasswordFields}) => {
     const [password, setPassword] = useState<string>("");

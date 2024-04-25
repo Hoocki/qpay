@@ -1,7 +1,6 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 import {RootState} from "../store";
-import {ILoggedUser} from "../../../types/loggedUser";
-import {UserType} from "../../../types/userType";
+import {ILoggedUser, UserType} from "../../../types/user";
 
 const initialState: ILoggedUser = {
     id: -1,

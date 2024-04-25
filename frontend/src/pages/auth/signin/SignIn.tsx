@@ -1,22 +1,18 @@
 import React from 'react';
-import {Box, Button} from "@mui/material";
+import {Box, Button, Link, Typography} from "@mui/material";
 import "../../../common/styles/button.css";
 import {useAppDispatch} from "../../../stores/redux/hooks";
 import {signIn} from "../../../stores/redux/loggedUser/loggedUserSlice";
 import {getUserService} from "../../../services/user";
 import {Buttons} from "../../../common/constansts/buttons";
 import {logInService} from "../../../services/auth";
-import {User} from "../../../types/user";
-import {UserType} from "../../../types/userType";
-import {ILoggedUser} from "../../../types/loggedUser";
+import {ILoggedUser, User, UserType} from "../../../types/user";
 import {decodeToken} from "../../../common/utils";
-import {showNotification} from "../../../stores/redux/notification/notificationSlice";
-import {createNotification} from "../../../components/notification/Notification";
-import {Notifications} from "../../../common/constansts/notifications";
-import {NotificationType} from "../../../types/notificationType";
+import {Paths} from "../../../common/constansts/paths";
+import {AuthContent} from "../../../common/constansts/authContent";
 
 const SignIn: React.FC = () => {
-    const dispatch = useAppDispatch()
+    const dispatch = useAppDispatch();
 
     const createLoggedUser = (token: string, user: User): ILoggedUser => {
         return {
@@ -35,8 +31,6 @@ const SignIn: React.FC = () => {
         const loggedUser = createLoggedUser(token, user);
         if (loggedUser) {
             dispatch(signIn(loggedUser));
-            const notification = createNotification(Notifications.SIGN_UP, NotificationType.SUCCESS);
-            dispatch(showNotification(notification));
         }
     }
 
@@ -49,6 +43,18 @@ const SignIn: React.FC = () => {
             >
                 {Buttons.SIGN_IN}
             </Button>
+            <Typography
+                variant="body2"
+                sx={{marginTop: 1}}
+            >
+                {AuthContent.ACCOUNT_NOT_EXIST}
+                <Link
+                    href={Paths.SignUp}
+                    color="primary"
+                >
+                    {Buttons.SIGN_UP}
+                </Link>
+            </Typography>
         </Box>
     );
 }

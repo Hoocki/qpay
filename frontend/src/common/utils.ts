@@ -1,5 +1,5 @@
 import {TokenData} from "../types/tokenData";
-import {UserType} from "../types/userType";
+import {UserType} from "../types/user";
 
 export const decodeToken = (token: string): TokenData => {
     return {

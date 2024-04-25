@@ -2,8 +2,8 @@ import axios from "axios";
 import _ from "lodash";
 import {store} from "../stores/redux/store";
 import {showNotification} from "../stores/redux/notification/notificationSlice";
-import {NotificationType} from "../types/notificationType";
 import {createNotification} from "../components/notification/Notification";
+import {NotificationType} from "../types/notification";
 
 const httpClient = axios.create({});
 

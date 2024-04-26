@@ -1,8 +1,8 @@
 import React from 'react';
-import {Titles} from "../../../../common/constansts/titles";
-import Logo from "../../../../img/Logo.png";
+import {Titles} from "../../common/constansts/titles";
+import Logo from "../../img/Logo.png";
 import {Box} from "@mui/material";
-import "../../styles.css";
+import "../../pages/auth/styles.css";
 
 const AuthLogo = () => {
     return (

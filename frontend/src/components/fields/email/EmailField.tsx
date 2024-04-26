@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
-import {ValidationErrorMessages} from "../../../../../common/constansts/validationErrorMessages";
+import {ValidationErrorMessages} from "../../../common/constansts/validationErrorMessages";
 import {TextField} from "@mui/material";
 import {EmailFieldProps} from "./props";
-import {EMAIL_REGEX} from "../../../../../common/constansts/validation";
+import {EMAIL_REGEX} from "../../../common/constansts/validation";
 
 const EmailField: React.FC<EmailFieldProps> = ({defaultEmail, updateEmailFields}) => {
     const [email, setEmail] = useState<string>(defaultEmail);

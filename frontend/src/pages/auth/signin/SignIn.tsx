@@ -1,6 +1,7 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Box, Button, Link, Typography} from "@mui/material";
 import "../../../common/styles/button.css";
+import "./styles.css";
 import {useAppDispatch} from "../../../stores/redux/hooks";
 import {signIn} from "../../../stores/redux/loggedUser/loggedUserSlice";
 import {getUserService} from "../../../services/user";
@@ -10,8 +11,21 @@ import {ILoggedUser, User, UserType} from "../../../types/user";
 import {decodeToken} from "../../../common/utils";
 import {Paths} from "../../../common/constansts/paths";
 import {AuthContent} from "../../../common/constansts/authContent";
+import AuthLogo from "../../../components/logo/AuthLogo";
+import EmailField from "../../../components/fields/email/EmailField";
+import PasswordField from "../../../components/fields/password/PasswordField";
+import {AuthCredentials} from "../../../types/authCredentials";
+
+const initialAuthCredentials: AuthCredentials = {
+    email: "",
+    password: ""
+}
 
 const SignIn: React.FC = () => {
+    const [authCredentials, setAuthCredentials] = useState<AuthCredentials>(initialAuthCredentials)
+    const [isEmailValid, setIsEmailValid] = useState<boolean>(false);
+    const [isPasswordValid, setIsPasswordValid] = useState<boolean>(false);
+    const [isValid, setIsValid] = useState(false);
     const dispatch = useAppDispatch();
 
     const createLoggedUser = (token: string, user: User): ILoggedUser => {
@@ -25,36 +39,69 @@ const SignIn: React.FC = () => {
     }
 
     const handleSignIn = async () => {
-        const token = await logInService({email: "user@mail.com", password: "password"});
+        if (!isValid) return;
+        const token = await logInService(authCredentials);
         const decodedToken = decodeToken(token);
         const user = await getUserService(decodedToken.userId, decodedToken.userType);
         const loggedUser = createLoggedUser(token, user);
         if (loggedUser) {
             dispatch(signIn(loggedUser));
         }
+
     }
 
+    const updateEmailChange = (email: string, isEmailValid: boolean) => {
+        setAuthCredentials({...authCredentials, email});
+        setIsEmailValid(isEmailValid);
+    };
+
+    const updatePasswordChange = (password: string, isPasswordValid: boolean) => {
+        setAuthCredentials({...authCredentials, password});
+        setIsPasswordValid(isPasswordValid);
+    };
+
+    const validateData = () => {
+        setIsValid(isPasswordValid && isEmailValid);
+    };
+
+    useEffect(() => {
+        validateData();
+    }, [isPasswordValid, isEmailValid]);
+
     return (
-        <Box>
-            <Button
-                variant="contained"
-                className="button"
-                onClick={handleSignIn}
-            >
-                {Buttons.SIGN_IN}
-            </Button>
-            <Typography
-                variant="body2"
-                sx={{marginTop: 1}}
-            >
-                {AuthContent.ACCOUNT_NOT_EXIST}
-                <Link
-                    href={Paths.SignUp}
-                    color="primary"
+        <Box className="auth-container">
+            <Box className="auth-content">
+                <AuthLogo/>
+                <Box className="sign-in-fields">
+                    <EmailField
+                        defaultEmail={authCredentials.email}
+                        updateEmailFields={updateEmailChange}
+                    />
+                    <PasswordField
+                        updatePasswordFields={updatePasswordChange}
+                    />
+                </Box>
+                <Button
+                    variant="contained"
+                    className="button"
+                    disabled={!isValid}
+                    onClick={handleSignIn}
                 >
-                    {Buttons.SIGN_UP}
-                </Link>
-            </Typography>
+                    {Buttons.SIGN_IN}
+                </Button>
+                <Typography
+                    variant="body1"
+                    className="sign-up-link"
+                >
+                    {AuthContent.ACCOUNT_NOT_EXIST}
+                    <Link
+                        href={Paths.SignUp}
+                        color="primary"
+                    >
+                        {Buttons.SIGN_UP}
+                    </Link>
+                </Typography>
+            </Box>
         </Box>
     );
 }

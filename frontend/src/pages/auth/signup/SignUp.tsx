@@ -47,12 +47,14 @@ const SignUp: React.FC = () => {
     const handleAgreeCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => setAgreeChecked(event.target.checked);
 
     const handleSignUp = async () => {
-        if (isValid) {
+        if (!isValid) return;
+        const user = await signUpService(userCredentials, selectedRole);
+        if (user !== null) {
             const notification = createNotification(Notifications.SIGN_UP, NotificationType.SUCCESS);
             dispatch(showNotification(notification));
-            await signUpService(userCredentials, selectedRole);
             navigate(Paths.SignIn);
         }
+
     };
 
     const updateEmailChange = (email: string, isEmailValid: boolean) => {

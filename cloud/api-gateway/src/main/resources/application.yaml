@@ -46,9 +46,9 @@ resilience4j:
       default:
         register-health-indicator: true
         sliding-window-type: TIME_BASED
-        sliding-window-size: 5
+        sliding-window-size: 6
         slow-call-duration-threshold:
-          seconds: 3
+          seconds: 5
         failure-rate-threshold: 50
         minimum-number-of-calls: 3
         automatic-transition-from-open-to-half-open-enabled: true

@@ -3,18 +3,19 @@ import {Box, Button, Link, Typography} from "@mui/material";
 import "../../../common/styles/button.css";
 import "./styles.css";
 import {useAppDispatch} from "../../../stores/redux/hooks";
-import {signIn} from "../../../stores/redux/loggedUser/loggedUserSlice";
+import {addToken, signIn} from "../../../stores/redux/loggedUser/loggedUserSlice";
 import {getUserService} from "../../../services/user";
 import {Buttons} from "../../../common/constansts/buttons";
 import {logInService} from "../../../services/auth";
 import {ILoggedUser, User, UserType} from "../../../types/user";
-import {decodeToken} from "../../../common/utils";
 import {Paths} from "../../../common/constansts/paths";
 import {AuthContent} from "../../../common/constansts/authContent";
 import AuthLogo from "../../../components/logo/AuthLogo";
 import EmailField from "../../../components/fields/email/EmailField";
 import PasswordField from "../../../components/fields/password/PasswordField";
 import {AuthCredentials} from "../../../types/authCredentials";
+import {jwtDecode} from "jwt-decode";
+import {TokenData} from "../../../types/tokenData";
 
 const initialAuthCredentials: AuthCredentials = {
     email: "",
@@ -41,13 +42,14 @@ const SignIn: React.FC = () => {
     const handleSignIn = async () => {
         if (!isValid) return;
         const token = await logInService(authCredentials);
-        const decodedToken = decodeToken(token);
+        if (token === "") return;
+        dispatch(addToken(token));
+        const decodedToken: TokenData = jwtDecode(token);
         const user = await getUserService(decodedToken.userId, decodedToken.userType);
         const loggedUser = createLoggedUser(token, user);
         if (loggedUser) {
             dispatch(signIn(loggedUser));
         }
-
     }
 
     const updateEmailChange = (email: string, isEmailValid: boolean) => {

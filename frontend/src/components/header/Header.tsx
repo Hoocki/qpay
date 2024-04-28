@@ -10,16 +10,12 @@ import DesktopMenu from "./desktopMenu/DesktopMenu";
 import UserMenu from "./userMenu/UserMenu";
 import './styles.css';
 import {Paths} from "../../common/constansts/paths";
-import {useAppDispatch} from "../../stores/redux/hooks";
-import {logOut} from "../../stores/redux/loggedUser/loggedUserSlice";
-import {Titles} from "../../common/constansts/titles";
 
 const Header: React.FC<HeaderProps> = ({isLogged}: HeaderProps) => {
 
     const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
     const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
     const navigate = useNavigate();
-    const dispatch = useAppDispatch();
     const location = useLocation();
 
     const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -34,9 +30,7 @@ const Header: React.FC<HeaderProps> = ({isLogged}: HeaderProps) => {
         setAnchorElUser(null);
         const pageName = event.currentTarget.textContent ?? '';
         const route = findRouteByPath(pageName);
-        if (pageName === Titles.LOG_OUT) {
-            dispatch(logOut());
-        } else if (route) {
+        if (route) {
             navigate(route.path);
         }
     };

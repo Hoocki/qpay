@@ -10,5 +10,6 @@ export enum Titles {
     TOP_UP = "Top up",
     LOG_OUT = "Log out",
     SETTINGS_HINT = "Open settings",
-    SELECT_ROLES = "Select role"
+    SELECT_ROLES = "Select role",
+    LOG_OUT_DIALOG = "Log out"
 }

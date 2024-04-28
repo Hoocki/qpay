@@ -6,6 +6,7 @@ import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.Paragraph;
+import com.qpay.libs.exception.SavePdfException;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -29,7 +30,7 @@ public final class FileManager {
             document.setFontSize(DEFAULT_FONT_SIZE);
             paragraphList.forEach(document::add);
         } catch (final IOException e) {
-            throw new RuntimeException(e);
+            throw new SavePdfException(e.getMessage());
         } finally {
             if (document != null) {
                 document.close();

@@ -23,9 +23,8 @@ public class TransactionHistoryServiceImpl implements TransactionHistoryService 
     public List<TransactionEntity> getPageOfTransactionsByUserId(final long userId, final Pageable pageable, final UserType userType) {
         if (userType == UserType.CUSTOMER) {
             return transactionRepository.findAllByIdFromOrderByCreatedAt(userId, pageable);
-        } else {
-            return transactionRepository.findAllByIdToOrderByCreatedAt(userId, pageable);
         }
+        return transactionRepository.findAllByIdToOrderByCreatedAt(userId, pageable);
     }
 
     public TransactionEntity saveTransaction(final TransactionModification transactionModification) {

@@ -8,20 +8,19 @@ import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.element.Text;
 import com.itextpdf.layout.properties.TextAlignment;
 import com.qpay.libs.FileManager;
+import com.qpay.libs.models.ReportInfo;
+import com.qpay.libs.models.UserReportInfo;
 import com.qpay.libs.models.UserType;
 import com.qpay.transactionhistorymanager.client.UserClient;
 import com.qpay.transactionhistorymanager.model.TransactionType;
-import com.qpay.libs.models.ReportInfo;
 import com.qpay.transactionhistorymanager.model.entity.TransactionEntity;
 import com.qpay.transactionhistorymanager.repository.TransactionRepository;
 import com.qpay.transactionhistorymanager.service.ReportGeneratorService;
-import com.qpay.transactionhistorymanager.service.exception.SavePdfException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import java.io.IOException;
+
 import java.math.BigDecimal;
 import java.net.MalformedURLException;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
@@ -41,9 +40,9 @@ public class ReportGeneratorIText implements ReportGeneratorService {
 
     private static final String REPORT_PATH = "data/reports/";
 
-    private static final DateTimeFormatter DATE_PATTERN_dd_MM_yyyy = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+    private static final DateTimeFormatter DATE_PATTERN = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 
-    private static final DateTimeFormatter DATE_PATTERN_dd_MM_yyyy_HH_mm = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
+    private static final DateTimeFormatter DATE_TIME_PATTERN = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
 
     private static final float LOGO_SCALE = 0.4F;
 
@@ -51,7 +50,7 @@ public class ReportGeneratorIText implements ReportGeneratorService {
 
     private static final int TITLE_FONT_SIZE = 32;
 
-    private static final float SUBTITLE_MARGIN_TOP = 90;
+    private static final float SUBTITLE_MARGIN_TOP = -10;
 
     private static final int SUBTITLE_FONT_SIZE = 14;
 
@@ -61,19 +60,26 @@ public class ReportGeneratorIText implements ReportGeneratorService {
 
     private static final String REPORT_PERIOD = "For period from %s to %s";
 
+    private static final String FILE_NAME = "%s_%s.pdf";
+
     public void generatePdfReport(final ReportInfo reportInfo) {
-        final var customerReportInfo = userClient.getCustomerReportInfo(reportInfo.userId());
+        final UserReportInfo userReportInfo;
+        if (reportInfo.userType() == UserType.CUSTOMER) {
+            userReportInfo = userClient.getCustomerReportInfo(reportInfo.userId());
+        } else {
+            userReportInfo = userClient.getMerchantReportInfo(reportInfo.userId());
+        }
         final var path = generatePath(reportInfo.userId());
         var totalReceived = BigDecimal.ZERO;
         var totalSent = BigDecimal.ZERO;
         final var transactionsTable = createTransactionsTable();
-        final List<TransactionEntity> transactionEntitiesInPeriod = getTransactionEntitiesInPeriod(reportInfo);
+        final var transactionEntitiesInPeriod = getTransactionEntitiesInPeriod(reportInfo);
         for (int number = 0; number < transactionEntitiesInPeriod.size(); number++) {
             final var transactionEntity = transactionEntitiesInPeriod.get(number);
-            final BigDecimal amount = transactionEntity.getAmount();
+            final var amount = transactionEntity.getAmount();
             final var transactionType = transactionEntity.getTransactionType();
             transactionsTable.addCell(String.valueOf(number + 1));
-            transactionsTable.addCell(transactionEntity.getCreatedAt().format(DATE_PATTERN_dd_MM_yyyy_HH_mm));
+            transactionsTable.addCell(transactionEntity.getCreatedAt().format(DATE_TIME_PATTERN));
             transactionsTable.addCell(transactionType.toString());
             transactionsTable.addCell(amount.toString());
             transactionsTable.addCell(transactionEntity.getNameTo());
@@ -91,12 +97,12 @@ public class ReportGeneratorIText implements ReportGeneratorService {
                 createLogoParagraph(),
                 createTitleParagraph(),
                 createSubTitleParagraph(reportInfo),
-                createClientNameParagraph(customerReportInfo.name()),
+                createClientNameParagraph(userReportInfo.name()),
                 createTotalAmountParagraph("income", totalReceived),
                 createTotalAmountParagraph("expenses", totalSent),
                 new Paragraph().add(transactionsTable)
         );
-        savePdf(path, paragraphList);
+        FileManager.savePdf(path, paragraphList);
     }
 
     private List<TransactionEntity> getTransactionEntitiesInPeriod(final ReportInfo reportInfo) {
@@ -106,31 +112,23 @@ public class ReportGeneratorIText implements ReportGeneratorService {
                             reportInfo.periodStart(),
                             reportInfo.periodEnd()
                     );
-        } else {
-            return transactionRepository.findAllByIdToAndCreatedAtBetween(
-                            reportInfo.userId(),
-                            reportInfo.periodStart(),
-                            reportInfo.periodEnd()
-                    );
         }
-    }
-
-    void savePdf(final String path, final List<Paragraph> paragraphList) {
-        try {
-            FileManager.savePdf(path, paragraphList);
-        } catch (final IOException exception) {
-            throw new SavePdfException(exception.getMessage());
-        }
+        return transactionRepository.findAllByIdToAndCreatedAtBetween(
+                        reportInfo.userId(),
+                        reportInfo.periodStart(),
+                        reportInfo.periodEnd()
+                );
     }
 
     private String generatePath(final long userId) {
-        final DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd:hh:mm:ss");
+        final var dateFormat = new SimpleDateFormat("yyyy-MM-dd:hh:mm:ss");
         final String currentDateTime = dateFormat.format(new Date());
-        return REPORT_PATH + userId + "_" + currentDateTime + ".pdf";
+        final var fileName = format(FILE_NAME, userId, currentDateTime);
+        return REPORT_PATH + fileName;
     }
 
     private Table createTransactionsTable() {
-        final Table table = new Table(TABLE_COLUMN_WIDTHS);
+        final var table = new Table(TABLE_COLUMN_WIDTHS);
         table.addCell("Number");
         table.addCell("Date");
         table.addCell("Transaction Type");
@@ -166,11 +164,11 @@ public class ReportGeneratorIText implements ReportGeneratorService {
 
     private Paragraph createSubTitleParagraph(final ReportInfo reportInfo) {
         final var subTitleParagraph = new Paragraph();
-        subTitleParagraph.setMarginTop(-100 + SUBTITLE_MARGIN_TOP);
+        subTitleParagraph.setMarginTop(SUBTITLE_MARGIN_TOP);
         subTitleParagraph.setTextAlignment(TextAlignment.RIGHT);
-        final String periodStart = reportInfo.periodStart().format(DATE_PATTERN_dd_MM_yyyy);
-        final String periodEnd = reportInfo.periodEnd().format(DATE_PATTERN_dd_MM_yyyy);
-        final Text subTitleText = new Text(format(REPORT_PERIOD, periodStart, periodEnd));
+        final var periodStart = reportInfo.periodStart().format(DATE_PATTERN);
+        final var periodEnd = reportInfo.periodEnd().format(DATE_PATTERN);
+        final var subTitleText = new Text(format(REPORT_PERIOD, periodStart, periodEnd));
         subTitleText.setFontSize(SUBTITLE_FONT_SIZE);
         subTitleParagraph.add(subTitleText);
         return subTitleParagraph;

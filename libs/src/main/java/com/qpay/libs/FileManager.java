@@ -17,7 +17,7 @@ public final class FileManager {
 
     private static final int DEFAULT_FONT_SIZE = 10;
 
-    public static void savePdf(final String path, final List<Paragraph> paragraphList) throws IOException {
+    public static void savePdf(final String path, final List<Paragraph> paragraphList) {
         final PdfWriter pdfWriter;
         final PdfDocument pdfDocument;
         Document document = null;
@@ -26,14 +26,14 @@ public final class FileManager {
             pdfDocument = new PdfDocument(pdfWriter);
             document = new Document(pdfDocument);
             document.setFont(PdfFontFactory.createFont(StandardFonts.HELVETICA));
+            document.setFontSize(DEFAULT_FONT_SIZE);
+            paragraphList.forEach(document::add);
         } catch (final IOException e) {
+            throw new RuntimeException(e);
+        } finally {
             if (document != null) {
                 document.close();
             }
-            throw new IOException(e);
         }
-        document.setFontSize(DEFAULT_FONT_SIZE);
-        paragraphList.forEach(document::add);
-        document.close();
     }
 }

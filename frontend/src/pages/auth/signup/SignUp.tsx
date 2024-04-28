@@ -9,7 +9,6 @@ import {useNavigate} from "react-router-dom";
 import {Buttons} from "../../../common/constansts/buttons";
 import {AuthContent} from "../../../common/constansts/authContent";
 import {Roles} from "../../../common/constansts/roles";
-import {signUpService} from "../../../services/user";
 import AuthLogo from "../../../components/logo/AuthLogo";
 import EmailField from "../../../components/fields/email/EmailField";
 import NameField from "../../../components/fields/name/NameField";
@@ -21,6 +20,7 @@ import {showNotification} from "../../../stores/redux/notification/notificationS
 import {FieldsValidation} from "./types";
 import {UserCredentials, UserType} from "../../../types/user";
 import {NotificationType} from "../../../types/notification";
+import {signUpService} from "../../../services/auth";
 
 const initialUserCredentials: UserCredentials = {
     email: "",

@@ -1,7 +1,6 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 import {RootState} from "../store";
-import {ILoggedUser} from "../../../types/loggedUser";
-import {UserType} from "../../../types/userType";
+import {ILoggedUser, UserType} from "../../../types/user";
 
 const initialState: ILoggedUser = {
     id: -1,
@@ -16,11 +15,14 @@ export const loggedUserSlice = createSlice({
     initialState,
     reducers: {
         signIn: (state, action: PayloadAction<ILoggedUser>) => ({...action.payload}),
+        addToken: (state, action: PayloadAction<string>) => {
+            state.token = action.payload;
+        },
         logOut: state => ({...initialState})
     }
 })
 
-export const {signIn, logOut} = loggedUserSlice.actions;
+export const {signIn, logOut, addToken} = loggedUserSlice.actions;
 
 export const selectLoggedUser = (state: RootState) => state.loggedUserState;
 

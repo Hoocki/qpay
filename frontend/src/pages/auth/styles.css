@@ -1,0 +1,16 @@
+.auth-container {
+    display: flex;
+    min-height: 70vh;
+}
+
+.auth-content {
+    margin: auto;
+    display: flex;
+    max-width: 20rem;
+    flex-direction: column;
+    align-items: center;
+}
+
+.logo {
+    width: 8rem;
+}

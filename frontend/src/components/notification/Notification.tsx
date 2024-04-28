@@ -2,8 +2,7 @@ import React from 'react';
 import {Alert, Snackbar} from "@mui/material";
 import {useAppDispatch, useAppSelector} from "../../stores/redux/hooks";
 import {selectNotification, showNotification} from "../../stores/redux/notification/notificationSlice";
-import {INotification} from "../../types/notification";
-import {NotificationType} from "../../types/notificationType";
+import {INotification, NotificationType} from "../../types/notification";
 import {Time} from "../../common/constansts/time";
 
 export const createNotification = (message: string, type: NotificationType): INotification => ({

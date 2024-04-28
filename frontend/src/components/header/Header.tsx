@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {NavigateFunction, useNavigate} from "react-router-dom";
+import {NavigateFunction, useLocation, useNavigate} from "react-router-dom";
 import {HeaderProps} from "./props";
 import {IRoute, mainRoutes} from "../../routes/routesConfig";
 import {AppBar, Container, Toolbar} from '@mui/material';
@@ -10,16 +10,13 @@ import DesktopMenu from "./desktopMenu/DesktopMenu";
 import UserMenu from "./userMenu/UserMenu";
 import './styles.css';
 import {Paths} from "../../common/constansts/paths";
-import {useAppDispatch} from "../../stores/redux/hooks";
-import {logOut} from "../../stores/redux/loggedUser/loggedUserSlice";
-import {Titles} from "../../common/constansts/titles";
 
 const Header: React.FC<HeaderProps> = ({isLogged}: HeaderProps) => {
 
     const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
     const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
     const navigate = useNavigate();
-    const dispatch = useAppDispatch();
+    const location = useLocation();
 
     const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorElNav(event.currentTarget);
@@ -33,9 +30,7 @@ const Header: React.FC<HeaderProps> = ({isLogged}: HeaderProps) => {
         setAnchorElUser(null);
         const pageName = event.currentTarget.textContent ?? '';
         const route = findRouteByPath(pageName);
-        if (pageName === Titles.LOG_OUT) {
-            dispatch(logOut());
-        } else if (route) {
+        if (route) {
             navigate(route.path);
         }
     };
@@ -46,13 +41,16 @@ const Header: React.FC<HeaderProps> = ({isLogged}: HeaderProps) => {
     };
 
     const redirectToPage = (isLogged: boolean, navigate: NavigateFunction) => {
-        const path = isLogged ? Paths.Home : Paths.SignIn;
-        navigate(path);
+        if (isLogged) {
+            navigate(Paths.Home);
+        } else if (location.pathname !== Paths.SignUp) {
+            navigate(Paths.SignIn);
+        }
     };
 
     useEffect(() => {
         redirectToPage(isLogged, navigate);
-    }, [isLogged, navigate]);
+    }, [isLogged]);
 
     return (
         <AppBar position="static" className="app-bar">

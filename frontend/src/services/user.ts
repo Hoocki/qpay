@@ -1,21 +1,13 @@
-import {User} from "../types/user";
-import {UserType} from "../types/userType";
+import {User, UserType} from "../types/user";
+import httpClient from "./httpClient";
+import {UserPaths} from "../common/constansts/paths";
+import _ from "lodash";
+import {mockEnabled, mockUser} from "./mock";
 
 export const getUserService = async (userId: number, userType: UserType): Promise<User> => {
-    if (userType === UserType.Customer) {
-        return {
-            id: userId,
-            email: "user@gmail.com",
-            name: "User",
-            createdAt: new Date(),
-            updatedAt: new Date(),
-        }
-    }
-    return {
-        id: userId,
-        email: "usermerchant@gmail.com",
-        name: "UserMerchant",
-        createdAt: new Date(),
-        updatedAt: new Date(),
-    }
+    if (mockEnabled) return mockUser;
+    const basePath = userType === UserType.Customer ? UserPaths.CUSTOMER : UserPaths.MERCHANT;
+    const targetPath = `${basePath}/${userId}`;
+    const response = await httpClient.get<User>(targetPath);
+    return _.get(response, "data");
 }

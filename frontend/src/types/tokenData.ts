@@ -1,4 +1,4 @@
-import {UserType} from "./userType";
+import {UserType} from "./user";
 
 export interface TokenData {
     userId: number,

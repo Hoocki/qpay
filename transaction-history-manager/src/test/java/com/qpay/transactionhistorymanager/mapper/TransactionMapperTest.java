@@ -1,6 +1,6 @@
 package com.qpay.transactionhistorymanager.mapper;
 
-import com.qpay.transactionhistorymanager.model.TransactionType;
+import com.qpay.libs.models.TransactionType;
 import com.qpay.transactionhistorymanager.model.dto.TransactionModification;
 import com.qpay.transactionhistorymanager.model.entity.TransactionEntity;
 import org.junit.jupiter.api.Test;

@@ -28,6 +28,9 @@ email-template:
   payment:
     subject: "Payment Notification"
     text: "You received a payment of %s. Thank you for using our service."
+  report:
+    subject: "Transaction Report"
+    text: "You received a transaction report from %s to %s. Thank you for using our service."
 
 email:
   enabled: true
@@ -35,5 +38,7 @@ email:
 broker:
   groups:
     payment-group: payment_group_1
+    transaction-group: transaction_group1
   topics:
     payment-topic: payment
+    report-topic: report

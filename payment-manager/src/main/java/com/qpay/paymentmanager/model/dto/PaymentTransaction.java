@@ -1,5 +1,6 @@
 package com.qpay.paymentmanager.model.dto;
 
+import com.qpay.libs.models.TransactionType;
 import lombok.Builder;
 
 import java.math.BigDecimal;
@@ -15,6 +16,8 @@ public record PaymentTransaction(
 
    long idTo,
 
-   BigDecimal amount
+   BigDecimal amount,
+
+   TransactionType transactionType
 ) {
 }

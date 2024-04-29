@@ -1,6 +1,7 @@
 package com.qpay.notificationmanager.service.impl;
 
 import com.qpay.libs.models.PaymentNotification;
+import com.qpay.libs.models.ReportNotification;
 import com.qpay.notificationmanager.service.NotificationService;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,6 +16,11 @@ public class MockNotificationService implements NotificationService {
 
     public void sendMessage(final PaymentNotification paymentNotification) {
         log.info("Mock email message sent to email: {}", paymentNotification.emailTo());
+    }
+
+    @Override
+    public void sendMessage(final ReportNotification reportNotification) {
+        log.info("Mock email message sent to email: {}", reportNotification.email());
     }
 
 }

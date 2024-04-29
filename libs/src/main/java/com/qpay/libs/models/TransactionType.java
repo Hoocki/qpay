@@ -1,4 +1,4 @@
-package com.qpay.transactionhistorymanager.model;
+package com.qpay.libs.models;
 
 public enum TransactionType {
     PAYMENT,

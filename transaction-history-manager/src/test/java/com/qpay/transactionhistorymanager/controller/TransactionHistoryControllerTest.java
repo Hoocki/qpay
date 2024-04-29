@@ -1,7 +1,7 @@
 package com.qpay.transactionhistorymanager.controller;
 
+import com.qpay.libs.models.TransactionType;
 import com.qpay.libs.models.UserType;
-import com.qpay.transactionhistorymanager.model.TransactionType;
 import com.qpay.transactionhistorymanager.model.dto.TransactionModification;
 import com.qpay.transactionhistorymanager.model.entity.TransactionEntity;
 import com.qpay.transactionhistorymanager.service.TransactionHistoryService;

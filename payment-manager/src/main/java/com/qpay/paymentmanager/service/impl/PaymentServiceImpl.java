@@ -1,6 +1,7 @@
 package com.qpay.paymentmanager.service.impl;
 
 import com.qpay.libs.models.PaymentNotification;
+import com.qpay.libs.models.TransactionType;
 import com.qpay.paymentmanager.client.TransactionHistoryClient;
 import com.qpay.paymentmanager.event.PaymentNotificationProducer;
 import com.qpay.paymentmanager.model.dto.PaymentTransaction;
@@ -45,7 +46,8 @@ public class PaymentServiceImpl implements PaymentService {
         saveTransactionToHistory(
                 fromWallet.getName(),
                 toWallet.getName(),
-                walletPayment
+                walletPayment,
+                TransactionType.PAYMENT
         );
         return fromWallet;
     }
@@ -70,13 +72,14 @@ public class PaymentServiceImpl implements PaymentService {
         }
     }
 
-    private void saveTransactionToHistory(final String nameFrom, final String nameTo, final WalletPayment walletPayment) {
+    private void saveTransactionToHistory(final String nameFrom, final String nameTo, final WalletPayment walletPayment, final TransactionType transactionType) {
         final var transaction = PaymentTransaction.builder()
                 .nameFrom(nameFrom)
                 .nameTo(nameTo)
                 .idFrom(walletPayment.walletIdFrom())
                 .idTo(walletPayment.walletIdTo())
                 .amount(walletPayment.amount())
+                .transactionType(transactionType)
                 .build();
         transactionHistoryClient.saveTransaction(transaction);
     }

@@ -15,11 +15,11 @@ public class ReportNotificationProducer {
     private final KafkaTemplate<String, ReportNotification> kafkaTemplate;
 
     @Value("${broker.topics.report-topic}")
-    private String paymentTopic;
+    private String reportTopic;
 
     public void publishReportNotification(final ReportNotification reportNotification) {
-        kafkaTemplate.send(paymentTopic, reportNotification.email(), reportNotification);
-        log.info("Payment notification event sent: {}", reportNotification);
+        kafkaTemplate.send(reportTopic, reportNotification.email(), reportNotification);
+        log.info("Report notification event sent: {}", reportNotification);
     }
 
 }

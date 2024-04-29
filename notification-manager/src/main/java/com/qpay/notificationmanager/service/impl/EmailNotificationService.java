@@ -29,5 +29,6 @@ public class EmailNotificationService implements NotificationService {
     public void sendMessage(final ReportNotification reportNotification) {
         final var message = mailMessageGenerator.getReportMessage(reportNotification);
         mailSender.send(message);
+        log.info("Report sent to: {}", reportNotification.email());
     }
 }

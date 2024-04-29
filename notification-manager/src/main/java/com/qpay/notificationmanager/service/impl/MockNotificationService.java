@@ -20,7 +20,7 @@ public class MockNotificationService implements NotificationService {
 
     @Override
     public void sendMessage(final ReportNotification reportNotification) {
-        log.info("Mock email message sent to email: {}", reportNotification.email());
+        log.info("Mock report sent to email: {}", reportNotification.email());
     }
 
 }

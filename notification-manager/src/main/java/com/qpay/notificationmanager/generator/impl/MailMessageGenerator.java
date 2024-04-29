@@ -43,8 +43,8 @@ public class MailMessageGenerator implements MessageGenerator {
             mimeMessage.setText(text);
 
             final var file = new File(reportNotification.filePath() + reportNotification.fileName());
-            final FileSystemResource fileSystemResource = new FileSystemResource(file);
-            final MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true);
+            final var fileSystemResource = new FileSystemResource(file);
+            final var mimeMessageHelper = new MimeMessageHelper(mimeMessage, true);
             mimeMessageHelper.addAttachment(reportNotification.fileName(), fileSystemResource);
         };
     }

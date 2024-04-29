@@ -18,7 +18,7 @@ email:
 broker:
   groups:
     payment-group: local_payment_group_1
-    transaction-group: local_transaction_group1
+    report-group: local_report_group1
   topics:
     payment-topic: local_payment
     report-topic: local_report

@@ -20,9 +20,9 @@ public final class FileManager {
 
     public static void savePdf(final String path, final List<Paragraph> paragraphList) {
         try (
-                final PdfWriter pdfWriter = new PdfWriter(path);
-                final PdfDocument pdfDocument = new PdfDocument(pdfWriter);
-                final Document document = new Document(pdfDocument)
+                final var pdfWriter = new PdfWriter(path);
+                final var pdfDocument = new PdfDocument(pdfWriter);
+                final var document = new Document(pdfDocument)
         ) {
             document.setFont(PdfFontFactory.createFont(StandardFonts.HELVETICA));
             document.setFontSize(DEFAULT_FONT_SIZE);

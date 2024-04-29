@@ -1,6 +1,7 @@
 package com.qpay.transactionhistorymanager.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.qpay.libs.models.UserType;
 import com.qpay.transactionhistorymanager.model.TransactionType;
 import com.qpay.transactionhistorymanager.model.entity.TransactionEntity;
 import com.qpay.transactionhistorymanager.service.impl.TransactionHistoryServiceImpl;
@@ -47,17 +48,17 @@ class TransactionHistoryControllerIntegrationTest {
                 .build();
 
         var transaction2 = TransactionEntity.builder()
-                .nameFrom("c")
-                .idFrom(3)
-                .nameTo("a")
-                .idTo(1)
+                .nameFrom("a")
+                .idFrom(1)
+                .nameTo("c")
+                .idTo(3)
                 .amount(new BigDecimal(2))
                 .transactionType(TransactionType.PAYMENT)
                 .build();
 
         var list = List.of(transaction1, transaction2);
         var pageable = PageRequest.of(0, 2, Sort.by("createdAt").descending());
-        given(transactionHistoryService.getPageOfTransactionsByUserId(1, pageable)).willReturn(list);
+        given(transactionHistoryService.getPageOfTransactionsByUserId(1, pageable, UserType.CUSTOMER)).willReturn(list);
 
         //when
         var responseBody = mockMvc
@@ -65,6 +66,7 @@ class TransactionHistoryControllerIntegrationTest {
                         .get(PathUtils.HISTORY_PATH + "/{id}", 1)
                         .param("page", "0")
                         .param("size", "2")
+                        .param("userType", "CUSTOMER")
                 )
                 .andReturn()
                 .getResponse()
@@ -88,22 +90,23 @@ class TransactionHistoryControllerIntegrationTest {
                 .build();
 
         var transaction2 = TransactionEntity.builder()
-                .nameFrom("c")
-                .idFrom(3)
-                .nameTo("a")
-                .idTo(1)
+                .nameFrom("a")
+                .idFrom(1)
+                .nameTo("c")
+                .idTo(3)
                 .amount(new BigDecimal(2))
                 .transactionType(TransactionType.PAYMENT)
                 .build();
 
         var list = List.of(transaction1, transaction2);
         var pageable = PageRequest.of(0, 25, Sort.by("createdAt").descending());
-        given(transactionHistoryService.getPageOfTransactionsByUserId(1, pageable)).willReturn(list);
+        given(transactionHistoryService.getPageOfTransactionsByUserId(1, pageable, UserType.CUSTOMER)).willReturn(list);
 
         //when
         var responseBody = mockMvc
                 .perform(MockMvcRequestBuilders
                         .get(PathUtils.HISTORY_PATH + "/{id}", 1)
+                        .param("userType", "CUSTOMER")
                 )
                 .andReturn()
                 .getResponse()

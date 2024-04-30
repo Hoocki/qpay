@@ -1,0 +1,8 @@
+.card-payment-content {
+    max-height: 3rem;
+    display: flex;
+    position: relative;
+    align-items: center;
+    margin-bottom: 2rem;
+    width: 80%;
+}

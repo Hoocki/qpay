@@ -1,0 +1,34 @@
+.card-balance {
+    margin-bottom: 1rem;
+}
+
+.card-content {
+    max-height: 3.5rem;
+    display: flex;
+    position: relative;
+    align-items: center;
+}
+
+.balance-info {
+    display: inline-block;
+    min-width: 25rem;
+}
+
+.home-components-info {
+    display: inline-block;
+    min-width: 7rem;
+}
+
+.wallet-balance {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.wallet-title {
+    font-size: 1.1rem;
+}
+
+.wallet-icon {
+    padding-right: 1.5rem;
+    font-size: 3rem;
+}

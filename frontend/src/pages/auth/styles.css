@@ -1,9 +1,9 @@
-.auth-container {
+.common-container {
     display: flex;
     min-height: 70vh;
 }
 
-.auth-content {
+.common-content {
     margin: auto;
     display: flex;
     max-width: 20rem;

@@ -11,5 +11,7 @@ export enum Titles {
     LOG_OUT = "Log out",
     SETTINGS_HINT = "Open settings",
     SELECT_ROLES = "Select role",
-    LOG_OUT_DIALOG = "Log out"
+    LOG_OUT_DIALOG = "Log out",
+    BALANCE = "Balance",
+    CREATE_INVOICE = "Create Invoice"
 }

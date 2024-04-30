@@ -82,8 +82,8 @@ const SignUp: React.FC = () => {
     }, [fieldsValidation, selectedRole, agreeChecked]);
 
     return (
-        <Box className="auth-container">
-            <Box className="auth-content">
+        <Box className="common-container">
+            <Box className="common-content">
                 <AuthLogo/>
                 <EmailField
                     defaultEmail={userCredentials.email}

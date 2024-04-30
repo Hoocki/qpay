@@ -1,0 +1,40 @@
+.card-balance {
+    background-color: #32774A;
+    margin-bottom: 1rem;
+    border: 0.2rem solid black;
+}
+
+.content-wrapper {
+    min-width: 285px;
+    min-height: 100px;
+    display: flex;
+    position: relative;
+    align-items: center;
+}
+
+.box-divider {
+    padding: 0 1rem;
+}
+
+.divider {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 0.05rem;
+    background-color: black;
+}
+
+.left-content, .right-content {
+    min-height: 50px;
+    flex: 1;
+    padding: 1rem 1rem;
+    text-align: center;
+}
+
+.wallet-balance {
+    font-weight: bold;
+}
+
+.qr-code {
+    font-size: 5rem;
+}

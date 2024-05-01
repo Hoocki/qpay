@@ -12,32 +12,39 @@ export interface IRoute {
     element: ReactNode
 }
 
-export const mainRoutes: IRoute[] = [
+export const mainClientRoutes: IRoute[] = [
     {
-        path: Paths.Profile,
+        path: Paths.PROFILE,
         element: <Profile/>
     },
     {
-        path: Paths.TopUp,
+        path: Paths.TOP_UP,
         element: <TopUp/>
     },
     {
-        path: Paths.Transactions,
+        path: Paths.TRANSACTIONS,
         element: <Transactions/>
     },
     {
-        path: Paths.Home,
+        path: Paths.HOME,
+        element: <Home/>
+    }
+];
+
+export const mainMerchantRoutes: IRoute[] = [
+    {
+        path: Paths.HOME,
         element: <Home/>
     }
 ];
 
 export const authRoutes: IRoute[] = [
     {
-        path: Paths.SignIn,
+        path: Paths.SIGN_IN,
         element: <SignIn/>
     },
     {
-        path: Paths.SignUp,
+        path: Paths.SIGN_UP,
         element: <SignUp/>
     }
 ];

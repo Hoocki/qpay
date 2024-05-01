@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
-import {NavigateFunction, useLocation, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import {HeaderProps} from "./props";
-import {IRoute, mainRoutes} from "../../routes/routesConfig";
+import {IRoute, mainClientRoutes, mainMerchantRoutes} from "../../routes/routesConfig";
 import {AppBar, Container, Toolbar} from '@mui/material';
 import DesktopLogo from "./desktopLogo/DesktopLogo";
 import MobileMenu from "./mobileMenu/MobileMenu";
@@ -9,14 +9,26 @@ import MobileLogo from "./mobileLogo/MobileLogo";
 import DesktopMenu from "./desktopMenu/DesktopMenu";
 import UserMenu from "./userMenu/UserMenu";
 import './styles.css';
-import {Paths} from "../../common/constansts/paths";
+import {useAppSelector} from "../../stores/redux/hooks";
+import {UserType} from "../../types/user";
+import {
+    HEADER_CLIENT_MAIN_TABS, HEADER_CLIENT_SETTINGS_TABS, HEADER_MERCHANT_SETTINGS_TABS
+} from "../../common/constansts/headers";
+import {selectLoggedUserType} from "../../stores/redux/loggedUser/loggedUserSlice";
+
+const getInitialStateMainRoutes = (userType: UserType) => userType === UserType.Customer ? mainClientRoutes : mainMerchantRoutes;
+const getInitialStateMainTabs = (userType: UserType) => userType === UserType.Customer ? HEADER_CLIENT_MAIN_TABS : [];
+const getInitialStateSettingsTabs = (userType: UserType) => userType === UserType.Customer ? HEADER_CLIENT_SETTINGS_TABS : HEADER_MERCHANT_SETTINGS_TABS;
 
 const Header: React.FC<HeaderProps> = ({isLogged}: HeaderProps) => {
 
     const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
     const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
     const navigate = useNavigate();
-    const location = useLocation();
+    const loggedUserType = useAppSelector(selectLoggedUserType);
+    const [mainRoutes, setMainRoutes] = useState<IRoute[]>(getInitialStateMainRoutes(loggedUserType));
+    const [mainTabs, setMainTabs] = useState<string[]>(getInitialStateMainTabs(loggedUserType));
+    const [settingsTabs, setSettingsTabs] = useState<string[]>(getInitialStateSettingsTabs(loggedUserType));
 
     const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorElNav(event.currentTarget);
@@ -36,21 +48,20 @@ const Header: React.FC<HeaderProps> = ({isLogged}: HeaderProps) => {
     };
 
     const findRouteByPath = (path: string) => {
-        const normalizedPath = path.toLowerCase().replace(/\s/g, '');
+        const normalizedPath = path.toLowerCase().replace(/\s/g, '') === "home" ? "" :
+            path.toLowerCase().replace(/\s/g, '');
         return mainRoutes.find((route: IRoute) => route.path.trim().slice(1).toLowerCase() === normalizedPath);
     };
 
-    const redirectToPage = (isLogged: boolean, navigate: NavigateFunction) => {
-        if (isLogged) {
-            navigate(Paths.Home);
-        } else if (location.pathname !== Paths.SignUp) {
-            navigate(Paths.SignIn);
-        }
-    };
+    const updateTabs = () => {
+        setMainTabs(getInitialStateMainTabs(loggedUserType));
+        setSettingsTabs(getInitialStateSettingsTabs(loggedUserType));
+        setMainRoutes(getInitialStateMainRoutes(loggedUserType));
+    }
 
     useEffect(() => {
-        redirectToPage(isLogged, navigate);
-    }, [isLogged]);
+        updateTabs();
+    }, [loggedUserType]);
 
     return (
         <AppBar position="static" className="app-bar">
@@ -59,11 +70,11 @@ const Header: React.FC<HeaderProps> = ({isLogged}: HeaderProps) => {
                     <Toolbar disableGutters>
                         <DesktopLogo/>
                         <MobileMenu anchorEl={anchorElNav} handleCloseMenu={handleCloseMenu}
-                                    handleOpenNavMenu={handleOpenNavMenu}/>
+                                    handleOpenNavMenu={handleOpenNavMenu} mainTabs={mainTabs}/>
                         <MobileLogo/>
-                        <DesktopMenu handleCloseMenu={handleCloseMenu}/>
+                        <DesktopMenu handleCloseMenu={handleCloseMenu} mainTabs={mainTabs}/>
                         <UserMenu anchorElUser={anchorElUser} handleCloseMenu={handleCloseMenu}
-                                  handleOpenUserMenu={handleOpenUserMenu}/>
+                                  handleOpenUserMenu={handleOpenUserMenu} settingsTabs={settingsTabs}/>
                     </Toolbar>
                 </Container>
             )}

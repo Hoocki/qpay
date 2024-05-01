@@ -4,12 +4,11 @@ import {Avatar, Box, IconButton, Menu, MenuItem, Tooltip, Typography} from "@mui
 import './styles.css';
 import {useAppDispatch, useAppSelector} from "../../../stores/redux/hooks";
 import {logOut, selectLoggedUser} from "../../../stores/redux/loggedUser/loggedUserSlice";
-import {HEADER_SETTINGS_TABS} from "../../../common/constansts/headers";
 import {Titles} from "../../../common/constansts/titles";
 import {anchorOriginTopRight, transformOriginTopRight} from "../../../common/constansts/positions";
 import ConfirmLogOut from "./confirmLogOut/ConfirmLogOut";
 
-const UserMenu: React.FC<UserMenuProps> = ({anchorElUser, handleCloseMenu, handleOpenUserMenu}: UserMenuProps) => {
+const UserMenu: React.FC<UserMenuProps> = ({anchorElUser, handleCloseMenu, handleOpenUserMenu, settingsTabs}: UserMenuProps) => {
     const loggedUser = useAppSelector(selectLoggedUser);
     const dispatch = useAppDispatch();
     const [showDialog, setShowDialog] = React.useState<boolean>(false);
@@ -60,7 +59,7 @@ const UserMenu: React.FC<UserMenuProps> = ({anchorElUser, handleCloseMenu, handl
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseMenu}
             >
-                {HEADER_SETTINGS_TABS.map((setting) => (
+                {settingsTabs.map((setting) => (
                     <MenuItem key={setting} onClick={handleCloseUserMenu}>
                         <Typography className="typography">{setting}</Typography>
                     </MenuItem>

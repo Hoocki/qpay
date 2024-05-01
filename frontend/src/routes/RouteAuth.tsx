@@ -1,6 +1,7 @@
 import React from 'react';
-import {Route, Routes} from "react-router-dom";
+import {Navigate, Route, Routes} from "react-router-dom";
 import {authRoutes, IRoute} from "./routesConfig";
+import {Paths} from "../common/constansts/paths";
 
 const RouteAuth: React.FC = () => {
     return (
@@ -8,6 +9,7 @@ const RouteAuth: React.FC = () => {
             {authRoutes.map((route: IRoute) => (
                 <Route key={route.path} path={route.path} element={route.element}/>
             ))}
+            <Route path={Paths.ANY} element={<Navigate to={Paths.SIGN_IN} replace={true} />}/>
         </Routes>
     );
 }

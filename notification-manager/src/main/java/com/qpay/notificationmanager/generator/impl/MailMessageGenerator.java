@@ -34,18 +34,17 @@ public class MailMessageGenerator implements MessageGenerator {
     }
 
     public MimeMessagePreparator getReportMessage(final ReportNotification reportNotification) {
-
         return mimeMessage -> {
             final var templateMessage = emailTemplate.getReport();
             final var text = format(templateMessage.getText(), reportNotification.dateFrom(), reportNotification.dateTo());
             mimeMessage.setRecipient(Message.RecipientType.TO, new InternetAddress(reportNotification.email()));
             mimeMessage.setSubject(templateMessage.getSubject());
-            mimeMessage.setText(text);
 
             final var file = new File(reportNotification.filePath() + reportNotification.fileName());
             final var fileSystemResource = new FileSystemResource(file);
             final var mimeMessageHelper = new MimeMessageHelper(mimeMessage, true);
             mimeMessageHelper.addAttachment(reportNotification.fileName(), fileSystemResource);
+            mimeMessageHelper.setText(text);
         };
     }
 

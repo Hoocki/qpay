@@ -9,10 +9,12 @@ import com.itextpdf.layout.element.Text;
 import com.itextpdf.layout.properties.TextAlignment;
 import com.qpay.libs.FileManager;
 import com.qpay.libs.models.ReportInfo;
+import com.qpay.libs.models.ReportNotification;
+import com.qpay.libs.models.TransactionType;
 import com.qpay.libs.models.UserReportInfo;
 import com.qpay.libs.models.UserType;
 import com.qpay.transactionhistorymanager.client.UserClient;
-import com.qpay.transactionhistorymanager.model.TransactionType;
+import com.qpay.transactionhistorymanager.event.ReportNotificationProducer;
 import com.qpay.transactionhistorymanager.model.entity.TransactionEntity;
 import com.qpay.transactionhistorymanager.repository.TransactionRepository;
 import com.qpay.transactionhistorymanager.service.ReportGeneratorService;
@@ -37,6 +39,8 @@ public class ReportGeneratorIText implements ReportGeneratorService {
 
     private final UserClient userClient;
 
+    private final ReportNotificationProducer reportNotificationProducer;
+
     public void generatePdfReport(final ReportInfo reportInfo) {
         final UserReportInfo userReportInfo;
         if (reportInfo.userType() == UserType.CUSTOMER) {
@@ -44,7 +48,6 @@ public class ReportGeneratorIText implements ReportGeneratorService {
         } else {
             userReportInfo = userClient.getMerchantReportInfo(reportInfo.userId());
         }
-        final var path = generatePath(reportInfo.userId());
         var totalReceived = BigDecimal.ZERO;
         var totalSent = BigDecimal.ZERO;
         final var transactionsTable = createTransactionsTable();
@@ -77,7 +80,9 @@ public class ReportGeneratorIText implements ReportGeneratorService {
                 createTotalAmountParagraph("expenses", totalSent),
                 new Paragraph().add(transactionsTable)
         );
-        FileManager.savePdf(path, paragraphList);
+        final var fileName = generateName(reportInfo.userId());
+        FileManager.savePdf(ReportGeneratorUtils.REPORT_PATH + fileName, paragraphList);
+        sendMessageToKafka(reportInfo, userReportInfo, fileName);
     }
 
     private List<TransactionEntity> getTransactionEntitiesInPeriod(final ReportInfo reportInfo) {
@@ -95,11 +100,25 @@ public class ReportGeneratorIText implements ReportGeneratorService {
                 );
     }
 
-    private String generatePath(final long userId) {
+    private void sendMessageToKafka(
+            final ReportInfo reportInfo,
+            final UserReportInfo userReportInfo,
+            final String fileName
+    ) {
+        final var reportNotification = ReportNotification.builder()
+                .email(userReportInfo.email())
+                .filePath(ReportGeneratorUtils.REPORT_PATH)
+                .fileName(fileName)
+                .dateFrom(reportInfo.periodStart().format(ReportGeneratorUtils.DATE_PATTERN))
+                .dateTo(reportInfo.periodEnd().format(ReportGeneratorUtils.DATE_PATTERN))
+                .build();
+        reportNotificationProducer.publishReportNotification(reportNotification);
+    }
+
+    private String generateName(final long userId) {
         final var dateFormat = new SimpleDateFormat("yyyy-MM-dd:hh:mm:ss");
         final var currentDateTime = dateFormat.format(new Date());
-        final var fileName = format(ReportGeneratorUtils.FILE_NAME, userId, currentDateTime);
-        return ReportGeneratorUtils.REPORT_PATH + fileName;
+        return format(ReportGeneratorUtils.FILE_NAME, userId, currentDateTime);
     }
 
     private Table createTransactionsTable() {

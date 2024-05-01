@@ -1,3 +1,7 @@
+broker:
+  topics:
+    report-topic: report
+
 spring:
   application:
     name: transaction-history
@@ -6,3 +10,8 @@ spring:
       pageable:
         default-page-size: 25
         max-page-size: 50
+  kafka:
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      acks: 1

@@ -1,6 +1,6 @@
 package com.qpay.transactionhistorymanager.model.entity;
 
-import com.qpay.transactionhistorymanager.model.TransactionType;
+import com.qpay.libs.models.TransactionType;
 import lombok.Builder;
 import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;

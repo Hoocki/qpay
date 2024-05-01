@@ -1,8 +1,8 @@
 package com.qpay.transactionhistorymanager.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.qpay.libs.models.TransactionType;
 import com.qpay.libs.models.UserType;
-import com.qpay.transactionhistorymanager.model.TransactionType;
 import com.qpay.transactionhistorymanager.model.entity.TransactionEntity;
 import com.qpay.transactionhistorymanager.service.impl.TransactionHistoryServiceImpl;
 import com.qpay.transactionhistorymanager.utility.PathUtils;

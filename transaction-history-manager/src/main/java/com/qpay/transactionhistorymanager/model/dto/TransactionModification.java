@@ -1,6 +1,6 @@
 package com.qpay.transactionhistorymanager.model.dto;
 
-import com.qpay.transactionhistorymanager.model.TransactionType;
+import com.qpay.libs.models.TransactionType;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;

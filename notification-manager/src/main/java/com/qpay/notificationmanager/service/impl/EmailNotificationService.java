@@ -1,6 +1,7 @@
 package com.qpay.notificationmanager.service.impl;
 
 import com.qpay.libs.models.PaymentNotification;
+import com.qpay.libs.models.ReportNotification;
 import com.qpay.notificationmanager.generator.impl.MailMessageGenerator;
 import com.qpay.notificationmanager.service.NotificationService;
 import lombok.RequiredArgsConstructor;
@@ -25,4 +26,9 @@ public class EmailNotificationService implements NotificationService {
         log.info("Message sent to: {}", paymentNotification.emailTo());
     }
 
+    public void sendMessage(final ReportNotification reportNotification) {
+        final var message = mailMessageGenerator.getReportMessage(reportNotification);
+        mailSender.send(message);
+        log.info("Report sent to: {}", reportNotification.email());
+    }
 }

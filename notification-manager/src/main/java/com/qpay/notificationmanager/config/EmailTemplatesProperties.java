@@ -12,6 +12,8 @@ public class EmailTemplatesProperties {
 
     private TemplateMessage payment;
 
+    private TemplateMessage report;
+
     @Data
     @Builder
     public static class TemplateMessage {
@@ -21,5 +23,4 @@ public class EmailTemplatesProperties {
         private String text;
 
     }
-
 }

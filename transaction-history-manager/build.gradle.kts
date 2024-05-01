@@ -8,4 +8,5 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-validation")
     implementation("com.itextpdf:itext7-core:${Versions.I_TEXT_PDF}")
     implementation("org.springframework.cloud:spring-cloud-starter-openfeign:${Versions.OPENFEIGN}")
+    implementation("org.springframework.kafka:spring-kafka:${Versions.KAFKA}")
 }

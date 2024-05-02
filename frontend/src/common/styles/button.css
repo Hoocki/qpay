@@ -1,7 +1,17 @@
 .button {
+    background-color: #657FB4;
     border-radius: 0.5rem;
     font-weight: bold;
     margin: auto;
     width: 12rem;
     height: 3rem;
+}
+
+.cancel-button {
+    background-color: #F3F3F3;
+    color: #474747;
+}
+
+.cancel-button:hover {
+    background-color: #cecece;
 }

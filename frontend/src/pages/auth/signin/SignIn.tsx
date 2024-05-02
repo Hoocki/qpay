@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Box, Button, Link, Typography} from "@mui/material";
 import "../../../common/styles/button.css";
 import "./styles.css";
+import "../../../common/styles/container.css";
 import {useAppDispatch} from "../../../stores/redux/hooks";
 import {addToken, signIn} from "../../../stores/redux/loggedUser/loggedUserSlice";
 import {getUserService} from "../../../services/user";
@@ -34,7 +35,7 @@ const SignIn: React.FC = () => {
             id: user.id,
             email: user.email,
             name: user.name,
-            userType: UserType.Customer,
+            userType: UserType.Merchant,
             token
         };
     }
@@ -70,8 +71,8 @@ const SignIn: React.FC = () => {
     }, [isPasswordValid, isEmailValid]);
 
     return (
-        <Box className="auth-container">
-            <Box className="auth-content">
+        <Box className="main-container">
+            <Box className="content-container">
                 <AuthLogo/>
                 <Box className="sign-in-fields">
                     <EmailField

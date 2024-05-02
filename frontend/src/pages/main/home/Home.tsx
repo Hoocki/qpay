@@ -1,32 +1,42 @@
 import React from 'react';
-import {Titles} from "../../../common/constansts/titles";
 import "../../../common/styles/button.css";
 import "../../../components/balance/styles.css";
-import {Box, Typography} from "@mui/material";
+import "./styles.css";
+import "../../../common/styles/container.css";
+import {Box} from "@mui/material";
 import {useNavigate} from "react-router-dom";
 import {Paths} from "../../../common/constansts/paths";
-import Balance from "../../../components/balance/Balance";
-import Invoice from "../../../components/createInvoice/Invoice";
-import "./styles.css";
+import {useAppSelector} from "../../../stores/redux/hooks";
+import {selectLoggedUserType} from "../../../stores/redux/loggedUser/loggedUserSlice";
+import {UserType} from "../../../types/user";
+import ClientHome from "../../../components/clientHome/ClientHome";
+import MerchantHome from '../../../components/merchantHome/MerchantHome';
 
 const Home: React.FC = () => {
+    const loggedUserType = useAppSelector(selectLoggedUserType);
     const navigate = useNavigate();
 
-    const handleCardClick = () => {
+    const handlePaymentClick = () => {
         navigate(Paths.PAYMENT);
     }
 
+    const handleTopUpClick = () => {
+        navigate(Paths.TOP_UP);
+    }
+
+    const handleHistoryClick = () => {
+        navigate(Paths.TRANSACTIONS);
+    }
+
     return (
-        <Box className="common-container">
-            <Box className="common-content">
-                <Typography
-                    variant="h4"
-                    className="home-title"
-                >
-                    {Titles.HOME}
-                </Typography>
-                <Balance/>
-                <Invoice handleCardClick={handleCardClick}/>
+        <Box className="main-container">
+            <Box className="content-container">
+                {loggedUserType === UserType.Customer ?
+                    <ClientHome handlePaymentClick={handlePaymentClick}
+                                handleTopUpClick={handleTopUpClick}
+                                handleHistoryClick={handleHistoryClick}/>
+                    :
+                    <MerchantHome/>}
             </Box>
         </Box>
     );

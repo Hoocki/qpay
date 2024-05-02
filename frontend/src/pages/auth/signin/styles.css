@@ -3,5 +3,6 @@
 }
 
 .sign-in-fields {
+    max-width: 20rem;
     padding: 0.7rem;
 }

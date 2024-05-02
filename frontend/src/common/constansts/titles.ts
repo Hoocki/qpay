@@ -13,5 +13,8 @@ export enum Titles {
     SELECT_ROLES = "Select role",
     LOG_OUT_DIALOG = "Log out",
     BALANCE = "Balance",
-    CREATE_INVOICE = "Create Invoice"
+    SCAN_PAY = "Scan & Pay",
+    HISTORY = "History",
+    GENERATE_QR = "Generate QR code",
+    ABOUT_QR = "QR code will be displayed here"
 }

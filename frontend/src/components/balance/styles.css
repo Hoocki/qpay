@@ -1,40 +1,37 @@
 .card-balance {
-    background-color: #32774A;
+    background-color: #F3F3F3;
     margin-bottom: 1rem;
-    border: 0.2rem solid black;
+
 }
 
-.content-wrapper {
-    min-width: 285px;
-    min-height: 100px;
+.card-content {
+    max-height: 3rem;
     display: flex;
     position: relative;
     align-items: center;
 }
 
-.box-divider {
-    padding: 0 1rem;
+.balance-info {
+    display: inline-block;
+    min-width: 25rem;
 }
 
-.divider {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    width: 0.05rem;
-    background-color: black;
-}
-
-.left-content, .right-content {
-    min-height: 50px;
-    flex: 1;
-    padding: 1rem 1rem;
-    text-align: center;
+.home-components-info {
+    display: inline-block;
+    min-width: 7rem;
 }
 
 .wallet-balance {
+    font-size: 1.5rem;
     font-weight: bold;
 }
 
-.qr-code {
-    font-size: 5rem;
+.wallet-title {
+    font-size: 1.1rem;
+}
+
+.wallet-icon {
+    color: #657FB4;
+    padding-right: 1.5rem;
+    font-size: 3rem;
 }

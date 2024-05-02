@@ -1,9 +1,11 @@
 import {User, UserType} from "../types/user";
-import {Wallet} from "../types/wallet";
+import {IWallet} from "../types/wallet";
 
 export const mockEnabled = true;
 
 export const mockToken = "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyVHlwZSI6IkNVU1RPTUVSIiwidXNlcklkIjo3OSwiZW1haWwiOiJ1c2VydGVzdEBtYWlsLnJ1Iiwic3ViIjoidXNlcnRlc3RAbWFpbC5ydSIsImlhdCI6MTcxNDI5MTkxM30.AyL1LnHCeIr78ch5owlWw57aMFbG_4Z0c69H_-3n-jw";
+
+export const mockQrCode = "QrCode";
 
 export const mockUser: User = {
     id: 79,
@@ -13,12 +15,10 @@ export const mockUser: User = {
     createdAt: new Date()
 }
 
-export const mockWallet: Wallet = {
+export const mockWallet: IWallet = {
     id: 40,
     name: "wallet",
     balance: 100,
     userId: 79,
-    userType: UserType.Merchant,
-    updatedAt: new Date(),
-    createdAt: new Date()
+    userType: UserType.Merchant
 }

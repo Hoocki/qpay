@@ -1,0 +1,26 @@
+.card-generate-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #747474;
+    width: 80%;
+    height: 80%;
+    border-radius: 1rem;
+    border: 0.1rem solid #747474;
+}
+
+.card-generate {
+    height: 25rem;
+    display: flex;
+    margin-top: 2rem;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #F3F3F3;
+}
+
+.icon-qr {
+    color: #747474;
+    font-size: 3rem;
+}

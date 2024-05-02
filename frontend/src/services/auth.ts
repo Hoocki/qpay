@@ -1,9 +1,9 @@
 import {AuthCredentials} from "../types/authCredentials";
 import httpClient from "./httpClient";
-import {AuthPath, UserPaths} from "../common/constansts/paths";
 import _ from "lodash";
 import {User, UserCredentials, UserType} from "../types/user";
 import {mockEnabled, mockToken, mockUser} from "./mock";
+import {AuthPath, UserPaths} from "../common/constansts/serverPaths";
 
 export const logInService = async (authCredentials: AuthCredentials): Promise<string> => {
     if (mockEnabled) return mockToken;

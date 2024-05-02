@@ -52,7 +52,7 @@ const SignUp: React.FC = () => {
         if (user !== null) {
             const notification = createNotification(Notifications.SIGN_UP, NotificationType.SUCCESS);
             dispatch(showNotification(notification));
-            navigate(Paths.SignIn);
+            navigate(Paths.SIGN_IN);
         }
 
     };
@@ -134,7 +134,7 @@ const SignUp: React.FC = () => {
 
                 <Typography variant="body1" className="sign-in-link">
                     {AuthContent.ACCOUNT_EXIST}
-                    <Link href={Paths.SignIn}>
+                    <Link href={Paths.SIGN_IN}>
                         {Titles.SIGN_IN}
                     </Link>
                 </Typography>

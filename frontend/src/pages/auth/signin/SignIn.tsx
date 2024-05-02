@@ -29,7 +29,7 @@ const SignIn: React.FC = () => {
     const [isValid, setIsValid] = useState(false);
     const dispatch = useAppDispatch();
 
-    const createLoggedUser = (token: string, user: User): ILoggedUser => {
+    const createLoggedUser = (token: string, user: User, decodedToken: TokenData): ILoggedUser => {
         return {
             id: user.id,
             email: user.email,
@@ -46,10 +46,9 @@ const SignIn: React.FC = () => {
         dispatch(addToken(token));
         const decodedToken: TokenData = jwtDecode(token);
         const user = await getUserService(decodedToken.userId, decodedToken.userType);
-        const loggedUser = createLoggedUser(token, user);
-        if (loggedUser) {
-            dispatch(signIn(loggedUser));
-        }
+        const loggedUser = createLoggedUser(token, user, decodedToken);
+        if (!loggedUser) return;
+        dispatch(signIn(loggedUser));
     }
 
     const updateEmailChange = (email: string, isEmailValid: boolean) => {
@@ -97,7 +96,7 @@ const SignIn: React.FC = () => {
                 >
                     {AuthContent.ACCOUNT_NOT_EXIST}
                     <Link
-                        href={Paths.SignUp}
+                        href={Paths.SIGN_UP}
                         color="primary"
                     >
                         {Buttons.SIGN_UP}

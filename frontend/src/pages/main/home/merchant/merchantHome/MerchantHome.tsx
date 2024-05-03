@@ -1,9 +1,10 @@
 import React, {useState} from 'react';
-import {Box, Typography} from "@mui/material";
-import {Titles} from "../../common/constansts/titles";
-import PaymentEntry from "../paymentEntry/PaymentEntry";
-import GenerateQR from "../generateQR/GenerateQR";
+import {Box} from "@mui/material";
+import PaymentEntry from "../../../../../components/paymentEntry/PaymentEntry";
+import GenerateQR from "../qrGeneration/QrGeneration";
 import "./styles.css";
+import Title from '../../../../../components/title/Title';
+import {Titles} from "../../../../../common/constansts/titles";
 
 const MerchantHome = () => {
     const [qrCode, setQrCode] = useState<string>("");
@@ -14,12 +15,7 @@ const MerchantHome = () => {
 
     return (
         <Box className="merchant-home">
-            <Typography
-                variant="h3"
-                className="home-title"
-            >
-                {Titles.GENERATE_QR}
-            </Typography>
+            <Title title={Titles.GENERATE_QR}/>
             <PaymentEntry updateQrCode={updateQrCode}/>
             <GenerateQR qrCode={qrCode}/>
         </Box>

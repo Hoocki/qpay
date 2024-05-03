@@ -1,20 +1,17 @@
 import React, {useEffect, useState} from 'react';
 import {Box, Card, CardContent, Typography} from "@mui/material";
-import {Titles} from "../../common/constansts/titles";
-import {useAppSelector} from "../../stores/redux/hooks";
+import {Titles} from "../../../../../common/constansts/titles";
+import {useAppSelector} from "../../../../../stores/redux/hooks";
 import "./styles.css";
-import {IWallet} from "../../types/wallet";
-import {getWalletByUserService} from "../../services/wallet";
-import {selectLoggedUser} from "../../stores/redux/loggedUser/loggedUserSlice";
-import {UserType} from "../../types/user";
+import {IWallet} from "../../../../../types/wallet";
+import {getWalletByUserService} from "../../../../../services/wallet";
+import {selectLoggedUser} from "../../../../../stores/redux/loggedUser/loggedUserSlice";
 import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
+import {CURRENCY_USD} from "../../../../../common/constansts/currency";
 
 const initialWallet: IWallet = {
     id: -1,
-    name: "",
     balance: 0,
-    userId: -1,
-    userType: UserType.Merchant
 }
 
 const Balance: React.FC = () => {
@@ -26,8 +23,8 @@ const Balance: React.FC = () => {
     }, []);
 
     const getWallet = async () => {
-        const serverWallet = await getWalletByUserService(loggedUser.id, loggedUser.userType);
-        setWallet(serverWallet);
+        const receivedWallet = await getWalletByUserService(loggedUser.id, loggedUser.userType);
+        setWallet(receivedWallet);
     }
 
     return (
@@ -36,7 +33,7 @@ const Balance: React.FC = () => {
                 <AccountBalanceWalletIcon className="wallet-icon"/>
                 <Box className="balance-info">
                     <Typography className="wallet-balance">
-                        {wallet.balance} $
+                        {wallet.balance} {CURRENCY_USD}
                     </Typography>
                     <Typography className="wallet-title" color="text.secondary">
                         {Titles.BALANCE}

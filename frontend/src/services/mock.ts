@@ -1,4 +1,4 @@
-import {User, UserType} from "../types/user";
+import {ILoggedUser, User, UserType} from "../types/user";
 import {IWallet} from "../types/wallet";
 
 export const mockEnabled = true;
@@ -15,10 +15,15 @@ export const mockUser: User = {
     createdAt: new Date()
 }
 
+export const mockLoggedUser: ILoggedUser = {
+    id: 79,
+    email: "usertest@mail.ru",
+    name: "userTest",
+    userType: UserType.Merchant,
+    token: mockToken
+}
+
 export const mockWallet: IWallet = {
     id: 40,
-    name: "wallet",
     balance: 100,
-    userId: 79,
-    userType: UserType.Merchant
 }

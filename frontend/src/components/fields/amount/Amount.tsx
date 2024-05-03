@@ -2,25 +2,25 @@ import React, {useState} from 'react';
 import {AmountProps} from "./props";
 import {TextField} from "@mui/material";
 import {ValidationErrorMessages} from "../../../common/constansts/validationErrorMessages";
+import {LOWER_AMOUNT_LIMIT, UPPER_AMOUNT_LIMIT} from "../../../common/constansts/validation";
 
-const Amount: React.FC<AmountProps> = ({updateAmountFields}) => {
+const Amount: React.FC<AmountProps> = ({updateAmountField, updateIsValidAmountField}) => {
     const [amount, setAmount] = useState<number>(0);
-    const [isAmountValid, setIsAmountValid] = useState<boolean>(false);
 
     const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const inputValue = parseFloat(e.target.value);
-        setAmount(inputValue);
         const isValid = validateAmount(inputValue);
-        setIsAmountValid(isValid);
-        updateAmountFields(amount, isValid);
+        updateIsValidAmountField(isValid);
+        if (!isValid) return;
+        setAmount(inputValue);
+        updateAmountField(amount);
     };
 
-    const validateAmount = (amount: number): boolean => amount > 0;
+    const validateAmount = (amount: number): boolean => amount > LOWER_AMOUNT_LIMIT && amount <= UPPER_AMOUNT_LIMIT;
 
     return (
         <TextField
-            error={!isAmountValid}
-            helperText={isAmountValid ? "" : ValidationErrorMessages.AMOUNT_NOT_VALID}
+            helperText={ValidationErrorMessages.AMOUNT_NOT_VALID}
             placeholder="Amount"
             variant="outlined"
             type="number"

@@ -7,29 +7,7 @@
     width: 80%;
 }
 
-.clear-button {
-    background-color: #F3F3F3;
-    color: #474747;
-    border-radius: 0.5rem;
-    font-weight: bold;
-    margin-right: 2rem;
-    margin-left: 2rem;
-    margin-bottom: 2rem;
-    width: 12rem;
-    height: 3rem;
-}
-
-.clear-button:hover {
-    background-color: #cecece;
-}
-
-.generate-button {
-    background-color: #657FB4;
-    border-radius: 0.5rem;
-    font-weight: bold;
-    margin-right: 2rem;
-    margin-left: 2rem;
-    margin-bottom: 2rem;
-    width: 12rem;
-    height: 3rem;
+.card-payment-generation {
+    background-color: #ffffff;
+    box-shadow: 1rem 1rem 4rem #cbcbcb;
 }

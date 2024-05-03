@@ -1,17 +1,9 @@
 .button {
-    background-color: #657FB4;
     border-radius: 0.5rem;
     font-weight: bold;
-    margin: auto;
+    margin-right: 2rem;
+    margin-left: 2rem;
+    margin-bottom: 2rem;
     width: 12rem;
     height: 3rem;
-}
-
-.cancel-button {
-    background-color: #F3F3F3;
-    color: #474747;
-}
-
-.cancel-button:hover {
-    background-color: #cecece;
 }

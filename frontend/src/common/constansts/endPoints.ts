@@ -1,19 +1,19 @@
-export enum UserPaths {
+export enum UserEndPoints {
     CUSTOMER = "/customers",
     MERCHANT = "/merchants",
     SIGN_UP_USER = "/signup"
 }
 
-export enum AuthPath{
+export enum AuthEndPoints{
     AUTH = "/auth",
     SIGN_IN_USER = '/signIn',
 }
 
-export enum WalletPaths {
+export enum WalletEndPoints {
     WALLET = "/wallets",
     WALLET_BY_USER = "/users"
 }
 
-export enum QRPath{
+export enum QREndPoints{
     QRCODE = "/qrcode",
 }

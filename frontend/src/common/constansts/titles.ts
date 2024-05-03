@@ -3,7 +3,6 @@ export enum Titles {
     QR_GENERATION = "QR Generation",
     TRANSACTIONS = "Transactions",
     HOME = "Home",
-    SIGN_UP = "Sign Up",
     SIGN_IN = "Sign In",
     PAYMENT = "Payment",
     PROFILE = "Profile",
@@ -14,7 +13,6 @@ export enum Titles {
     LOG_OUT_DIALOG = "Log out",
     BALANCE = "Balance",
     SCAN_PAY = "Scan & Pay",
-    HISTORY = "History",
     GENERATE_QR = "Generate QR code",
     ABOUT_QR = "QR code will be displayed here"
 }

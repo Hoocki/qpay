@@ -14,16 +14,18 @@ import {QRCodeCredentials} from "../../types/QRCodeCredentials";
 import {getWalletByUserService} from "../../services/wallet";
 import {PaymentEntryProps} from "./props";
 
-
 const PaymentEntry: React.FC<PaymentEntryProps> = ({updateQrCode}) => {
 
     const loggedUser = useAppSelector(selectLoggedUser);
     const [amount, setAmount] = useState<number>(0);
     const [isAmountValid, setIsAmountValid] = useState<boolean>(false);
 
-    const updateAmountChange = (amount: number, isEmailValid: boolean) => {
+    const updateAmountChange = (amount: number) => {
         setAmount(amount);
-        setIsAmountValid(isEmailValid);
+    };
+
+    const updateIsAmountValidChange = (isAmountValid: boolean) => {
+        setIsAmountValid(isAmountValid);
     };
 
     const createQrCodeCredentials = (walletId: number): QRCodeCredentials => {
@@ -49,27 +51,27 @@ const PaymentEntry: React.FC<PaymentEntryProps> = ({updateQrCode}) => {
     }
 
     return (
-        <Card className="card-payment">
+        <Card className="card-payment card-payment-generation">
                 <CardMedia
                     component="img"
                     className="card-logo"
                     image={Logo}
                 />
                 <CardContent className="card-payment-content">
-                    <Amount updateAmountFields={updateAmountChange}/>
+                    <Amount updateAmountField={updateAmountChange} updateIsValidAmountField={updateIsAmountValidChange}/>
                 </CardContent>
             <Box>
                 <Button
                     onClick={handleCancel}
                     variant="contained"
-                    className="clear-button"
+                    className="button"
                 >
                     {Buttons.CLEAR}
                 </Button>
                 <Button
                     onClick={handleGenerateQr}
                     variant="contained"
-                    className="generate-button"
+                    className="button"
                     disabled={!isAmountValid}
                 >
                     {Buttons.GENERATE}

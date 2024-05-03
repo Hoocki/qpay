@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {NameFieldProps} from "./props";
 import {ValidationErrorMessages} from "../../../common/constansts/validationErrorMessages";
 import {TextField} from "@mui/material";
-import {TEXT_FIELD_VALIDATION} from "../../../common/constansts/validation";
+import {NAME_MIN_SIZE} from "../../../common/constansts/validation";
 
 const NameField: React.FC<NameFieldProps> = ({defaultName, updateNameFields,}) => {
     const [name, setName] = useState<string>(defaultName);
@@ -15,7 +15,7 @@ const NameField: React.FC<NameFieldProps> = ({defaultName, updateNameFields,}) =
         updateNameFields(name, isValid);
     };
 
-    const validateName = (name: string) => name.trim().length >= TEXT_FIELD_VALIDATION;
+    const validateName = (name: string) => name.trim().length >= NAME_MIN_SIZE;
 
     useEffect(() => {
         setName(defaultName);

@@ -132,7 +132,7 @@ const SignUp: React.FC = () => {
                     {Buttons.SIGN_UP}
                 </Button>
 
-                <Typography variant="body1" className="sign-in-link">
+                <Typography variant="body1">
                     {AuthContent.ACCOUNT_EXIST}
                     <Link href={Paths.SIGN_IN}>
                         {Titles.SIGN_IN}

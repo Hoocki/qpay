@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {ValidationErrorMessages} from "../../../common/constansts/validationErrorMessages";
 import {TextField} from "@mui/material";
 import {PasswordFieldProps} from "./props";
-import {TEXT_FIELD_VALIDATION} from "../../../common/constansts/validation";
+import {PASSWORD_MIN_SIZE} from "../../../common/constansts/validation";
 
 const PasswordField: React.FC<PasswordFieldProps> = ({updatePasswordFields}) => {
     const [password, setPassword] = useState<string>("");
@@ -15,7 +15,7 @@ const PasswordField: React.FC<PasswordFieldProps> = ({updatePasswordFields}) => 
         updatePasswordFields(password, isValid);
     };
 
-    const validatePassword = (password: string) => password.trim().length >= TEXT_FIELD_VALIDATION;
+    const validatePassword = (password: string) => password.trim().length >= PASSWORD_MIN_SIZE;
 
     return (
         <TextField

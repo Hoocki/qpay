@@ -2,18 +2,18 @@ import React from 'react';
 import {Box, Card, CardActionArea, CardContent, Typography} from "@mui/material";
 import RestoreIcon from '@mui/icons-material/Restore';
 import {Titles} from "../../common/constansts/titles";
-import {HistoryProps} from "./props";
+import {TransactionsEntryProps} from "./props";
 import "../../common/styles/icons.css";
 
-const History: React.FC<HistoryProps> = ({handleHistoryClick}) => {
+const TransactionsEntry: React.FC<TransactionsEntryProps> = ({handleTransactionsClick}) => {
     return (
         <Card className="card-payment">
-            <CardActionArea onClick={handleHistoryClick}>
+            <CardActionArea onClick={handleTransactionsClick}>
                 <CardContent className="card-content">
                     <Box className="home-components-info">
                         <RestoreIcon className="icon"/>
                         <Typography variant="h5">
-                            {Titles.HISTORY}
+                            {Titles.TRANSACTIONS}
                         </Typography>
                     </Box>
                 </CardContent>
@@ -22,4 +22,4 @@ const History: React.FC<HistoryProps> = ({handleHistoryClick}) => {
     );
 };
 
-export default History;
+export default TransactionsEntry;

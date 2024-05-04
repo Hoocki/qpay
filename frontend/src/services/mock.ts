@@ -3,7 +3,7 @@ import {IWallet} from "../types/wallet";
 
 // test configs
 export const mockEnabled = true;
-export const mockUserType = UserType.Merchant;
+export const mockUserType = UserType.Customer as UserType;
 //
 
 const mockTokenMerchant = "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyVHlwZSI6Ik1FUkNIQU5UIiwidXNlcklkIjoxNCwiZW1haWwiOiJ1c2VydGVzdDEwQG1haWwucnUiLCJzdWIiOiJ1c2VydGVzdDEwQG1haWwucnUiLCJpYXQiOjE3MTQ3OTUzNzV9.QtmHScrPj-G2XTJvZRcft6vjR2NJ8A360pmculfTc_0";

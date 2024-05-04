@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import {Box, Card, CardContent, Typography} from "@mui/material";
-import {Titles} from "../../../../../common/constansts/titles";
 import {useAppSelector} from "../../../../../stores/redux/hooks";
 import "./styles.css";
 import {IWallet} from "../../../../../types/wallet";
@@ -8,6 +7,7 @@ import {getWalletByUserService} from "../../../../../services/wallet";
 import {selectLoggedUser} from "../../../../../stores/redux/loggedUser/loggedUserSlice";
 import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 import {CURRENCY_USD} from "../../../../../common/constansts/currency";
+import {Content} from "../../../../../common/constansts/content";
 
 const initialWallet: IWallet = {
     id: -1,
@@ -28,7 +28,7 @@ const Balance: React.FC = () => {
     }
 
     return (
-        <Card className="card-balance">
+        <Card className="card-payment card-balance">
             <CardContent className="card-content">
                 <AccountBalanceWalletIcon className="wallet-icon"/>
                 <Box className="balance-info">
@@ -36,7 +36,7 @@ const Balance: React.FC = () => {
                         {wallet.balance} {CURRENCY_USD}
                     </Typography>
                     <Typography className="wallet-title" color="text.secondary">
-                        {Titles.BALANCE}
+                        {Content.BALANCE}
                     </Typography>
                 </Box>
             </CardContent>

@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Box} from "@mui/material";
-import PaymentEntry from "../../../../../components/paymentEntry/PaymentEntry";
+import PaymentPanel from "../paymentPanel/PaymentPanel";
 import GenerateQR from "../qrGeneration/QrGeneration";
 import "./styles.css";
 import Title from '../../../../../components/title/Title';
@@ -16,7 +16,7 @@ const MerchantHome = () => {
     return (
         <Box className="merchant-home">
             <Title title={Titles.GENERATE_QR}/>
-            <PaymentEntry updateQrCode={updateQrCode}/>
+            <PaymentPanel updateQrCode={updateQrCode}/>
             <GenerateQR qrCode={qrCode}/>
         </Box>
     );

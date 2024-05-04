@@ -1,3 +1,3 @@
-export interface PaymentEntryProps {
+export interface PaymentPanelProps {
     updateQrCode: (qrCode: string) => void;
 }

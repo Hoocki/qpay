@@ -1,21 +1,21 @@
 import React from 'react';
 import {Box, Card, CardContent, Typography} from "@mui/material";
 import QrCodeIcon from '@mui/icons-material/QrCode';
-import {Titles} from "../../../../../common/constansts/titles";
 import "../../../../../common/styles/icons.css";
 import "./styles.css";
 import "../../../../../common/styles/container.css";
-import {GenerateQRProps} from "./props";
+import {QRGenerationProps} from "./props";
+import {Content} from "../../../../../common/constansts/content";
 
-const QrGeneration: React.FC<GenerateQRProps> = ({qrCode}) => {
+const QrGeneration: React.FC<QRGenerationProps> = ({qrCode}) => {
 
     return (
-        <Card className="card-generation">
-            <CardContent className="card-generation-content">
+        <Card className="card-payment card-qr-generation">
+            <CardContent className="card-qr-generation-content">
                 {qrCode === "" ? <Box>
                         <QrCodeIcon className="icon-qr"/>
                         <Typography variant="h5">
-                            {Titles.ABOUT_QR}
+                            {Content.ABOUT_QR}
                         </Typography>
                     </Box> :
                     <Typography variant="h5">

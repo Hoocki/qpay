@@ -8,7 +8,6 @@ import {addToken, signIn} from "../../../stores/redux/loggedUser/loggedUserSlice
 import {getUserService} from "../../../services/user";
 import {Buttons} from "../../../common/constansts/buttons";
 import {logInService} from "../../../services/auth";
-import {ILoggedUser, User} from "../../../types/user";
 import {Paths} from "../../../common/constansts/paths";
 import {AuthContent} from "../../../common/constansts/authContent";
 import AuthLogo from "../../../components/logo/AuthLogo";
@@ -17,7 +16,7 @@ import PasswordField from "../../../components/fields/password/PasswordField";
 import {AuthCredentials} from "../../../types/authCredentials";
 import {jwtDecode} from "jwt-decode";
 import {TokenData} from "../../../types/tokenData";
-import {mockEnabled, mockLoggedUser} from "../../../services/mock";
+import {createLoggedUser} from "../../../common/mappers";
 
 const initialAuthCredentials: AuthCredentials = {
     email: "",
@@ -30,17 +29,6 @@ const SignIn: React.FC = () => {
     const [isPasswordValid, setIsPasswordValid] = useState<boolean>(false);
     const [isValid, setIsValid] = useState(false);
     const dispatch = useAppDispatch();
-
-    const createLoggedUser = (token: string, user: User, decodedToken: TokenData): ILoggedUser => {
-        if (mockEnabled) return mockLoggedUser;
-        return {
-            id: user.id,
-            email: user.email,
-            name: user.name,
-            userType: decodedToken.userType,
-            token
-        };
-    }
 
     const handleSignIn = async () => {
         if (!isValid) return;

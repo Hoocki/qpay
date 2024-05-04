@@ -1,9 +1,9 @@
 import React from 'react';
 import {Box, Card, CardActionArea, CardContent, Typography} from "@mui/material";
 import RestoreIcon from '@mui/icons-material/Restore';
-import {Titles} from "../../common/constansts/titles";
+import {Titles} from "../../../../../common/constansts/titles";
 import {TransactionsEntryProps} from "./props";
-import "../../common/styles/icons.css";
+import "../../../../../common/styles/icons.css";
 
 const TransactionsEntry: React.FC<TransactionsEntryProps> = ({handleTransactionsClick}) => {
     return (

@@ -1,4 +1,10 @@
-.card-generation-content {
+.card-qr-generation {
+    height: 25rem;
+    margin-top: 2rem;
+    justify-content: center;
+}
+
+.card-qr-generation-content {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -8,16 +14,6 @@
     height: 80%;
     border-radius: 1rem;
     border: 0.1rem solid #747474;
-}
-
-.card-generation {
-    height: 25rem;
-    display: flex;
-    margin-top: 2rem;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    box-shadow: 1rem 1rem 4rem #cbcbcb;
 }
 
 .icon-qr {

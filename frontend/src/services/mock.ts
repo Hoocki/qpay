@@ -1,9 +1,15 @@
-import {ILoggedUser, User, UserType} from "../types/user";
+import {User, UserType} from "../types/user";
 import {IWallet} from "../types/wallet";
 
+// test configs
 export const mockEnabled = true;
+export const mockUserType = UserType.Merchant;
+//
 
-export const mockToken = "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyVHlwZSI6IkNVU1RPTUVSIiwidXNlcklkIjo3OSwiZW1haWwiOiJ1c2VydGVzdEBtYWlsLnJ1Iiwic3ViIjoidXNlcnRlc3RAbWFpbC5ydSIsImlhdCI6MTcxNDI5MTkxM30.AyL1LnHCeIr78ch5owlWw57aMFbG_4Z0c69H_-3n-jw";
+const mockTokenMerchant = "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyVHlwZSI6Ik1FUkNIQU5UIiwidXNlcklkIjoxNCwiZW1haWwiOiJ1c2VydGVzdDEwQG1haWwucnUiLCJzdWIiOiJ1c2VydGVzdDEwQG1haWwucnUiLCJpYXQiOjE3MTQ3OTUzNzV9.QtmHScrPj-G2XTJvZRcft6vjR2NJ8A360pmculfTc_0";
+const mockTokenClient = "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyVHlwZSI6IkNVU1RPTUVSIiwidXNlcklkIjo5MSwiZW1haWwiOiJ1c2VydGVzdDVAbWFpbC5ydSIsInN1YiI6InVzZXJ0ZXN0NUBtYWlsLnJ1IiwiaWF0IjoxNzE0Nzk1MzI3fQ.INChxr6QbqP_xmjZf77O9vTLv3UsmjF6PcmLonL05gM";
+
+export const mockToken = mockUserType === UserType.Merchant ? mockTokenMerchant : mockTokenClient;
 
 export const mockQrCode = "QrCode";
 
@@ -15,13 +21,6 @@ export const mockUser: User = {
     createdAt: new Date()
 }
 
-export const mockLoggedUser: ILoggedUser = {
-    id: 79,
-    email: "usertest@mail.ru",
-    name: "userTest",
-    userType: UserType.Merchant,
-    token: mockToken
-}
 
 export const mockWallet: IWallet = {
     id: 40,

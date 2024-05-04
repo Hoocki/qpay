@@ -1,3 +1,3 @@
-export interface GenerateQRProps {
+export interface QRGenerationProps {
     qrCode: string
 }

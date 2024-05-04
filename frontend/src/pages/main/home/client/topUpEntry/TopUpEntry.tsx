@@ -1,9 +1,9 @@
 import React from 'react';
 import {Box, Card, CardActionArea, CardContent, Typography} from "@mui/material";
-import {Titles} from "../../common/constansts/titles";
+import {Titles} from "../../../../../common/constansts/titles";
 import {TopUpEntryProps} from "./props";
 import AddCardIcon from '@mui/icons-material/AddCard';
-import "../../common/styles/icons.css";
+import "../../../../../common/styles/icons.css";
 
 const TopUpEntry: React.FC<TopUpEntryProps> = ({handleTopUpClick}) => {
     return (

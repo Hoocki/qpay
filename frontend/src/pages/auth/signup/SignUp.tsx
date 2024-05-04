@@ -21,6 +21,7 @@ import {FieldsValidation} from "./types";
 import {UserCredentials, UserType} from "../../../types/user";
 import {NotificationType} from "../../../types/notification";
 import {signUpService} from "../../../services/auth";
+import {Content} from "../../../common/constansts/content";
 
 const initialUserCredentials: UserCredentials = {
     email: "",
@@ -97,7 +98,7 @@ const SignUp: React.FC = () => {
                     updatePasswordFields={updatePasswordChange}
                 />
                 <Typography variant="h5" gutterBottom>
-                    {Titles.SELECT_ROLES}
+                    {Content.SELECT_ROLES}
                 </Typography>
                 <RadioGroup
                     row

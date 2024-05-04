@@ -1,7 +1,8 @@
-.sign-up-link {
-    margin-top: 1rem;
+.sign-in-fields {
+    max-width: 20rem;
+    padding: 0.7rem;
 }
 
-.sign-in-fields {
-    padding: 0.7rem;
+.sign-up-link {
+    margin-bottom: 2rem;
 }

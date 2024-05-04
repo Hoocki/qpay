@@ -6,6 +6,7 @@ import TopUp from "../pages/main/topup/TopUp";
 import Transactions from "../pages/main/transactions/Transactions";
 import Home from "../pages/main/home/Home";
 import {Paths} from "../common/constansts/paths";
+import Payment from "../pages/main/payment/Payment";
 
 export interface IRoute {
     path: string
@@ -28,6 +29,10 @@ export const mainClientRoutes: IRoute[] = [
     {
         path: Paths.HOME,
         element: <Home/>
+    },
+    {
+        path: Paths.PAYMENT,
+        element: <Payment/>
     }
 ];
 

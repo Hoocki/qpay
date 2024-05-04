@@ -1,0 +1,35 @@
+.main-container {
+    display: flex;
+    min-height: 70vh;
+}
+
+.content-container {
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.components-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.card-payment {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: inherit;
+    box-shadow: inherit;
+    border-radius: 0.5rem;
+}
+
+.card-auth {
+    padding: 2rem;
+}
+
+.card-background {
+    background-color: #ffffff;
+    box-shadow: 1rem 1rem 4rem #cbcbcb;
+}

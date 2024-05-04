@@ -7,6 +7,7 @@ import {logOut, selectLoggedUser} from "../../../stores/redux/loggedUser/loggedU
 import {Titles} from "../../../common/constansts/titles";
 import {anchorOriginTopRight, transformOriginTopRight} from "../../../common/constansts/positions";
 import ConfirmLogOut from "./confirmLogOut/ConfirmLogOut";
+import {Content} from "../../../common/constansts/content";
 
 const UserMenu: React.FC<UserMenuProps> = ({anchorElUser, handleCloseMenu, handleOpenUserMenu, settingsTabs}: UserMenuProps) => {
     const loggedUser = useAppSelector(selectLoggedUser);
@@ -41,7 +42,7 @@ const UserMenu: React.FC<UserMenuProps> = ({anchorElUser, handleCloseMenu, handl
             >
                 {loggedUser.name}
             </Typography>
-            <Tooltip title={Titles.SETTINGS_HINT}>
+            <Tooltip title={Content.SETTINGS_HINT}>
                 <IconButton
                     onClick={handleOpenUserMenu}
                     className="user-icon-button"

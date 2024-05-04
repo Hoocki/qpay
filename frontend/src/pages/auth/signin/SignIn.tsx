@@ -1,13 +1,13 @@
 import React, {useEffect, useState} from 'react';
-import {Box, Button, Link, Typography} from "@mui/material";
+import {Box, Button, Card, Link, Typography} from "@mui/material";
 import "../../../common/styles/button.css";
 import "./styles.css";
+import "../../../common/styles/container.css";
 import {useAppDispatch} from "../../../stores/redux/hooks";
 import {addToken, signIn} from "../../../stores/redux/loggedUser/loggedUserSlice";
 import {getUserService} from "../../../services/user";
 import {Buttons} from "../../../common/constansts/buttons";
 import {logInService} from "../../../services/auth";
-import {ILoggedUser, User, UserType} from "../../../types/user";
 import {Paths} from "../../../common/constansts/paths";
 import {AuthContent} from "../../../common/constansts/authContent";
 import AuthLogo from "../../../components/logo/AuthLogo";
@@ -16,6 +16,7 @@ import PasswordField from "../../../components/fields/password/PasswordField";
 import {AuthCredentials} from "../../../types/authCredentials";
 import {jwtDecode} from "jwt-decode";
 import {TokenData} from "../../../types/tokenData";
+import {createLoggedUser} from "../../../common/mappers";
 
 const initialAuthCredentials: AuthCredentials = {
     email: "",
@@ -28,16 +29,6 @@ const SignIn: React.FC = () => {
     const [isPasswordValid, setIsPasswordValid] = useState<boolean>(false);
     const [isValid, setIsValid] = useState(false);
     const dispatch = useAppDispatch();
-
-    const createLoggedUser = (token: string, user: User, decodedToken: TokenData): ILoggedUser => {
-        return {
-            id: user.id,
-            email: user.email,
-            name: user.name,
-            userType: UserType.Customer,
-            token
-        };
-    }
 
     const handleSignIn = async () => {
         if (!isValid) return;
@@ -70,38 +61,40 @@ const SignIn: React.FC = () => {
     }, [isPasswordValid, isEmailValid]);
 
     return (
-        <Box className="auth-container">
-            <Box className="auth-content">
-                <AuthLogo/>
-                <Box className="sign-in-fields">
-                    <EmailField
-                        defaultEmail={authCredentials.email}
-                        updateEmailFields={updateEmailChange}
-                    />
-                    <PasswordField
-                        updatePasswordFields={updatePasswordChange}
-                    />
-                </Box>
-                <Button
-                    variant="contained"
-                    className="button"
-                    disabled={!isValid}
-                    onClick={handleSignIn}
-                >
-                    {Buttons.SIGN_IN}
-                </Button>
-                <Typography
-                    variant="body1"
-                    className="sign-up-link"
-                >
-                    {AuthContent.ACCOUNT_NOT_EXIST}
-                    <Link
-                        href={Paths.SIGN_UP}
-                        color="primary"
+        <Box className="main-container">
+            <Box className="content-container">
+                <Card className="card-background card-payment card-auth">
+                    <AuthLogo/>
+                    <Box className="sign-in-fields">
+                        <EmailField
+                            defaultEmail={authCredentials.email}
+                            updateEmailFields={updateEmailChange}
+                        />
+                        <PasswordField
+                            updatePasswordFields={updatePasswordChange}
+                        />
+                    </Box>
+                    <Button
+                        variant="contained"
+                        className="button"
+                        disabled={!isValid}
+                        onClick={handleSignIn}
                     >
-                        {Buttons.SIGN_UP}
-                    </Link>
-                </Typography>
+                        {Buttons.SIGN_IN}
+                    </Button>
+                    <Typography
+                        variant="body1"
+                        className="sign-up-link"
+                    >
+                        {AuthContent.ACCOUNT_NOT_EXIST}
+                        <Link
+                            href={Paths.SIGN_UP}
+                            color="primary"
+                        >
+                            {Buttons.SIGN_UP}
+                        </Link>
+                    </Typography>
+                </Card>
             </Box>
         </Box>
     );

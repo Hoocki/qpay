@@ -1,9 +1,10 @@
 import {User, UserType} from "../types/user";
 import {IWallet} from "../types/wallet";
+import {Transaction, TransactionType} from "../types/transactions";
 
 // test configs
 export const mockEnabled = true;
-export const mockUserType = UserType.Merchant as UserType;
+export const mockUserType = UserType.Customer as UserType;
 //
 
 const mockTokenMerchant = "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyVHlwZSI6Ik1FUkNIQU5UIiwidXNlcklkIjoxNCwiZW1haWwiOiJ1c2VydGVzdDEwQG1haWwucnUiLCJzdWIiOiJ1c2VydGVzdDEwQG1haWwucnUiLCJpYXQiOjE3MTQ3OTUzNzV9.QtmHScrPj-G2XTJvZRcft6vjR2NJ8A360pmculfTc_0";
@@ -25,3 +26,69 @@ export const mockWallet: IWallet = {
     id: 40,
     balance: 100,
 }
+
+export const mockTransactions: Transaction[] = [
+    {
+        id: 1,
+        amount: 30,
+        nameTo: "Starbucks",
+        TransactionType: TransactionType.PAYMENT,
+        createdAt: new Date()
+    },
+    {
+        id: 2,
+        amount: 20,
+        nameTo: "McDonald's",
+        TransactionType: TransactionType.PAYMENT,
+        createdAt: new Date()
+    },
+    {
+        id: 3,
+        amount: 15,
+        nameTo: "Wallet",
+        TransactionType: TransactionType.TOP_UP,
+        createdAt: new Date()
+    },
+    {
+        id: 4,
+        amount: 30,
+        nameTo: "Starbucks",
+        TransactionType: TransactionType.PAYMENT,
+        createdAt: new Date()
+    },
+    {
+        id: 5,
+        amount: 25,
+        nameTo: "Wallet",
+        TransactionType: TransactionType.TOP_UP,
+        createdAt: new Date()
+    },
+    {
+        id: 6,
+        amount: 25,
+        nameTo: "Steam",
+        TransactionType: TransactionType.PAYMENT,
+        createdAt: new Date()
+    },
+    {
+        id: 8,
+        amount: 25,
+        nameTo: "DNS",
+        TransactionType: TransactionType.PAYMENT,
+        createdAt: new Date()
+    },
+    {
+        id: 9,
+        amount: 25,
+        nameTo: "b",
+        TransactionType: TransactionType.PAYMENT,
+        createdAt: new Date()
+    },
+    {
+        id: 10,
+        amount: 25,
+        nameTo: "d",
+        TransactionType: TransactionType.PAYMENT,
+        createdAt: new Date()
+    }
+]

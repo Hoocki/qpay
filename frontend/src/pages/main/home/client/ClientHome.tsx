@@ -7,6 +7,7 @@ import {Paths} from "../../../../common/constansts/paths";
 import "./styles.css";
 import {Icons} from "../../../../common/constansts/icons";
 import HomeEntry from "./components/homeEntry/HomeEntry";
+import Graphic from "./components/graphic/Graphic";
 
 const ClientHome: React.FC = () => {
 
@@ -19,6 +20,7 @@ const ClientHome: React.FC = () => {
                 <HomeEntry content={Titles.TOP_UP} path={Paths.TOP_UP} iconName={Icons.ADD_CARD}/>
                 <HomeEntry content={Titles.TRANSACTIONS} path={Paths.TRANSACTIONS} iconName={Icons.RESTORE}/>
             </Box>
+            <Graphic/>
         </Box>
     );
 };

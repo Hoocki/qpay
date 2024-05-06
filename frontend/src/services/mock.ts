@@ -1,7 +1,7 @@
 import {IUser, UserType} from "../types/user";
 import {IWallet} from "../types/wallet";
 import {
-    IExpenseTransaction, IIncome,
+    IExpenseData, IIncomeData,
     ITransactionData,
 } from "../types/transactions";
 
@@ -30,33 +30,37 @@ export const mockWallet: IWallet = {
     balance: 100,
 }
 
-export const mockExpensesTransactions: IExpenseTransaction = {
+export const mockExpensesTransactions: IExpenseData = {
     transactions: [
         {
             amount: 30,
             nameTo: "Starbucks",
+            percentage: 21
         },
         {
             amount: 20,
             nameTo: "McDonald's",
+            percentage: 14
         },
         {
             amount: 20,
             nameTo: "Steam",
+            percentage: 14
         },
         {
             amount: 70,
-            nameTo: "Others"
+            nameTo: "Others",
+            percentage: 50
         },
     ],
-    amount: 140
+    total: 140
 }
 
-export const mockIncome: IIncome = {
-    amount: 30
+export const mockIncome: IIncomeData = {
+    total: 30
 }
 
 export const mockTransactionsData: ITransactionData = {
-    expensesTransactions: mockExpensesTransactions,
+    expenses: mockExpensesTransactions,
     income: mockIncome
 }

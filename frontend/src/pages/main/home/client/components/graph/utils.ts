@@ -1,14 +1,11 @@
-import {ITransaction} from "../../../../../../types/transactions";
+import {ITransactionGroup} from "../../../../../../types/transactions";
 import {CURRENCY_USD} from "../../../../../../common/constansts/currency";
 import {TRANSACTIONS_CHART_COLORS} from "../../../../../../common/constansts/colors";
 
-export const getGraphData = (transactions: ITransaction[], expenses: number) => {
+export const getGraphData = (transactions: ITransactionGroup[]) => {
     return {
         labels:
-            transactions.map(transaction => {
-                const percentage = Math.round((transaction.amount / expenses) * 100);
-                return `${transaction.nameTo}: ${transaction.amount}${CURRENCY_USD} (${percentage}%)`;
-            }),
+            transactions.map(transaction => `${transaction.nameTo}: ${transaction.amount}${CURRENCY_USD} (${transaction.percentage}%)`),
         datasets: [
             {
                 data: transactions.map((transaction) => transaction.amount),

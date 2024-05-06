@@ -6,7 +6,7 @@ import "../balance/styles.css";
 import {Pie} from "react-chartjs-2";
 import {ArcElement, Chart, Legend, Tooltip} from "chart.js";
 import {Content} from "../../../../../../common/constansts/content";
-import {ITransaction} from "../../../../../../types/transactions";
+import {ITransactionGroup} from "../../../../../../types/transactions";
 import {getChartTransactionsInRange} from "../../../../../../services/transaction";
 import {useAppSelector} from "../../../../../../stores/redux/hooks";
 import {selectLoggedUser} from "../../../../../../stores/redux/loggedUser/loggedUserSlice";
@@ -19,16 +19,16 @@ Chart.register(Tooltip, Legend, ArcElement);
 const Graph: React.FC = () => {
 
     const loggedUser = useAppSelector(selectLoggedUser);
-    const [transactions, setTransactions] = useState<ITransaction[]>([]);
+    const [transactions, setTransactions] = useState<ITransactionGroup[]>([]);
     const [income, setIncome] = useState<number>(0);
     const [expenses, setExpenses] = useState<number>(0);
 
     const getTransactionData = async () => {
         const transactionsData = await getChartTransactionsInRange(loggedUser.id, loggedUser.userType, Time.START_DATE, Time.END_DATE);
-        const expensesTransactions = transactionsData.expensesTransactions.transactions;
+        const expensesTransactions = transactionsData.expenses.transactions;
         setTransactions(expensesTransactions);
-        countExpenses(transactionsData.expensesTransactions.amount);
-        countIncome(transactionsData.income.amount);
+        countExpenses(transactionsData.expenses.total);
+        countIncome(transactionsData.income.total);
     }
 
     const countExpenses = (amount: number) => {
@@ -72,7 +72,7 @@ const Graph: React.FC = () => {
                             }
                         }
                     }
-                }} data={getGraphData(transactions, expenses)} className="graphic"/>
+                }} data={getGraphData(transactions)} className="graphic"/>
                 :
                 <></>
             }

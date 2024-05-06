@@ -1,10 +1,8 @@
 import {IUser, UserType} from "../types/user";
 import {IWallet} from "../types/wallet";
 import {
-    IExpenseTransaction,
-    IIncomeTransaction,
+    IExpenseTransaction, IIncome,
     ITransactionData,
-    TransactionType
 } from "../types/transactions";
 
 // test configs
@@ -35,49 +33,30 @@ export const mockWallet: IWallet = {
 export const mockExpensesTransactions: IExpenseTransaction = {
     transactions: [
         {
-            id: 1,
             amount: 30,
             nameTo: "Starbucks",
-            TransactionType: TransactionType.PAYMENT,
-            createdAt: new Date()
         },
         {
-            id: 2,
             amount: 20,
             nameTo: "McDonald's",
-            TransactionType: TransactionType.PAYMENT,
-            createdAt: new Date()
         },
         {
-            id: 4,
-            amount: 30,
-            nameTo: "Starbucks",
-            TransactionType: TransactionType.PAYMENT,
-            createdAt: new Date()
-        },
-        {
-            id: 6,
             amount: 20,
             nameTo: "Steam",
-            TransactionType: TransactionType.PAYMENT,
-            createdAt: new Date()
         },
         {
-            id: 7,
             amount: 70,
-            nameTo: "Others",
-            TransactionType: TransactionType.PAYMENT,
-            createdAt: new Date()
+            nameTo: "Others"
         },
     ],
-    amount: 170
+    amount: 140
 }
 
-export const mockIncomeTransactions: IIncomeTransaction = {
+export const mockIncome: IIncome = {
     amount: 30
 }
 
 export const mockTransactionsData: ITransactionData = {
     expensesTransactions: mockExpensesTransactions,
-    incomeTransactions: mockIncomeTransactions
+    income: mockIncome
 }

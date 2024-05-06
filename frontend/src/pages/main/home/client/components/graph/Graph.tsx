@@ -28,7 +28,7 @@ const Graph: React.FC = () => {
         const expensesTransactions = transactionsData.expensesTransactions.transactions;
         setTransactions(expensesTransactions);
         countExpenses(transactionsData.expensesTransactions.amount);
-        countIncome(transactionsData.incomeTransactions.amount);
+        countIncome(transactionsData.income.amount);
     }
 
     const countExpenses = (amount: number) => {

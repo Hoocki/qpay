@@ -1,14 +1,6 @@
-export const enum TransactionType {
-    PAYMENT = "PAYMENT",
-    TOP_UP = "TOP_UP"
-}
-
 export interface ITransaction {
-    id: number,
     amount: number,
     nameTo: string,
-    TransactionType: TransactionType,
-    createdAt: Date
 }
 
 export interface IExpenseTransaction {
@@ -16,11 +8,11 @@ export interface IExpenseTransaction {
     amount: number
 }
 
-export interface IIncomeTransaction {
+export interface IIncome {
     amount: number
 }
 
 export interface ITransactionData {
     expensesTransactions: IExpenseTransaction,
-    incomeTransactions: IIncomeTransaction
+    income: IIncome
 }

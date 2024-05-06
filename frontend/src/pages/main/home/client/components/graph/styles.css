@@ -1,6 +1,7 @@
 .card-graphic {
     margin-top: 1rem;
     padding: 1rem;
+    align-items: start;
 }
 
 .graphic {

@@ -1,6 +1,6 @@
-import {User, UserType} from "../types/user";
+import {IUser, UserType} from "../types/user";
 import {IWallet} from "../types/wallet";
-import {Transaction, TransactionType} from "../types/transactions";
+import {ITransaction, TransactionType} from "../types/transactions";
 
 // test configs
 export const mockEnabled = true;
@@ -14,7 +14,7 @@ export const mockToken = mockUserType === UserType.Merchant ? mockTokenMerchant 
 
 export const mockQrCode = "QrCode";
 
-export const mockUser: User = {
+export const mockUser: IUser = {
     id: 79,
     email: "usertest@mail.ru",
     name: "userTest",
@@ -27,7 +27,7 @@ export const mockWallet: IWallet = {
     balance: 100,
 }
 
-export const mockTransactions: Transaction[] = [
+export const mockTransactions: ITransaction[] = [
     {
         id: 1,
         amount: 30,

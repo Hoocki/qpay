@@ -1,7 +1,7 @@
 import {UserType} from "../types/user";
 import {mockTransactions} from "./mock";
-import {Transaction} from "../types/transactions";
+import {ITransaction} from "../types/transactions";
 
-export const getTransactionForYearService = async (userId: number, userType: UserType, beginDate: number, endDate: number): Promise<Transaction[]> => {
+export const getTransactionsInRange = async (userId: number, userType: UserType, startDate: Date, endDate: Date): Promise<ITransaction[]> => {
     return mockTransactions;
 }

@@ -3,7 +3,7 @@ export const enum TransactionType {
     TOP_UP = "TOP_UP"
 }
 
-export interface Transaction {
+export interface ITransaction {
     id: number,
     amount: number,
     nameTo: string,

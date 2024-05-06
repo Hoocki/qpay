@@ -27,13 +27,13 @@
     "web-vitals": "^2.1.4"
   },
   "devDependencies": {
+    "@types/chart.js": "^2.9.41",
     "@types/jest": "^27.5.2",
     "@types/lodash": "^4.17.0",
     "@types/node": "^16.18.93",
     "@types/react": "^18.2.73",
     "@types/react-dom": "^18.2.23",
-    "@types/redux-persist": "^4.3.1",
-    "@types/chart.js": "^2.9.41"
+    "@types/redux-persist": "^4.3.1"
   },
   "scripts": {
     "start": "react-scripts start",

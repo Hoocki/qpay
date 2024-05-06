@@ -33,7 +33,6 @@ export const mockWallet: IWallet = {
 }
 
 export const mockExpensesTransactions: IExpenseTransaction = {
-    name: TransactionType.PAYMENT,
     transactions: [
         {
             id: 1,
@@ -75,11 +74,10 @@ export const mockExpensesTransactions: IExpenseTransaction = {
 }
 
 export const mockIncomeTransactions: IIncomeTransaction = {
-    name: TransactionType.TOP_UP,
     amount: 30
 }
 
 export const mockTransactionsData: ITransactionData = {
-    expensesTransaction: mockExpensesTransactions,
-    incomeTransaction: mockIncomeTransactions
+    expensesTransactions: mockExpensesTransactions,
+    incomeTransactions: mockIncomeTransactions
 }

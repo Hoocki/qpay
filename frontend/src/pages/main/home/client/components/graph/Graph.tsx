@@ -7,11 +7,12 @@ import {Pie} from "react-chartjs-2";
 import {ArcElement, Chart, Legend, Tooltip} from "chart.js";
 import {Content} from "../../../../../../common/constansts/content";
 import {ITransaction} from "../../../../../../types/transactions";
-import {getTransactionsInRange} from "../../../../../../services/transaction";
+import {getChartTransactionsInRange} from "../../../../../../services/transaction";
 import {useAppSelector} from "../../../../../../stores/redux/hooks";
 import {selectLoggedUser} from "../../../../../../stores/redux/loggedUser/loggedUserSlice";
 import FinancialSummary from "../financialSummary/FinancialSummary";
 import {getGraphData} from "./utils";
+import {Time} from "../../../../../../common/constansts/time";
 
 Chart.register(Tooltip, Legend, ArcElement);
 
@@ -23,11 +24,11 @@ const Graph: React.FC = () => {
     const [expenses, setExpenses] = useState<number>(0);
 
     const getTransactionData = async () => {
-        const transactionsData = await getTransactionsInRange(loggedUser.id, loggedUser.userType, new Date(), new Date());
-        const paymentTransactions = transactionsData.expensesTransaction.transactions;
-        setTransactions(paymentTransactions);
-        countExpenses(transactionsData.expensesTransaction.amount);
-        countIncome(transactionsData.incomeTransaction.amount);
+        const transactionsData = await getChartTransactionsInRange(loggedUser.id, loggedUser.userType, Time.START_DATE, Time.END_DATE);
+        const expensesTransactions = transactionsData.expensesTransactions.transactions;
+        setTransactions(expensesTransactions);
+        countExpenses(transactionsData.expensesTransactions.amount);
+        countIncome(transactionsData.incomeTransactions.amount);
     }
 
     const countExpenses = (amount: number) => {

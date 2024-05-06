@@ -12,17 +12,15 @@ export interface ITransaction {
 }
 
 export interface IExpenseTransaction {
-    name: string,
     transactions: ITransaction[],
     amount: number
 }
 
 export interface IIncomeTransaction {
-    name: string,
     amount: number
 }
 
 export interface ITransactionData {
-    expensesTransaction: IExpenseTransaction,
-    incomeTransaction: IIncomeTransaction
+    expensesTransactions: IExpenseTransaction,
+    incomeTransactions: IIncomeTransaction
 }

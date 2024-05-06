@@ -1,6 +1,11 @@
 import {IUser, UserType} from "../types/user";
 import {IWallet} from "../types/wallet";
-import {ITransaction, TransactionType} from "../types/transactions";
+import {
+    IExpenseTransaction,
+    IIncomeTransaction,
+    ITransactionData,
+    TransactionType
+} from "../types/transactions";
 
 // test configs
 export const mockEnabled = true;
@@ -27,68 +32,54 @@ export const mockWallet: IWallet = {
     balance: 100,
 }
 
-export const mockTransactions: ITransaction[] = [
-    {
-        id: 1,
-        amount: 30,
-        nameTo: "Starbucks",
-        TransactionType: TransactionType.PAYMENT,
-        createdAt: new Date()
-    },
-    {
-        id: 2,
-        amount: 20,
-        nameTo: "McDonald's",
-        TransactionType: TransactionType.PAYMENT,
-        createdAt: new Date()
-    },
-    {
-        id: 3,
-        amount: 15,
-        nameTo: "Wallet",
-        TransactionType: TransactionType.TOP_UP,
-        createdAt: new Date()
-    },
-    {
-        id: 4,
-        amount: 30,
-        nameTo: "Starbucks",
-        TransactionType: TransactionType.PAYMENT,
-        createdAt: new Date()
-    },
-    {
-        id: 5,
-        amount: 25,
-        nameTo: "Wallet",
-        TransactionType: TransactionType.TOP_UP,
-        createdAt: new Date()
-    },
-    {
-        id: 6,
-        amount: 25,
-        nameTo: "Steam",
-        TransactionType: TransactionType.PAYMENT,
-        createdAt: new Date()
-    },
-    {
-        id: 8,
-        amount: 25,
-        nameTo: "DNS",
-        TransactionType: TransactionType.PAYMENT,
-        createdAt: new Date()
-    },
-    {
-        id: 9,
-        amount: 25,
-        nameTo: "b",
-        TransactionType: TransactionType.PAYMENT,
-        createdAt: new Date()
-    },
-    {
-        id: 10,
-        amount: 25,
-        nameTo: "d",
-        TransactionType: TransactionType.PAYMENT,
-        createdAt: new Date()
-    }
-]
+export const mockExpensesTransactions: IExpenseTransaction = {
+    name: TransactionType.PAYMENT,
+    transactions: [
+        {
+            id: 1,
+            amount: 30,
+            nameTo: "Starbucks",
+            TransactionType: TransactionType.PAYMENT,
+            createdAt: new Date()
+        },
+        {
+            id: 2,
+            amount: 20,
+            nameTo: "McDonald's",
+            TransactionType: TransactionType.PAYMENT,
+            createdAt: new Date()
+        },
+        {
+            id: 4,
+            amount: 30,
+            nameTo: "Starbucks",
+            TransactionType: TransactionType.PAYMENT,
+            createdAt: new Date()
+        },
+        {
+            id: 6,
+            amount: 20,
+            nameTo: "Steam",
+            TransactionType: TransactionType.PAYMENT,
+            createdAt: new Date()
+        },
+        {
+            id: 7,
+            amount: 70,
+            nameTo: "Others",
+            TransactionType: TransactionType.PAYMENT,
+            createdAt: new Date()
+        },
+    ],
+    amount: 170
+}
+
+export const mockIncomeTransactions: IIncomeTransaction = {
+    name: TransactionType.TOP_UP,
+    amount: 30
+}
+
+export const mockTransactionsData: ITransactionData = {
+    expensesTransaction: mockExpensesTransactions,
+    incomeTransaction: mockIncomeTransactions
+}

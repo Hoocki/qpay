@@ -6,12 +6,12 @@ import "../balance/styles.css";
 import {Pie} from "react-chartjs-2";
 import {ArcElement, Chart, Legend, Tooltip} from "chart.js";
 import {Content} from "../../../../../../common/constansts/content";
-import {ITransaction, TransactionType} from "../../../../../../types/transactions";
+import {ITransaction} from "../../../../../../types/transactions";
 import {getTransactionsInRange} from "../../../../../../services/transaction";
 import {useAppSelector} from "../../../../../../stores/redux/hooks";
 import {selectLoggedUser} from "../../../../../../stores/redux/loggedUser/loggedUserSlice";
 import FinancialSummary from "../financialSummary/FinancialSummary";
-import {getGraphData} from "./graphSettings";
+import {getGraphData} from "./utils";
 
 Chart.register(Tooltip, Legend, ArcElement);
 
@@ -22,27 +22,24 @@ const Graph: React.FC = () => {
     const [income, setIncome] = useState<number>(0);
     const [expenses, setExpenses] = useState<number>(0);
 
-    const transformTransactionsAndCalculateFinancials = async () => {
+    const getTransactionData = async () => {
         const transactionsData = await getTransactionsInRange(loggedUser.id, loggedUser.userType, new Date(), new Date());
-        const paymentTransactions = transactionsData.filter(transaction => transaction.TransactionType === TransactionType.PAYMENT);
+        const paymentTransactions = transactionsData.expensesTransaction.transactions;
         setTransactions(paymentTransactions);
-        countExpenses(paymentTransactions);
-        countIncome(transactionsData);
+        countExpenses(transactionsData.expensesTransaction.amount);
+        countIncome(transactionsData.incomeTransaction.amount);
     }
 
-    const countExpenses = (paymentTransactions: ITransaction[]) => {
-        const expenses = paymentTransactions.reduce((total, transaction) => total + transaction.amount, 0);
-        setExpenses(expenses);
+    const countExpenses = (amount: number) => {
+        setExpenses(amount);
     }
 
-    const countIncome = (transactionsData: ITransaction[]) => {
-        const income = transactionsData.filter(transaction => transaction.TransactionType === TransactionType.TOP_UP)
-            .reduce((total, transaction) => total + transaction.amount, 0);
-        setIncome(income);
+    const countIncome = (amount: number) => {
+        setIncome(amount);
     }
 
     useEffect(() => {
-        transformTransactionsAndCalculateFinancials().then();
+        getTransactionData().then();
     }, []);
 
     return (

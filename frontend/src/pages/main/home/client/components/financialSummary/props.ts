@@ -1,4 +1,4 @@
-export interface FinanceProps {
+export interface FinanceSummaryProps {
     income: number,
     expenses: number
 }

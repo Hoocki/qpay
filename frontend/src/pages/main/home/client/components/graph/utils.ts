@@ -1,6 +1,6 @@
 import {ITransaction} from "../../../../../../types/transactions";
 import {CURRENCY_USD} from "../../../../../../common/constansts/currency";
-import {COLORS} from "../../../../../../common/constansts/colors";
+import {TRANSACTIONS_CHART_COLORS} from "../../../../../../common/constansts/colors";
 
 export const getGraphData = (transactions: ITransaction[], expenses: number) => {
     return {
@@ -12,7 +12,7 @@ export const getGraphData = (transactions: ITransaction[], expenses: number) => 
         datasets: [
             {
                 data: transactions.map((transaction) => transaction.amount),
-                backgroundColor: COLORS,
+                backgroundColor: TRANSACTIONS_CHART_COLORS,
                 borderColor: "#ffffff",
                 hoverOffSet: 4
             }

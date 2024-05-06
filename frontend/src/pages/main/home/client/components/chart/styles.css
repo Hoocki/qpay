@@ -1,9 +1,5 @@
-.card-graphic {
+.card-transaction-outcome {
     margin-top: 1rem;
     padding: 1rem;
     align-items: start;
-}
-
-.graphic {
-    max-height: 15rem;
 }

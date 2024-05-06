@@ -1,7 +1,7 @@
 import {UserType} from "../types/user";
-import {ITransactionData} from "../types/transactions";
-import {mockTransactionsData} from "./mock";
+import {ITransactionsOutcome} from "../types/transactions";
+import {mockTransactionsOutcome} from "./mock";
 
-export const getChartTransactionsInRange = async (userId: number, userType: UserType, startDate: Date, endDate: Date): Promise<ITransactionData> => {
-    return mockTransactionsData;
+export const getTransactionsOutcomeInRange = async (userId: number, userType: UserType, startDate: Date, endDate: Date): Promise<ITransactionsOutcome> => {
+    return mockTransactionsOutcome;
 }

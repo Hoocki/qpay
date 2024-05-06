@@ -12,7 +12,7 @@ import {useAppSelector} from "../../../../../../stores/redux/hooks";
 import {selectLoggedUser} from "../../../../../../stores/redux/loggedUser/loggedUserSlice";
 import {getWalletByUserService} from "../../../../../../services/wallet";
 import {PaymentPanelProps} from "./props";
-import {createQrCodeCredentials} from "../../../../../../common/mappers";
+import {createQrCodeCredentials} from "../../../../../../common/utils/mappers";
 
 const PaymentPanel: React.FC<PaymentPanelProps> = ({updateQrCode}) => {
 

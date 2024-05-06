@@ -1,8 +1,8 @@
 import React from 'react';
 import {Box} from "@mui/material";
 import {FinanceSummaryProps} from "./props";
-import {CURRENCY_USD} from "../../../../../../common/constansts/currency";
-import TextContent from "../../../../../../components/textContent/TextContent";
+import {CURRENCY_USD} from "../../../../../../../common/constansts/currency";
+import TextContent from "../../../../../../../components/textContent/TextContent";
 
 const FinancialSummary: React.FC<FinanceSummaryProps> = ({income, expenses}) => {
     return (

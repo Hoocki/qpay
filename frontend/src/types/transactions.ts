@@ -1,19 +1,16 @@
 export interface ITransactionGroup {
     amount: number,
-    nameTo: string,
-    percentage: number
+    destination: string,
+    share: number
 }
 
-export interface IExpenseData {
-    transactions: ITransactionGroup[],
-    total: number
+export interface IOutcome {
+    total: number,
+    transactionGroups: ITransactionGroup[],
 }
 
-export interface IIncomeData {
-    total: number
-}
 
-export interface ITransactionData {
-    expenses: IExpenseData,
-    income: IIncomeData
+export interface ITransactionsOutcome {
+    expenses: IOutcome,
+    income: IOutcome
 }

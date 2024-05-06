@@ -1,9 +1,6 @@
 import {IUser, UserType} from "../types/user";
 import {IWallet} from "../types/wallet";
-import {
-    IExpenseData, IIncomeData,
-    ITransactionData,
-} from "../types/transactions";
+import {IOutcome, ITransactionsOutcome,} from "../types/transactions";
 
 // test configs
 export const mockEnabled = true;
@@ -30,37 +27,38 @@ export const mockWallet: IWallet = {
     balance: 100,
 }
 
-export const mockExpensesTransactions: IExpenseData = {
-    transactions: [
+export const mockExpensesOutcome: IOutcome = {
+    total: 140,
+    transactionGroups: [
         {
             amount: 30,
-            nameTo: "Starbucks",
-            percentage: 21
+            destination: "Starbucks",
+            share: 21
         },
         {
             amount: 20,
-            nameTo: "McDonald's",
-            percentage: 14
+            destination: "McDonald's",
+            share: 14
         },
         {
             amount: 20,
-            nameTo: "Steam",
-            percentage: 14
+            destination: "Steam",
+            share: 14
         },
         {
             amount: 70,
-            nameTo: "Others",
-            percentage: 50
+            destination: "Others",
+            share: 50
         },
-    ],
-    total: 140
+    ]
 }
 
-export const mockIncome: IIncomeData = {
-    total: 30
+export const mockIncomeOutcome: IOutcome = {
+    total: 30,
+    transactionGroups: []
 }
 
-export const mockTransactionsData: ITransactionData = {
-    expenses: mockExpensesTransactions,
-    income: mockIncome
+export const mockTransactionsOutcome: ITransactionsOutcome = {
+    expenses: mockExpensesOutcome,
+    income: mockIncomeOutcome
 }

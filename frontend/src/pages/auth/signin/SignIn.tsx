@@ -16,7 +16,7 @@ import PasswordField from "../../../components/fields/password/PasswordField";
 import {IAuthCredentials} from "../../../types/AuthCredentials";
 import {jwtDecode} from "jwt-decode";
 import {TokenData} from "../../../types/TokenData";
-import {createLoggedUser} from "../../../common/mappers";
+import {createLoggedUser} from "../../../common/utils/mappers";
 
 const initialAuthCredentials: IAuthCredentials = {
     email: "",

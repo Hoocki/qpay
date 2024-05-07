@@ -1,5 +1,5 @@
 import {UserType} from "../types/user";
-import {mockEnabled, mockWallet} from "./mock";
+import {mockEnabled, mockWallet} from "./mock/mock";
 import httpClient from "./httpClient";
 import _ from "lodash";
 import {IWallet} from "../types/wallet";

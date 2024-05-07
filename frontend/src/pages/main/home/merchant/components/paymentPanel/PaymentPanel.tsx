@@ -12,7 +12,7 @@ import {useAppSelector} from "../../../../../../stores/redux/hooks";
 import {selectLoggedUser} from "../../../../../../stores/redux/loggedUser/loggedUserSlice";
 import {getWalletByUserService} from "../../../../../../services/wallet";
 import {PaymentPanelProps} from "./props";
-import {createQrCodeCredentials} from "../../../../../../common/utils/mappers";
+import {createQrCodeData} from "../../../../../../common/utils/mappers";
 
 const PaymentPanel: React.FC<PaymentPanelProps> = ({updateQrCode}) => {
 
@@ -32,8 +32,8 @@ const PaymentPanel: React.FC<PaymentPanelProps> = ({updateQrCode}) => {
         if (!isAmountValid) return;
         const wallet = await getWalletByUserService(loggedUser.id, loggedUser.userType);
         if (!wallet) return;
-        const qrCodeCredentials = createQrCodeCredentials(wallet.id, loggedUser.name, amount);
-        const qrCode = await getQrCodeService(qrCodeCredentials);
+        const qrCodeData = createQrCodeData(wallet.id, loggedUser.name, amount);
+        const qrCode = await getQrCodeService(qrCodeData);
         updateQrCode(qrCode);
     }
 

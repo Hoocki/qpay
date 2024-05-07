@@ -2,7 +2,7 @@ import {IAuthCredentials} from "../types/AuthCredentials";
 import httpClient from "./httpClient";
 import _ from "lodash";
 import {IUser, IUserCredentials, UserType} from "../types/user";
-import {mockEnabled, mockToken, mockUser} from "./mock";
+import {mockEnabled, mockToken, mockUser} from "./mock/mock";
 import {AuthEndpoints, UserEndpoints} from "../common/constansts/endpoints";
 
 export const logInService = async (authCredentials: IAuthCredentials): Promise<string> => {

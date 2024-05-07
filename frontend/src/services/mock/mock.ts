@@ -1,6 +1,6 @@
-import {IUser, UserType} from "../types/user";
-import {IWallet} from "../types/wallet";
-import {IOutcome, ITransactionsOutcome,} from "../types/transactions";
+import {IUser, UserType} from "../../types/user";
+import {IWallet} from "../../types/wallet";
+import {IOutcome, ITransactionsOutcome,} from "../../types/transactions";
 
 // test configs
 export const mockEnabled = true;

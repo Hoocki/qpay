@@ -18,12 +18,12 @@ import {createNotification} from "../../../components/notification/Notification"
 import {Notifications} from "../../../common/constansts/notifications";
 import {showNotification} from "../../../stores/redux/notification/notificationSlice";
 import {FieldsValidation} from "./types";
-import {UserCredentials, UserType} from "../../../types/user";
+import {IUserCredentials, UserType} from "../../../types/user";
 import {NotificationType} from "../../../types/notification";
 import {signUpService} from "../../../services/auth";
 import {Content} from "../../../common/constansts/content";
 
-const initialUserCredentials: UserCredentials = {
+const initialUserCredentials: IUserCredentials = {
     email: "",
     name: "",
     password: ""
@@ -36,7 +36,7 @@ const initialFieldsValidation: FieldsValidation = {
 };
 
 const SignUp: React.FC = () => {
-    const [userCredentials, setUserCredentials] = useState<UserCredentials>(initialUserCredentials);
+    const [userCredentials, setUserCredentials] = useState<IUserCredentials>(initialUserCredentials);
     const [selectedRole, setSelectedRole] = useState<UserType>(UserType.Customer);
     const [agreeChecked, setAgreeChecked] = useState(false);
     const [fieldsValidation, setFieldsValidation] = useState<FieldsValidation>(initialFieldsValidation);

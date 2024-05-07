@@ -13,18 +13,18 @@ import {AuthContent} from "../../../common/constansts/authContent";
 import AuthLogo from "../../../components/logo/AuthLogo";
 import EmailField from "../../../components/fields/email/EmailField";
 import PasswordField from "../../../components/fields/password/PasswordField";
-import {AuthCredentials} from "../../../types/authCredentials";
+import {IAuthCredentials} from "../../../types/AuthCredentials";
 import {jwtDecode} from "jwt-decode";
-import {TokenData} from "../../../types/tokenData";
-import {createLoggedUser} from "../../../common/mappers";
+import {TokenData} from "../../../types/TokenData";
+import {createLoggedUser} from "../../../common/utils/mappers";
 
-const initialAuthCredentials: AuthCredentials = {
+const initialAuthCredentials: IAuthCredentials = {
     email: "",
     password: ""
 }
 
 const SignIn: React.FC = () => {
-    const [authCredentials, setAuthCredentials] = useState<AuthCredentials>(initialAuthCredentials)
+    const [authCredentials, setAuthCredentials] = useState<IAuthCredentials>(initialAuthCredentials)
     const [isEmailValid, setIsEmailValid] = useState<boolean>(false);
     const [isPasswordValid, setIsPasswordValid] = useState<boolean>(false);
     const [isValid, setIsValid] = useState(false);

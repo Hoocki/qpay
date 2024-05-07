@@ -1,9 +1,10 @@
-import {User, UserType} from "../types/user";
+import {IUser, UserType} from "../types/user";
 import {IWallet} from "../types/wallet";
+import {IOutcome, ITransactionsOutcome,} from "../types/transactions";
 
 // test configs
 export const mockEnabled = true;
-export const mockUserType = UserType.Merchant as UserType;
+export const mockUserType = UserType.Customer as UserType;
 //
 
 const mockTokenMerchant = "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyVHlwZSI6Ik1FUkNIQU5UIiwidXNlcklkIjoxNCwiZW1haWwiOiJ1c2VydGVzdDEwQG1haWwucnUiLCJzdWIiOiJ1c2VydGVzdDEwQG1haWwucnUiLCJpYXQiOjE3MTQ3OTUzNzV9.QtmHScrPj-G2XTJvZRcft6vjR2NJ8A360pmculfTc_0";
@@ -13,7 +14,7 @@ export const mockToken = mockUserType === UserType.Merchant ? mockTokenMerchant 
 
 export const mockQrCode = "QrCode";
 
-export const mockUser: User = {
+export const mockUser: IUser = {
     id: 79,
     email: "usertest@mail.ru",
     name: "userTest",
@@ -24,4 +25,40 @@ export const mockUser: User = {
 export const mockWallet: IWallet = {
     id: 40,
     balance: 100,
+}
+
+export const mockExpensesOutcome: IOutcome = {
+    total: 140,
+    transactionGroups: [
+        {
+            amount: 30,
+            destination: "Starbucks",
+            share: 21
+        },
+        {
+            amount: 20,
+            destination: "McDonald's",
+            share: 14
+        },
+        {
+            amount: 20,
+            destination: "Steam",
+            share: 14
+        },
+        {
+            amount: 70,
+            destination: "Others",
+            share: 50
+        },
+    ]
+}
+
+export const mockIncomeOutcome: IOutcome = {
+    total: 30,
+    transactionGroups: []
+}
+
+export const mockTransactionsOutcome: ITransactionsOutcome = {
+    expenses: mockExpensesOutcome,
+    income: mockIncomeOutcome
 }

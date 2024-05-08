@@ -16,7 +16,7 @@ import PasswordField from "../../../components/fields/password/PasswordField";
 import {IAuthCredentials} from "../../../types/AuthCredentials";
 import {jwtDecode} from "jwt-decode";
 import {TokenData} from "../../../types/TokenData";
-import {createLoggedUser} from "../../../common/utils/mappers";
+import {mapLoggedUser} from "../../../common/utils/mappers";
 
 const initialAuthCredentials: IAuthCredentials = {
     email: "",
@@ -37,7 +37,7 @@ const SignIn: React.FC = () => {
         dispatch(addToken(token));
         const decodedToken: TokenData = jwtDecode(token);
         const user = await getUserService(decodedToken.userId, decodedToken.userType);
-        const loggedUser = createLoggedUser(token, user, decodedToken);
+        const loggedUser = mapLoggedUser(token, user, decodedToken);
         if (!loggedUser) return;
         dispatch(signIn(loggedUser));
     }

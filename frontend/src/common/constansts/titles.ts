@@ -4,7 +4,7 @@ export enum Titles {
     HOME = "Home",
     SIGN_IN = "Sign In",
     SCAN_PAY = "Scan & Pay",
-    PAYMENT = "Payment",
+    CONFIRM_PURCHASE = "Confirm purchase",
     PROFILE = "Profile",
     TOP_UP = "Top up",
     LOG_OUT = "Log out",

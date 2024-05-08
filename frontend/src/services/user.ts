@@ -1,7 +1,7 @@
 import {IUser, UserType} from "../types/user";
 import httpClient from "./httpClient";
 import _ from "lodash";
-import {mockEnabled, mockUser} from "./mock";
+import {mockEnabled, mockUser} from "./mock/mock";
 import {UserEndpoints} from "../common/constansts/endpoints";
 
 export const getUserService = async (userId: number, userType: UserType): Promise<IUser> => {

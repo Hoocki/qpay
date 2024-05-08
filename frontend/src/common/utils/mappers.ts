@@ -1,8 +1,8 @@
-import {IQRCodeCredentials} from "../../types/QRCodeCredentials";
+import {IQRCodeData} from "../../types/QRCodeCredentials";
 import {ILoggedUser, IUser} from "../../types/user";
 import {TokenData} from "../../types/TokenData";
 
-export const createQrCodeCredentials = (walletId: number, name: string, money: number): IQRCodeCredentials => {
+export const createQrCodeData = (walletId: number, name: string, money: number): IQRCodeData => {
     return {
         name,
         walletId,

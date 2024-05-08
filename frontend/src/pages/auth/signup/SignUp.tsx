@@ -22,6 +22,7 @@ import {IUserCredentials, UserType} from "../../../types/user";
 import {NotificationType} from "../../../types/notification";
 import {signUpService} from "../../../services/auth";
 import {Content} from "../../../common/constansts/content";
+import {DISABLE_FIELD} from "../../../common/constansts/fields";
 
 const initialUserCredentials: IUserCredentials = {
     email: "",
@@ -94,6 +95,7 @@ const SignUp: React.FC = () => {
                     <NameField
                         defaultName={userCredentials.name}
                         updateNameFields={updateNameChange}
+                        isDisabled={!DISABLE_FIELD}
                     />
                     <PasswordField
                         updatePasswordFields={updatePasswordChange}

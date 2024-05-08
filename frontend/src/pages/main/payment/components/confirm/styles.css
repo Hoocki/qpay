@@ -1,0 +1,9 @@
+.card-confirm-content {
+    max-height: 25rem;
+    max-width: 33rem;
+    display: inline-block;
+    position: relative;
+    align-items: center;
+    margin-bottom: 2rem;
+    width: 80%;
+}

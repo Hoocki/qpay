@@ -25,6 +25,7 @@ export const mockUser: IUser = {
 export const mockWallet: IWallet = {
     id: 40,
     balance: 100,
+    userId: 79
 }
 
 export const mockExpensesOutcome: IOutcome = {

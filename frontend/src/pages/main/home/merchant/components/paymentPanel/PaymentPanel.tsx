@@ -5,14 +5,14 @@ import "../../../../../../common/styles/button.css";
 import "../../../../../../common/styles/icons.css";
 import "./styles.css";
 import Logo from "../../../../../../img/Logo.png"
-import Amount from "../../../../../../components/fields/amount/Amount";
+import AmountFieldQrGeneration from "../../../../../../components/fields/amountGenerator/AmountFieldQrGeneration";
 import {Buttons} from "../../../../../../common/constansts/buttons";
 import {getQrCodeService} from "../../../../../../services/qrcode";
 import {useAppSelector} from "../../../../../../stores/redux/hooks";
 import {selectLoggedUser} from "../../../../../../stores/redux/loggedUser/loggedUserSlice";
 import {getWalletByUserService} from "../../../../../../services/wallet";
 import {PaymentPanelProps} from "./props";
-import {createQrCodeData} from "../../../../../../common/utils/mappers";
+import {mapQrCodeData} from "../../../../../../common/utils/mappers";
 
 const PaymentPanel: React.FC<PaymentPanelProps> = ({updateQrCode}) => {
 
@@ -32,7 +32,7 @@ const PaymentPanel: React.FC<PaymentPanelProps> = ({updateQrCode}) => {
         if (!isAmountValid) return;
         const wallet = await getWalletByUserService(loggedUser.id, loggedUser.userType);
         if (!wallet) return;
-        const qrCodeData = createQrCodeData(wallet.id, loggedUser.name, amount);
+        const qrCodeData = mapQrCodeData(wallet.id, loggedUser.name, loggedUser.email, amount);
         const qrCode = await getQrCodeService(qrCodeData);
         updateQrCode(qrCode);
     }
@@ -49,7 +49,7 @@ const PaymentPanel: React.FC<PaymentPanelProps> = ({updateQrCode}) => {
                 image={Logo}
             />
             <CardContent className="card-payment-content">
-                <Amount updateAmountField={updateAmountChange} updateIsValidAmountField={updateIsAmountValidChange}/>
+                <AmountFieldQrGeneration updateAmountField={updateAmountChange} updateIsValidAmountField={updateIsAmountValidChange}/>
             </CardContent>
             <Box>
                 <Button

@@ -1,14 +1,16 @@
 import React, {useState} from 'react';
-import {Box, Typography} from "@mui/material";
+import {Box} from "@mui/material";
 import "./components/qrscan/styles.css";
 import QrScan from "./components/qrscan/QrScan";
 import {IQRCodeData} from "../../../types/QRCodeCredentials";
 import Title from "../../../components/title/Title";
 import {Titles} from "../../../common/constansts/titles";
+import PaymentConfirmation from "./components/confirm/PaymentConfirmation";
 
 const initialStateQrCodeData: IQRCodeData = {
     walletId: -1,
     name: "",
+    email: "",
     money: 0
 }
 
@@ -23,10 +25,12 @@ const Payment: React.FC = () => {
     return (
         <Box className="main-container">
             <Box className="content-container">
-                <Title title={Titles.PAYMENT}/>
                 {qrCodeData.walletId === -1
                     ? <QrScan updateQrCodeData={updateQrCodeData}/>
-                    : <Typography>{"Qr Code data: " + qrCodeData.name + " " + qrCodeData.money + " " + qrCodeData.walletId}</Typography>
+                    : <Box>
+                        <Title title={Titles.CONFIRM_PURCHASE}/>
+                        <PaymentConfirmation qrCodeData={qrCodeData}/>
+                    </Box>
                 }
             </Box>
         </Box>

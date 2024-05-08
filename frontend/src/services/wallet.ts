@@ -11,3 +11,10 @@ export const getWalletByUserService = async (userId: number, userType: UserType)
     const response = await httpClient.get<IWallet>(targetPath);
     return _.get(response, "data");
 }
+
+export const getWalletById = async (walletId: number): Promise<IWallet> => {
+    if (mockEnabled) return mockWallet;
+    const targetPath = `${WalletEndpoints.WALLET}/${walletId}`;
+    const response = await httpClient.get<IWallet>(targetPath);
+    return _.get(response, "data");
+}

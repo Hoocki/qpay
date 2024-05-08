@@ -17,3 +17,9 @@ export enum WalletEndpoints {
 export enum QREndpoints {
     QRCODE = "/qrcode",
 }
+
+export enum PaymentEndpoints {
+    PAYMENT = "/payments",
+    P2B = "/p2b",
+    TOP_UP = "/topUp"
+}

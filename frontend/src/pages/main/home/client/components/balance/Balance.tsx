@@ -12,6 +12,7 @@ import {Content} from "../../../../../../common/constansts/content";
 const initialWallet: IWallet = {
     id: -1,
     balance: 0,
+    userId: -1
 }
 
 const Balance: React.FC = () => {

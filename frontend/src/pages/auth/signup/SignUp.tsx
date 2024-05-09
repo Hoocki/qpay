@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Box, Button, Card, Checkbox, FormControlLabel, Link, Radio, RadioGroup, Typography} from '@mui/material';
+import {Box, Card, Checkbox, FormControlLabel, Link, Radio, RadioGroup, Typography} from '@mui/material';
 import {Paths} from "../../../common/constansts/paths";
 import {Titles} from "../../../common/constansts/titles";
 import "../../../common/styles/button.css";
@@ -7,7 +7,6 @@ import "./styles.css";
 import "../styles.css";
 import {useNavigate} from "react-router-dom";
 import {Buttons} from "../../../common/constansts/buttons";
-import {AuthContent} from "../../../common/constansts/authContent";
 import {Roles} from "../../../common/constansts/roles";
 import AuthLogo from "../../../components/logo/AuthLogo";
 import EmailField from "../../../components/fields/email/EmailField";
@@ -22,7 +21,7 @@ import {IUserCredentials, UserType} from "../../../types/user";
 import {NotificationType} from "../../../types/notification";
 import {signUpService} from "../../../services/auth";
 import {Content} from "../../../common/constansts/content";
-import {DISABLE_FIELD} from "../../../common/constansts/fields";
+import ConfirmationButton from "../../../components/buttons/confirmationButton/ConfirmationButton";
 
 const initialUserCredentials: IUserCredentials = {
     email: "",
@@ -95,7 +94,6 @@ const SignUp: React.FC = () => {
                     <NameField
                         defaultName={userCredentials.name}
                         updateNameFields={updateNameChange}
-                        isDisabled={!DISABLE_FIELD}
                     />
                     <PasswordField
                         updatePasswordFields={updatePasswordChange}
@@ -123,21 +121,12 @@ const SignUp: React.FC = () => {
                             onChange={handleAgreeCheckboxChange}
                         />
                         <Typography variant="body2">
-                            {AuthContent.TERMS}
+                            {Content.TERMS}
                         </Typography>
                     </Box>
-
-                    <Button
-                        onClick={handleSignUp}
-                        variant="contained"
-                        className="button"
-                        disabled={!isValid}
-                    >
-                        {Buttons.SIGN_UP}
-                    </Button>
-
+                    <ConfirmationButton buttonName={Buttons.SIGN_UP} handleClick={handleSignUp} isDisabled={!isValid}/>
                     <Typography variant="body1">
-                        {AuthContent.ACCOUNT_EXIST}
+                        {Content.ACCOUNT_EXIST}
                         <Link href={Paths.SIGN_IN}>
                             {Titles.SIGN_IN}
                         </Link>

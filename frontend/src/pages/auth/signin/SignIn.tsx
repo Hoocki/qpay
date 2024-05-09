@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Box, Button, Card, Link, Typography} from "@mui/material";
+import {Box, Card, Link, Typography} from "@mui/material";
 import "../../../common/styles/button.css";
 import "./styles.css";
 import "../../../common/styles/container.css";
@@ -9,7 +9,6 @@ import {getUserService} from "../../../services/user";
 import {Buttons} from "../../../common/constansts/buttons";
 import {logInService} from "../../../services/auth";
 import {Paths} from "../../../common/constansts/paths";
-import {AuthContent} from "../../../common/constansts/authContent";
 import AuthLogo from "../../../components/logo/AuthLogo";
 import EmailField from "../../../components/fields/email/EmailField";
 import PasswordField from "../../../components/fields/password/PasswordField";
@@ -17,6 +16,8 @@ import {IAuthCredentials} from "../../../types/AuthCredentials";
 import {jwtDecode} from "jwt-decode";
 import {TokenData} from "../../../types/TokenData";
 import {mapLoggedUser} from "../../../common/utils/mappers";
+import ConfirmationButton from "../../../components/buttons/confirmationButton/ConfirmationButton";
+import {Content} from "../../../common/constansts/content";
 
 const initialAuthCredentials: IAuthCredentials = {
     email: "",
@@ -74,19 +75,12 @@ const SignIn: React.FC = () => {
                             updatePasswordFields={updatePasswordChange}
                         />
                     </Box>
-                    <Button
-                        variant="contained"
-                        className="button"
-                        disabled={!isValid}
-                        onClick={handleSignIn}
-                    >
-                        {Buttons.SIGN_IN}
-                    </Button>
+                    <ConfirmationButton buttonName={Buttons.SIGN_IN} handleClick={handleSignIn} isDisabled={!isValid}/>
                     <Typography
                         variant="body1"
                         className="sign-up-link"
                     >
-                        {AuthContent.ACCOUNT_NOT_EXIST}
+                        {Content.ACCOUNT_NOT_EXIST}
                         <Link
                             href={Paths.SIGN_UP}
                             color="primary"

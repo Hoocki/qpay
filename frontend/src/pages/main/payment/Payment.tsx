@@ -3,7 +3,7 @@ import {Box} from "@mui/material";
 import "./components/qrscan/styles.css";
 import QrScan from "./components/qrscan/QrScan";
 import {IQRCodeData} from "../../../types/QRCodeCredentials";
-import Title from "../../../components/title/Title";
+import Title from "../../../components/typography/title/Title";
 import {Titles} from "../../../common/constansts/titles";
 import PaymentConfirmation from "./components/confirm/PaymentConfirmation";
 

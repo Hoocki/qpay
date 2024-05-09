@@ -4,7 +4,7 @@ import {InputHelperMessage} from "../../../common/constansts/inputHelperMessage"
 import {TextField} from "@mui/material";
 import {NAME_MIN_SIZE} from "../../../common/constansts/validation";
 
-const NameField: React.FC<NameFieldProps> = ({defaultName, updateNameFields, isDisabled}) => {
+const NameField: React.FC<NameFieldProps> = ({defaultName, updateNameFields}) => {
     const [name, setName] = useState<string>(defaultName);
 
     const handleNameChange = (name: string) => {
@@ -26,7 +26,6 @@ const NameField: React.FC<NameFieldProps> = ({defaultName, updateNameFields, isD
             placeholder="Name"
             variant="outlined"
             value={name}
-            disabled={isDisabled}
             onChange={(e) => handleNameChange(e.target.value)}
             fullWidth
             margin="normal"

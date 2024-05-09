@@ -18,9 +18,7 @@ const QrGeneration: React.FC<QRGenerationProps> = ({qrCode}) => {
                             {Content.ABOUT_QR}
                         </Typography>
                     </Box> :
-                    <Typography variant="h5">
-                        {qrCode}
-                    </Typography>
+                    <Box component="img" src={qrCode} alt="QR Code" />
                 }
             </CardContent>
         </Card>

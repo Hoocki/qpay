@@ -21,7 +21,9 @@ public record WalletPayment(
 
         long walletIdTo,
 
-        BigDecimal amount
+        BigDecimal amount,
+
+        boolean sendNotification
 ) {
 
 }

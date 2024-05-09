@@ -5,6 +5,8 @@ import org.springframework.mail.SimpleMailMessage;
 
 public interface MessageGenerator {
 
-    SimpleMailMessage getPaymentMessage(PaymentNotification paymentNotification);
+    SimpleMailMessage getPaymentMessageMerchant(PaymentNotification paymentNotification);
+
+    SimpleMailMessage getPaymentMessageCustomer(PaymentNotification paymentNotification);
 
 }

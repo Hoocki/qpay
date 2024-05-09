@@ -31,7 +31,7 @@ class MailMessageGeneratorTest {
             .build();
 
     @Test
-    void should_generatePaymentMessage_when_receivePaymentNotification() {
+    void should_generatePaymentMessageForMerchant_when_receivePaymentNotification() {
         // given
         var expectedMessage = new SimpleMailMessage();
         final var expectedSubject = "Payment Notification";
@@ -46,10 +46,35 @@ class MailMessageGeneratorTest {
                 .text(expectedText)
                 .build();
 
-        given(emailTemplate.getPayment()).willReturn(paymentTemplateMessage);
+        given(emailTemplate.getPaymentMerchant()).willReturn(paymentTemplateMessage);
 
         // when
-        var result = mailMessageGenerator.getPaymentMessage(PAYMENT_NOTIFICATION);
+        var result = mailMessageGenerator.getPaymentMessageMerchant(PAYMENT_NOTIFICATION);
+
+        // then
+        assertThat(result).isEqualTo(expectedMessage);
+    }
+
+    @Test
+    void should_generatePaymentMessageForCustomer_when_receivePaymentNotification() {
+        // given
+        var expectedMessage = new SimpleMailMessage();
+        final var expectedSubject = "Payment Notification";
+        final var textTemplate = "You have completed the payment for the %s. Thank you for using our service.";
+        final var expectedText = String.format(textTemplate, PAYMENT_NOTIFICATION.amount());
+        expectedMessage.setTo(PAYMENT_NOTIFICATION.emailFrom());
+        expectedMessage.setSubject(expectedSubject);
+        expectedMessage.setText(expectedText);
+
+        var paymentTemplateMessage = EmailTemplatesProperties.TemplateMessage.builder()
+                .subject(expectedSubject)
+                .text(expectedText)
+                .build();
+
+        given(emailTemplate.getPaymentCustomer()).willReturn(paymentTemplateMessage);
+
+        // when
+        var result = mailMessageGenerator.getPaymentMessageCustomer(PAYMENT_NOTIFICATION);
 
         // then
         assertThat(result).isEqualTo(expectedMessage);

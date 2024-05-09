@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
-import {Box, Button, Card, CardContent, CardMedia} from "@mui/material";
+import {Box, Card, CardContent, CardMedia} from "@mui/material";
 import "../../../../../../common/styles/container.css";
 import "../../../../../../common/styles/button.css";
 import "../../../../../../common/styles/icons.css";
 import "./styles.css";
 import Logo from "../../../../../../img/Logo.png"
-import AmountFieldQrGeneration from "../../../../../../components/fields/amountGenerator/AmountFieldQrGeneration";
+import AmountField from "./amount/AmountField";
 import {Buttons} from "../../../../../../common/constansts/buttons";
 import {getQrCodeService} from "../../../../../../services/qrcode";
 import {useAppSelector} from "../../../../../../stores/redux/hooks";
@@ -13,6 +13,8 @@ import {selectLoggedUser} from "../../../../../../stores/redux/loggedUser/logged
 import {getWalletByUserService} from "../../../../../../services/wallet";
 import {PaymentPanelProps} from "./props";
 import {mapQrCodeData} from "../../../../../../common/utils/mappers";
+import CancelButton from "../../../../../../components/buttons/cancelButton/CancelButton";
+import ConfirmationButton from "../../../../../../components/buttons/confirmationButton/ConfirmationButton";
 
 const PaymentPanel: React.FC<PaymentPanelProps> = ({updateQrCode}) => {
 
@@ -49,25 +51,14 @@ const PaymentPanel: React.FC<PaymentPanelProps> = ({updateQrCode}) => {
                 image={Logo}
             />
             <CardContent className="card-payment-content">
-                <AmountFieldQrGeneration updateAmountField={updateAmountChange} updateIsValidAmountField={updateIsAmountValidChange}/>
+                <AmountField updateAmountField={updateAmountChange}
+                             updateIsValidAmountField={updateIsAmountValidChange}/>
             </CardContent>
             <Box>
-                <Button
-                    onClick={handleCancel}
-                    variant="contained"
-                    className="button"
-                    color="secondary"
-                >
-                    {Buttons.CLEAR}
-                </Button>
-                <Button
-                    onClick={handleGenerateQr}
-                    variant="contained"
-                    className="button"
-                    disabled={!isAmountValid}
-                >
-                    {Buttons.GENERATE}
-                </Button>
+                <CancelButton buttonName={Buttons.CLEAR} handleClick={handleCancel}/>
+                <ConfirmationButton buttonName={Buttons.GENERATE} handleClick={handleGenerateQr}
+                                    isDisabled={!isAmountValid}
+                />
             </Box>
         </Card>
     );

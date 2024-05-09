@@ -3,7 +3,7 @@ import {Box} from "@mui/material";
 import PaymentPanel from "./components/paymentPanel/PaymentPanel";
 import GenerateQR from "./components/qrGeneration/QrGeneration";
 import "./styles.css";
-import Title from '../../../../components/title/Title';
+import Title from '../../../../components/typography/title/Title';
 import {Titles} from "../../../../common/constansts/titles";
 
 const MerchantHome = () => {

@@ -1,8 +1,9 @@
 import React from 'react';
 import {Button} from "@mui/material";
-import {CancelButtonProps} from "./props";
+import {ButtonProps} from "../props";
+import {Buttons} from "../../../common/constansts/buttons";
 
-const CancelButton: React.FC<CancelButtonProps> = ({handleClick, buttonName}) => {
+const CancelButton: React.FC<ButtonProps> = ({handleClick, buttonName}) => {
     return (
         <Button
             onClick={handleClick}
@@ -10,7 +11,7 @@ const CancelButton: React.FC<CancelButtonProps> = ({handleClick, buttonName}) =>
             className="button"
             color="secondary"
         >
-            {buttonName}
+            {buttonName ? buttonName : Buttons.CANCEL}
         </Button>
     );
 };

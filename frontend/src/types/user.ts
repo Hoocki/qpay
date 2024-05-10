@@ -24,3 +24,9 @@ export interface ILoggedUser {
     token: string,
     userType: UserType,
 }
+
+export interface UserModification {
+    name: string,
+    email: string,
+    password?: string
+}

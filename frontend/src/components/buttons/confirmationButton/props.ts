@@ -1,5 +1,5 @@
-export interface ConfirmationButtonProps {
-    buttonName: string;
-    handleClick: () => void;
+import {ButtonProps} from "../props";
+
+export interface ConfirmationButtonProps extends ButtonProps {
     isDisabled: boolean;
 }

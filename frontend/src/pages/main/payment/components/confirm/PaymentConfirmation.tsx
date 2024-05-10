@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {Box, Card, CardContent, Checkbox, FormControlLabel} from "@mui/material";
 import {ConfirmProps} from "./props";
-import {Buttons} from "../../../../../common/constansts/buttons";
 import "./styles.css";
 import {Content} from "../../../../../common/constansts/content";
 import PaymentInformation from "../../../../../components/fields/paymentInformation/PaymentInformation";
@@ -81,8 +80,8 @@ const PaymentConfirmation: React.FC<ConfirmProps> = ({qrCodeData}) => {
                 <FormControlLabel label={Content.SEND_NOTIFICATION} control={<Checkbox onClick={handleNotification}/>}/>
             </CardContent>
             <Box>
-                <CancelButton handleClick={handleCancel} buttonName={Buttons.CANCEL}/>
-                <ConfirmationButton handleClick={handleConfirm} buttonName={Buttons.CONFIRM} isDisabled={false}/>
+                <CancelButton handleClick={handleCancel}/>
+                <ConfirmationButton handleClick={handleConfirm} isDisabled={false}/>
             </Box>
         </Card>
     );

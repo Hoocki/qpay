@@ -1,10 +1,11 @@
 import React from 'react';
-import {AmountFieldQrGenerationProps} from "./props";
+import {AmountFieldProps} from "./props";
 import {TextField} from "@mui/material";
-import {InputHelperMessage} from "../../../common/constansts/inputHelperMessage";
-import {LOWER_AMOUNT_LIMIT, UPPER_AMOUNT_LIMIT} from "../../../common/constansts/validation";
+import {InputHelperMessage} from "../../../../../../../common/constansts/inputHelperMessage";
+import {LOWER_AMOUNT_LIMIT, UPPER_AMOUNT_LIMIT} from "../../../../../../../common/constansts/validation";
+import {Content} from "../../../../../../../common/constansts/content";
 
-const AmountFieldQrGeneration: React.FC<AmountFieldQrGenerationProps> = ({updateAmountField, updateIsValidAmountField}) => {
+const AmountField: React.FC<AmountFieldProps> = ({updateAmountField, updateIsValidAmountField}) => {
 
     const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const inputValue = parseFloat(e.target.value);
@@ -19,7 +20,7 @@ const AmountFieldQrGeneration: React.FC<AmountFieldQrGenerationProps> = ({update
     return (
         <TextField
             helperText={InputHelperMessage.AMOUNT_NOT_VALID}
-            placeholder="AmountFieldGenerator"
+            placeholder={Content.AMOUNT}
             variant="outlined"
             type="number"
             onChange={handleAmountChange}
@@ -29,4 +30,4 @@ const AmountFieldQrGeneration: React.FC<AmountFieldQrGenerationProps> = ({update
     );
 };
 
-export default AmountFieldQrGeneration;
+export default AmountField;

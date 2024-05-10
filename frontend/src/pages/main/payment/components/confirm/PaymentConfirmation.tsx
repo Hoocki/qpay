@@ -1,14 +1,10 @@
 import React, {useEffect, useState} from 'react';
-import {Box, Button, Card, CardContent, Checkbox, FormControlLabel} from "@mui/material";
-import BalanceField from "../../../../../components/fields/balance/BalanceField";
+import {Box, Card, CardContent, Checkbox, FormControlLabel} from "@mui/material";
 import {ConfirmProps} from "./props";
 import {Buttons} from "../../../../../common/constansts/buttons";
-import NameField from "../../../../../components/fields/name/NameField";
-import {DISABLE_FIELD} from "../../../../../common/constansts/fields";
 import "./styles.css";
-import TextContent from "../../../../../components/textContent/TextContent";
 import {Content} from "../../../../../common/constansts/content";
-import AmountFieldConfirmation from "../../../../../components/fields/amountConfirmation/AmountFieldConfirmation";
+import PaymentInformation from "../../../../../components/fields/paymentInformation/PaymentInformation";
 import {useNavigate} from "react-router-dom";
 import {Paths} from "../../../../../common/constansts/paths";
 import {makePayment} from "../../../../../services/payment";
@@ -20,6 +16,10 @@ import {showNotification} from "../../../../../stores/redux/notification/notific
 import {NotificationType} from "../../../../../types/notification";
 import {Notifications} from "../../../../../common/constansts/notifications";
 import {IWallet} from "../../../../../types/wallet";
+import ConfirmationButton from "../../../../../components/buttons/confirmationButton/ConfirmationButton";
+import CancelButton from "../../../../../components/buttons/cancelButton/CancelButton";
+import CardTitle from "../../../../../components/typography/cardTitle/CardTitle";
+import {Titles} from "../../../../../common/constansts/titles";
 
 const initialWallet: IWallet = {
     id: -1,
@@ -57,7 +57,8 @@ const PaymentConfirmation: React.FC<ConfirmProps> = ({qrCodeData}) => {
             qrCodeData.walletId,
             qrCodeData.money,
             sendNotification);
-        await makePayment(paymentData);
+        const resultPayment = await makePayment(paymentData);
+        if (!resultPayment) return;
         dispatch(showNotification({
             show: true,
             type: NotificationType.SUCCESS,
@@ -73,29 +74,15 @@ const PaymentConfirmation: React.FC<ConfirmProps> = ({qrCodeData}) => {
     return (
         <Card className="card-background card-payment">
             <CardContent className="card-confirm-content">
-                <TextContent text={Content.INFORMATION}/>
-                <BalanceField/>
-                <NameField defaultName={qrCodeData.name} updateNameFields={() => {
-                }} isDisabled={DISABLE_FIELD}/>
-                <AmountFieldConfirmation amount={qrCodeData.money}/>
+                <CardTitle title={Titles.INFORMATION}/>
+                <PaymentInformation data={userWallet.balance} prefix={Content.BALANCE}/>
+                <PaymentInformation data={qrCodeData.name} prefix={Content.RECIPIENT}/>
+                <PaymentInformation data={qrCodeData.money} prefix={Content.AMOUNT}/>
                 <FormControlLabel label={Content.SEND_NOTIFICATION} control={<Checkbox onClick={handleNotification}/>}/>
             </CardContent>
             <Box>
-                <Button
-                    onClick={handleCancel}
-                    variant="contained"
-                    className="button"
-                    color="secondary"
-                >
-                    {Buttons.CANCEL}
-                </Button>
-                <Button
-                    onClick={handleConfirm}
-                    variant="contained"
-                    className="button"
-                >
-                    {Buttons.CONFIRM}
-                </Button>
+                <CancelButton handleClick={handleCancel} buttonName={Buttons.CANCEL}/>
+                <ConfirmationButton handleClick={handleConfirm} buttonName={Buttons.CONFIRM} isDisabled={false}/>
             </Box>
         </Card>
     );

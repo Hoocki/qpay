@@ -36,19 +36,28 @@ class EmailNotificationServiceTest {
             .build();
 
     @Test
-    void should_sendMessage_when_receivePaymentNotification() {
+    void should_sendMessageToMerchant_when_receivePaymentNotification() {
         // given
-        var message = new SimpleMailMessage();
-        final var text = format("You received a payment of %s. Thank you for using our service.", PAYMENT_NOTIFICATION.amount());
-        message.setTo(PAYMENT_NOTIFICATION.emailTo());
-        message.setSubject("Payment Notification");
-        message.setText(text);
-        given(mailMessageGenerator.getPaymentMessage(PAYMENT_NOTIFICATION)).willReturn(message);
+        var messageForMerchant = new SimpleMailMessage();
+        final var textForMerchant = format("You received a payment of %s. Thank you for using our service.", PAYMENT_NOTIFICATION.amount());
+        messageForMerchant.setTo(PAYMENT_NOTIFICATION.emailTo());
+        messageForMerchant.setSubject("Payment Notification");
+        messageForMerchant.setText(textForMerchant);
+        given(mailMessageGenerator.getPaymentMessageMerchant(PAYMENT_NOTIFICATION)).willReturn(messageForMerchant);
+
+        var messageForCustomer = new SimpleMailMessage();
+        final var textForCustomer = format("You have completed the payment for the %s. Thank you for using our service.", PAYMENT_NOTIFICATION.amount());
+        messageForCustomer.setTo(PAYMENT_NOTIFICATION.emailFrom());
+        messageForCustomer.setSubject("Payment Notification");
+        messageForCustomer.setText(textForCustomer);
+        given(mailMessageGenerator.getPaymentMessageCustomer(PAYMENT_NOTIFICATION)).willReturn(messageForCustomer);
 
         // when
         emailNotificationService.sendMessage(PAYMENT_NOTIFICATION);
 
         // then
-        then(mailSender).should().send(message);
+        then(mailSender).should().send(messageForMerchant);
+        then(mailSender).should().send(messageForCustomer);
     }
+
 }

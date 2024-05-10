@@ -2,7 +2,7 @@ import React from 'react';
 import {Box} from "@mui/material";
 import {Titles} from "../../../../common/constansts/titles";
 import Balance from "./components/balance/Balance";
-import Title from "../../../../components/title/Title";
+import Title from "../../../../components/typography/title/Title";
 import {Paths} from "../../../../common/constansts/paths";
 import "./styles.css";
 import {Icons} from "../../../../common/constansts/icons";

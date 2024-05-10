@@ -23,11 +23,21 @@ public class MailMessageGenerator implements MessageGenerator {
 
     private final EmailTemplatesProperties emailTemplate;
 
-    public SimpleMailMessage getPaymentMessage(final PaymentNotification paymentNotification) {
+    public SimpleMailMessage getPaymentMessageMerchant(final PaymentNotification paymentNotification) {
         final var message = new SimpleMailMessage();
-        final var templateMessage = emailTemplate.getPayment();
+        final var templateMessage = emailTemplate.getPaymentMerchant();
         final var text = format(templateMessage.getText(), paymentNotification.amount());
         message.setTo(paymentNotification.emailTo());
+        message.setSubject(templateMessage.getSubject());
+        message.setText(text);
+        return message;
+    }
+
+    public SimpleMailMessage getPaymentMessageCustomer(final PaymentNotification paymentNotification) {
+        final var message = new SimpleMailMessage();
+        final var templateMessage = emailTemplate.getPaymentCustomer();
+        final var text = format(templateMessage.getText(), paymentNotification.amount());
+        message.setTo(paymentNotification.emailFrom());
         message.setSubject(templateMessage.getSubject());
         message.setText(text);
         return message;

@@ -31,6 +31,7 @@ class QrCodeGeneratorZxingTest {
         var qrCodeCreation = QrCodeCreation.builder()
                 .walletId(1)
                 .name("bob")
+                .email("user@mail.com")
                 .money(new BigDecimal(1234))
                 .build();
 
@@ -49,6 +50,7 @@ class QrCodeGeneratorZxingTest {
         var qrCodeCreation = QrCodeCreation.builder()
                 .walletId(1)
                 .name("bob")
+                .email("user@mail.com")
                 .money(new BigDecimal(1234))
                 .build();
 

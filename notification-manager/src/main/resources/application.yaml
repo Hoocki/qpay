@@ -25,9 +25,12 @@ spring:
 
 
 email-template:
-  payment:
+  payment-merchant:
     subject: "Payment Notification"
     text: "You received a payment of %s. Thank you for using our service."
+  payment-customer:
+    subject: "Payment Notification"
+    text: "You have completed the payment for the %s. Thank you for using our service."
   report:
     subject: "Transactions Report"
     text: "You received a transaction report from %s to %s. Thank you for using our service."

@@ -1,10 +1,9 @@
 import React, {useEffect, useState} from 'react';
-import {Card, CardContent, Grid, Typography} from "@mui/material";
+import {Card, CardContent, Grid} from "@mui/material";
 import "../../../../../../common/styles/container.css";
 import "./styles.css";
 import "../balance/styles.css";
 import {ArcElement, Chart, Legend, Tooltip} from "chart.js";
-import {Content} from "../../../../../../common/constansts/content";
 import {ITransactionsOutcome} from "../../../../../../types/transactions";
 import {getTransactionsOutcomeInRange} from "../../../../../../services/transaction";
 import {useAppSelector} from "../../../../../../stores/redux/hooks";
@@ -12,6 +11,8 @@ import {selectLoggedUser} from "../../../../../../stores/redux/loggedUser/logged
 import FinancialSummary from "./financialSummary/FinancialSummary";
 import PieChart from "./pieChart/PieChart";
 import {getEndOfCurrentDate, getStartOfTheYearDate} from "../../../../../../common/utils/time";
+import CardTitle from "../../../../../../components/typography/cardTitle/CardTitle";
+import {Titles} from "../../../../../../common/constansts/titles";
 
 Chart.register(Tooltip, Legend, ArcElement);
 
@@ -47,16 +48,16 @@ const TransactionsChart: React.FC = () => {
             <CardContent className="card-content">
                 <Grid container spacing={2} direction="column">
                     <Grid item>
-                        <Typography variant="h6">
-                            {Content.TRANSACTIONS}
-                        </Typography>
+                        <CardTitle title={Titles.TRANSACTIONS_FOR_YEAR}/>
                     </Grid>
                     <Grid item>
-                        <FinancialSummary income={transactionsOutcome.income.total} expenses={transactionsOutcome.expenses.total}/>
+                        <FinancialSummary income={transactionsOutcome.income.total}
+                                          expenses={transactionsOutcome.expenses.total}/>
                     </Grid>
                 </Grid>
             </CardContent>
-            <PieChart transactionGroups={transactionsOutcome.expenses.transactionGroups} total={transactionsOutcome.expenses.total}/>
+            <PieChart transactionGroups={transactionsOutcome.expenses.transactionGroups}
+                      total={transactionsOutcome.expenses.total}/>
         </Card>
     );
 };

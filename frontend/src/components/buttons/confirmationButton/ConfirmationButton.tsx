@@ -1,6 +1,7 @@
 import React from 'react';
 import {Button} from "@mui/material";
 import {ConfirmationButtonProps} from "./props";
+import {Buttons} from "../../../common/constansts/buttons";
 
 const ConfirmationButton: React.FC<ConfirmationButtonProps> = ({handleClick, buttonName, isDisabled}) => {
     return (
@@ -10,7 +11,7 @@ const ConfirmationButton: React.FC<ConfirmationButtonProps> = ({handleClick, but
             className="button"
             disabled={isDisabled}
         >
-            {buttonName}
+            {buttonName ? buttonName : Buttons.CONFIRM}
         </Button>
     );
 };

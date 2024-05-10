@@ -1,7 +1,6 @@
 import React from 'react';
 import {Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle} from "@mui/material";
 import {Notifications} from "../../../../common/constansts/notifications";
-import {Buttons} from "../../../../common/constansts/buttons";
 import {ConfirmLogOutProps} from "./props";
 import {Content} from "../../../../common/constansts/content";
 import CancelButton from "../../../buttons/cancelButton/CancelButton";
@@ -22,8 +21,8 @@ const ConfirmLogOut: React.FC<ConfirmLogOutProps> = ({showDialog, handleLogOut, 
                 </DialogContentText>
             </DialogContent>
             <DialogActions>
-                <CancelButton handleClick={handleClose} buttonName={Buttons.CANCEL}/>
-                <ConfirmationButton handleClick={handleLogOut} buttonName={Buttons.CONFIRM} isDisabled={false}/>
+                <CancelButton handleClick={handleClose}/>
+                <ConfirmationButton handleClick={handleLogOut} isDisabled={false}/>
             </DialogActions>
         </Dialog>
     );

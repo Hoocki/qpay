@@ -7,7 +7,7 @@ const initialState: ILoggedUser = {
     id: -1,
     email: "",
     name: "",
-    userType: UserType.Customer,
+    userType: UserType.Merchant,
     token: ""
 }
 

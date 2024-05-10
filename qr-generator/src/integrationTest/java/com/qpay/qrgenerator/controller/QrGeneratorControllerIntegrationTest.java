@@ -35,6 +35,7 @@ class QrGeneratorControllerIntegrationTest {
         var qrCodeCreation = QrCodeCreation.builder()
                 .walletId(1)
                 .name("bob")
+                .email("user@mail.com")
                 .money(new BigDecimal(1234))
                 .build();
         var qrCodeBytes = "Qr code data".getBytes();

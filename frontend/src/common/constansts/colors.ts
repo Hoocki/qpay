@@ -1,0 +1,1 @@
+export const TRANSACTIONS_CHART_COLORS= ["#9F65B4", "#657FB4", "#B46565", "#96B465", "#474747"];

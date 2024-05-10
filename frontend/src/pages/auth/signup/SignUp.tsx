@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Box, Button, Checkbox, FormControlLabel, Link, Radio, RadioGroup, Typography} from '@mui/material';
+import {Box, Card, Checkbox, FormControlLabel, Link, Radio, RadioGroup, Typography} from '@mui/material';
 import {Paths} from "../../../common/constansts/paths";
 import {Titles} from "../../../common/constansts/titles";
 import "../../../common/styles/button.css";
@@ -7,7 +7,6 @@ import "./styles.css";
 import "../styles.css";
 import {useNavigate} from "react-router-dom";
 import {Buttons} from "../../../common/constansts/buttons";
-import {AuthContent} from "../../../common/constansts/authContent";
 import {Roles} from "../../../common/constansts/roles";
 import AuthLogo from "../../../components/logo/AuthLogo";
 import EmailField from "../../../components/fields/email/EmailField";
@@ -18,11 +17,13 @@ import {createNotification} from "../../../components/notification/Notification"
 import {Notifications} from "../../../common/constansts/notifications";
 import {showNotification} from "../../../stores/redux/notification/notificationSlice";
 import {FieldsValidation} from "./types";
-import {UserCredentials, UserType} from "../../../types/user";
+import {IUserCredentials, UserType} from "../../../types/user";
 import {NotificationType} from "../../../types/notification";
 import {signUpService} from "../../../services/auth";
+import {Content} from "../../../common/constansts/content";
+import ConfirmationButton from "../../../components/buttons/confirmationButton/ConfirmationButton";
 
-const initialUserCredentials: UserCredentials = {
+const initialUserCredentials: IUserCredentials = {
     email: "",
     name: "",
     password: ""
@@ -35,7 +36,7 @@ const initialFieldsValidation: FieldsValidation = {
 };
 
 const SignUp: React.FC = () => {
-    const [userCredentials, setUserCredentials] = useState<UserCredentials>(initialUserCredentials);
+    const [userCredentials, setUserCredentials] = useState<IUserCredentials>(initialUserCredentials);
     const [selectedRole, setSelectedRole] = useState<UserType>(UserType.Customer);
     const [agreeChecked, setAgreeChecked] = useState(false);
     const [fieldsValidation, setFieldsValidation] = useState<FieldsValidation>(initialFieldsValidation);
@@ -82,62 +83,55 @@ const SignUp: React.FC = () => {
     }, [fieldsValidation, selectedRole, agreeChecked]);
 
     return (
-        <Box className="auth-container">
-            <Box className="auth-content">
-                <AuthLogo/>
-                <EmailField
-                    defaultEmail={userCredentials.email}
-                    updateEmailFields={updateEmailChange}
-                />
-                <NameField
-                    defaultName={userCredentials.name}
-                    updateNameFields={updateNameChange}
-                />
-                <PasswordField
-                    updatePasswordFields={updatePasswordChange}
-                />
-                <Typography variant="h5" gutterBottom>
-                    {Titles.SELECT_ROLES}
-                </Typography>
-                <RadioGroup
-                    row
-                    className="role-selector"
-                    value={selectedRole}
-                    onChange={handleRoleChange}
-                >
-                    <Box className="role-option">
-                        <FormControlLabel value={UserType.Customer} control={<Radio/>} label={Roles.CUSTOMER}/>
-                    </Box>
-                    <Box className="role-option">
-                        <FormControlLabel value={UserType.Merchant} control={<Radio/>} label={Roles.MERCHANT}/>
-                    </Box>
-                </RadioGroup>
-
-                <Box className="terms-checkbox">
-                    <Checkbox
-                        checked={agreeChecked}
-                        onChange={handleAgreeCheckboxChange}
+        <Box className="main-container">
+            <Box className="content-container">
+                <Card className="card-background card-payment card-auth">
+                    <AuthLogo/>
+                    <EmailField
+                        defaultEmail={userCredentials.email}
+                        updateEmailFields={updateEmailChange}
                     />
-                    <Typography variant="body2">
-                        {AuthContent.TERMS}
+                    <NameField
+                        defaultName={userCredentials.name}
+                        updateNameFields={updateNameChange}
+                    />
+                    <PasswordField
+                        updatePasswordFields={updatePasswordChange}
+                    />
+                    <Typography variant="h5" gutterBottom>
+                        {Content.SELECT_ROLES}
                     </Typography>
-                </Box>
+                    <RadioGroup
+                        row
+                        className="role-selector"
+                        value={selectedRole}
+                        onChange={handleRoleChange}
+                    >
+                        <Box className="role-option">
+                            <FormControlLabel value={UserType.Customer} control={<Radio/>} label={Roles.CUSTOMER}/>
+                        </Box>
+                        <Box className="role-option">
+                            <FormControlLabel value={UserType.Merchant} control={<Radio/>} label={Roles.MERCHANT}/>
+                        </Box>
+                    </RadioGroup>
 
-                <Button
-                    onClick={handleSignUp}
-                    variant="contained"
-                    className="button"
-                    disabled={!isValid}
-                >
-                    {Buttons.SIGN_UP}
-                </Button>
-
-                <Typography variant="body1" className="sign-in-link">
-                    {AuthContent.ACCOUNT_EXIST}
-                    <Link href={Paths.SIGN_IN}>
-                        {Titles.SIGN_IN}
-                    </Link>
-                </Typography>
+                    <Box className="terms-checkbox">
+                        <Checkbox
+                            checked={agreeChecked}
+                            onChange={handleAgreeCheckboxChange}
+                        />
+                        <Typography variant="body2">
+                            {Content.TERMS}
+                        </Typography>
+                    </Box>
+                    <ConfirmationButton buttonName={Buttons.SIGN_UP} handleClick={handleSignUp} isDisabled={!isValid}/>
+                    <Typography variant="body1">
+                        {Content.ACCOUNT_EXIST}
+                        <Link href={Paths.SIGN_IN}>
+                            {Titles.SIGN_IN}
+                        </Link>
+                    </Typography>
+                </Card>
             </Box>
         </Box>
     );

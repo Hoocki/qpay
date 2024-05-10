@@ -1,17 +1,15 @@
 import React, {useEffect, useState} from 'react';
-import {ValidationErrorMessages} from "../../../common/constansts/validationErrorMessages";
+import {InputHelperMessage} from "../../../common/constansts/inputHelperMessage";
 import {TextField} from "@mui/material";
 import {EmailFieldProps} from "./props";
 import {EMAIL_REGEX} from "../../../common/constansts/validation";
 
 const EmailField: React.FC<EmailFieldProps> = ({defaultEmail, updateEmailFields}) => {
     const [email, setEmail] = useState<string>(defaultEmail);
-    const [isEmailValid, setIsEmailValid] = useState<boolean>(false);
 
     const handleEmailChange = (email: string) => {
         setEmail(email);
         const isValid = validateEmail(email);
-        setIsEmailValid(isValid);
         updateEmailFields(email, isValid);
     };
 
@@ -24,8 +22,7 @@ const EmailField: React.FC<EmailFieldProps> = ({defaultEmail, updateEmailFields}
 
     return (
         <TextField
-            error={!isEmailValid}
-            helperText={isEmailValid ? "" : ValidationErrorMessages.EMAIL_NOT_VALID}
+            helperText={InputHelperMessage.EMAIL_NOT_VALID}
             value={email}
             placeholder="Email"
             variant="outlined"

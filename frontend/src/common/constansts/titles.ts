@@ -1,15 +1,16 @@
-export enum Titles {
-    APP_NAME = "QPay",
-    QR_GENERATION = "QR Generation",
-    TRANSACTIONS = "Transactions",
-    HOME = "Home",
-    SIGN_UP = "Sign Up",
-    SIGN_IN = "Sign In",
-    PAYMENT = "Payment",
-    PROFILE = "Profile",
-    TOP_UP = "Top up",
-    LOG_OUT = "Log out",
-    SETTINGS_HINT = "Open settings",
-    SELECT_ROLES = "Select role",
-    LOG_OUT_DIALOG = "Log out"
+import {Time} from "./time";
+
+export const Titles = {
+    APP_NAME: "QPay",
+    TRANSACTIONS: "Transactions",
+    HOME: "Home",
+    SIGN_IN: "Sign In",
+    SCAN_PAY: "Scan & Pay",
+    CONFIRM_PURCHASE: "Confirm purchase",
+    PROFILE: "Profile",
+    TOP_UP: "Top up",
+    LOG_OUT: "Log out",
+    GENERATE_QR: "Generate QR code",
+    INFORMATION: "Information",
+    TRANSACTIONS_FOR_YEAR: `Transactions in ${Time.CURRENT_YEAR}`,
 }

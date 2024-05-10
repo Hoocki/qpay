@@ -10,7 +10,9 @@ import org.springframework.context.annotation.Configuration;
 @Data
 public class EmailTemplatesProperties {
 
-    private TemplateMessage payment;
+    private TemplateMessage paymentMerchant;
+
+    private TemplateMessage paymentCustomer;
 
     private TemplateMessage report;
 

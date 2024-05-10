@@ -42,7 +42,9 @@ public class PaymentServiceImpl implements PaymentService {
         final var updatedToWalletBalance = toWallet.getBalance().add(walletPayment.amount());
         updateBalance(updatedToWalletBalance, toWallet);
 
-        sendMessageToKafka(walletPayment);
+        if (walletPayment.sendNotification()) {
+            sendMessageToKafka(walletPayment);
+        }
         saveTransactionToHistory(
                 fromWallet.getName(),
                 toWallet.getName(),

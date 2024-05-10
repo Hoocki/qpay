@@ -1,4 +1,4 @@
-export interface User {
+export interface IUser {
     id: number
     name: string,
     email: string,
@@ -11,7 +11,7 @@ export const enum UserType {
     Merchant = "MERCHANT"
 }
 
-export interface UserCredentials {
+export interface IUserCredentials {
     email: string,
     password: string,
     name: string

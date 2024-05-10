@@ -1,9 +1,11 @@
 import React from 'react';
-import {Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle} from "@mui/material";
-import {Titles} from "../../../../common/constansts/titles";
+import {Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle} from "@mui/material";
 import {Notifications} from "../../../../common/constansts/notifications";
 import {Buttons} from "../../../../common/constansts/buttons";
 import {ConfirmLogOutProps} from "./props";
+import {Content} from "../../../../common/constansts/content";
+import CancelButton from "../../../buttons/cancelButton/CancelButton";
+import ConfirmationButton from "../../../buttons/confirmationButton/ConfirmationButton";
 
 const ConfirmLogOut: React.FC<ConfirmLogOutProps> = ({showDialog, handleLogOut, handleClose}) => {
     return (
@@ -12,7 +14,7 @@ const ConfirmLogOut: React.FC<ConfirmLogOutProps> = ({showDialog, handleLogOut, 
             onClose={handleClose}
         >
             <DialogTitle>
-                {Titles.LOG_OUT_DIALOG}
+                {Content.LOG_OUT_DIALOG}
             </DialogTitle>
             <DialogContent>
                 <DialogContentText>
@@ -20,10 +22,8 @@ const ConfirmLogOut: React.FC<ConfirmLogOutProps> = ({showDialog, handleLogOut, 
                 </DialogContentText>
             </DialogContent>
             <DialogActions>
-                <Button variant="contained" color="error" onClick={handleClose}>{Buttons.Cancel}</Button>
-                <Button variant="contained" onClick={handleLogOut} autoFocus>
-                    {Buttons.CONFIRM}
-                </Button>
+                <CancelButton handleClick={handleClose} buttonName={Buttons.CANCEL}/>
+                <ConfirmationButton handleClick={handleLogOut} buttonName={Buttons.CONFIRM} isDisabled={false}/>
             </DialogActions>
         </Dialog>
     );

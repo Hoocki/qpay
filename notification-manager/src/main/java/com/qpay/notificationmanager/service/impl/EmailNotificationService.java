@@ -21,9 +21,12 @@ public class EmailNotificationService implements NotificationService {
     private final MailMessageGenerator mailMessageGenerator;
 
     public void sendMessage(final PaymentNotification paymentNotification) {
-        final var message = mailMessageGenerator.getPaymentMessage(paymentNotification);
-        mailSender.send(message);
-        log.info("Message sent to: {}", paymentNotification.emailTo());
+        final var messageToMerchant = mailMessageGenerator.getPaymentMessageMerchant(paymentNotification);
+        mailSender.send(messageToMerchant);
+        log.info("Message for merchant sent to: {}", paymentNotification.emailTo());
+        final var messageToCustomer = mailMessageGenerator.getPaymentMessageCustomer(paymentNotification);
+        mailSender.send(messageToCustomer);
+        log.info("Message for customer sent to: {}", paymentNotification.emailFrom());
     }
 
     public void sendMessage(final ReportNotification reportNotification) {

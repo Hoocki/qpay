@@ -1,0 +1,22 @@
+.card-qr-generation {
+    height: 25rem;
+    margin-top: 2rem;
+    justify-content: center;
+}
+
+.card-qr-generation-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #747474;
+    width: 80%;
+    height: 80%;
+    border-radius: 1rem;
+    border: 0.1rem solid #747474;
+}
+
+.icon-qr {
+    color: #747474;
+    font-size: 3rem;
+}

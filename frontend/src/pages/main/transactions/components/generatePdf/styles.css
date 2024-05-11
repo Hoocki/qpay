@@ -1,0 +1,32 @@
+.card-generate-pdf {
+    margin-top: 1rem;
+    width: 100%;
+    align-items: flex-start;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+    height: 100%;
+}
+
+.button-generate-pdf {
+    margin-right: 0;
+    margin-left: 0;
+    margin-bottom: 0;
+}
+
+.report-date {
+    display: flex;
+    gap: 1rem;
+}
+
+.report-end-date {
+    padding-top: 1rem;
+    gap: 1rem;
+}
+
+.select-date {
+    height: 2rem;
+}
+
+.container-select-end-date {
+    padding-left: 1.2rem;
+}

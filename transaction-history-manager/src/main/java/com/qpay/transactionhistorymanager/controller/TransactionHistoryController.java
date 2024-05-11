@@ -27,16 +27,16 @@ public class TransactionHistoryController {
 
     private final TransactionHistoryService transactionHistoryService;
 
-    @GetMapping("{userId}")
+    @GetMapping("{walletId}")
     public List<TransactionEntity> getPageOfTransactionsByUserId(
             @PathVariable
-            final long userId,
+            final long walletId,
             @SortDefault(sort = "createdAt", direction = Sort.Direction.DESC)
             final Pageable pageable,
             @RequestParam
             final UserType userType
     ) {
-        return transactionHistoryService.getPageOfTransactionsByUserId(userId, pageable, userType);
+        return transactionHistoryService.getPageOfTransactionsByUserId(walletId, pageable, userType);
     }
 
     @PostMapping

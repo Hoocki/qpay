@@ -9,11 +9,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class WalletMapper {
 
-    private static final String DEFAULT_NAME_WALLET = "wallet";
-
     public WalletCreation map(final CustomerEntity customerEntity) {
         return WalletCreation.builder()
-                .name(DEFAULT_NAME_WALLET)
+                .name(customerEntity.getName())
                 .userId(customerEntity.getId())
                 .userType(UserType.CUSTOMER)
                 .build();
@@ -21,7 +19,7 @@ public class WalletMapper {
 
     public WalletCreation map(final MerchantEntity merchantEntity) {
         return WalletCreation.builder()
-                .name(DEFAULT_NAME_WALLET)
+                .name(merchantEntity.getName())
                 .userId(merchantEntity.getId())
                 .userType(UserType.MERCHANT)
                 .build();

@@ -1,0 +1,11 @@
+.cell-topup-amount {
+    color: #4A9AFE
+}
+
+.cell-payment-amount {
+    color: #676767
+}
+
+.table-container {
+    min-width: 40rem;
+}

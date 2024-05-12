@@ -6,3 +6,9 @@ export interface IPayment {
     amount: number,
     sendNotification: boolean
 }
+
+export interface IWalletTopUp {
+    amount: number,
+    email: string,
+    sendNotification: boolean
+}

@@ -4,6 +4,7 @@ import com.qpay.libs.models.PaymentNotification;
 import com.qpay.libs.models.TransactionType;
 import com.qpay.paymentmanager.client.TransactionHistoryClient;
 import com.qpay.paymentmanager.event.PaymentNotificationProducer;
+import com.qpay.paymentmanager.mapper.WalletMapper;
 import com.qpay.paymentmanager.model.dto.PaymentTransaction;
 import com.qpay.paymentmanager.model.dto.WalletPayment;
 import com.qpay.paymentmanager.model.dto.WalletTopUp;
@@ -32,6 +33,8 @@ public class PaymentServiceImpl implements PaymentService {
 
     private final PaymentNotificationProducer paymentNotificationProducer;
 
+    private final WalletMapper walletMapper;
+
     public WalletEntity makePayment(final WalletPayment walletPayment) {
         isEnoughMoneyInWallet(walletPayment.amount());
         final var fromWallet = walletService.getWalletById(walletPayment.walletIdFrom());
@@ -59,7 +62,16 @@ public class PaymentServiceImpl implements PaymentService {
         final var walletEntity = walletService.getWalletById(id);
         final var balanceWallet = walletEntity.getBalance();
         final var updatedBalanceWallet = balanceWallet.add(walletTopUp.amount());
-        return updateBalance(updatedBalanceWallet, walletEntity);
+        final var walletPayment = walletMapper.map(walletTopUp, walletEntity);
+        final var wallet = updateBalance(updatedBalanceWallet, walletEntity);
+
+        saveTransactionToHistory(
+                walletEntity.getName(),
+                walletEntity.getName(),
+                walletPayment,
+                TransactionType.TOP_UP
+        );
+        return wallet;
     }
 
     private WalletEntity updateBalance(final BigDecimal balance, final WalletEntity wallet) {

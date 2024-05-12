@@ -6,6 +6,10 @@ import java.math.BigDecimal;
 
 @Builder
 public record WalletTopUp(
-        BigDecimal amount
+        BigDecimal amount,
+
+        String email,
+
+        boolean sendNotification
 ) {
 }

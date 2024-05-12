@@ -5,5 +5,6 @@ export enum Notifications {
     SUCCESSFUL_PAYMENT = "The payment was successful",
     SUCCESSFUL_UPDATE_USER_DATA = "Your data has been updated, please login again",
     PERIOD_TIME = "Start period must be less End period",
-    SEND_GENERATE_PDF = "Report was successfully delivered to your email"
+    SEND_GENERATE_PDF = "Report was successfully delivered to your email",
+    SUCCESSFUL_TOP_UP = "The top up was successful"
 }

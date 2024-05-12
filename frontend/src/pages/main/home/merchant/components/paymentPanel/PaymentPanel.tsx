@@ -10,15 +10,16 @@ import {Buttons} from "../../../../../../common/constansts/buttons";
 import {getQrCodeService} from "../../../../../../services/qrcode";
 import {useAppSelector} from "../../../../../../stores/redux/hooks";
 import {selectLoggedUser} from "../../../../../../stores/redux/loggedUser/loggedUserSlice";
-import {getWalletByUserService} from "../../../../../../services/wallet";
 import {PaymentPanelProps} from "./props";
 import {mapQrCodeData} from "../../../../../../common/utils/mappers";
 import CancelButton from "../../../../../../components/buttons/cancelButton/CancelButton";
 import ConfirmationButton from "../../../../../../components/buttons/confirmationButton/ConfirmationButton";
+import {selectWalletId} from "../../../../../../stores/redux/wallet/walletSlicer";
 
 const PaymentPanel: React.FC<PaymentPanelProps> = ({updateQrCode}) => {
 
     const loggedUser = useAppSelector(selectLoggedUser);
+    const walletId = useAppSelector(selectWalletId);
     const [amount, setAmount] = useState<number>(0);
     const [isAmountValid, setIsAmountValid] = useState<boolean>(false);
 
@@ -32,9 +33,7 @@ const PaymentPanel: React.FC<PaymentPanelProps> = ({updateQrCode}) => {
 
     const handleGenerateQr = async () => {
         if (!isAmountValid) return;
-        const wallet = await getWalletByUserService(loggedUser.id, loggedUser.userType);
-        if (!wallet) return;
-        const qrCodeData = mapQrCodeData(wallet.id, loggedUser.name, loggedUser.email, amount);
+        const qrCodeData = mapQrCodeData(walletId, loggedUser.name, loggedUser.email, amount);
         const qrCode = await getQrCodeService(qrCodeData);
         updateQrCode(qrCode);
     }

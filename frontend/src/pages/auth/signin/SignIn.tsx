@@ -18,6 +18,8 @@ import {TokenData} from "../../../types/TokenData";
 import {mapLoggedUser} from "../../../common/utils/mappers";
 import ConfirmationButton from "../../../components/buttons/confirmationButton/ConfirmationButton";
 import {Content} from "../../../common/constansts/content";
+import {getWalletByUserService} from "../../../services/wallet";
+import {addWalletId} from "../../../stores/redux/wallet/walletSlicer";
 
 const initialAuthCredentials: IAuthCredentials = {
     email: "",
@@ -39,6 +41,9 @@ const SignIn: React.FC = () => {
         const decodedToken: TokenData = jwtDecode(token);
         const user = await getUserService(decodedToken.userId, decodedToken.userType);
         const loggedUser = mapLoggedUser(token, user, decodedToken);
+        const receivedWallet = await getWalletByUserService(loggedUser.id, loggedUser.userType);
+        if (!receivedWallet) return;
+        dispatch(addWalletId(receivedWallet));
         if (!loggedUser) return;
         dispatch(signIn(loggedUser));
     }

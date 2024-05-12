@@ -4,8 +4,8 @@ import {IPageData, ITransaction, TransactionType} from "../../../../../types/tra
 import {useAppSelector} from "../../../../../stores/redux/hooks";
 import {selectLoggedUser} from "../../../../../stores/redux/loggedUser/loggedUserSlice";
 import {getTransactionsForPage} from "../../../../../services/transaction";
-import {TableTransactionsProps} from "./props";
 import "./styles.css";
+import {selectWalletId} from "../../../../../stores/redux/wallet/walletSlicer";
 
 const TableContent = {
     NAME: "Name",
@@ -19,12 +19,13 @@ const initialPageData: IPageData = {
     size: 3
 }
 
-const TableTransactions: React.FC<TableTransactionsProps> = ({walletId}) => {
+const TableTransactions: React.FC = () => {
 
     const [transactions, setTransactions] = useState<ITransaction[]>([]);
     const loggedUser = useAppSelector(selectLoggedUser);
     const [pageTransactions, setPageTransactions] = useState<IPageData>(initialPageData);
     const [isLastPage, setIsLastPage] = useState<boolean>(false);
+    const walletId = useAppSelector(selectWalletId);
 
     const getTransactions = async () => {
         const receivedTransactions = await getTransactionsForPage(walletId, pageTransactions.page, pageTransactions.size, loggedUser.userType);
@@ -48,7 +49,7 @@ const TableTransactions: React.FC<TableTransactionsProps> = ({walletId}) => {
 
     useEffect(() => {
         getTransactions().then();
-    }, [pageTransactions, walletId]);
+    }, [pageTransactions]);
 
 
     return (

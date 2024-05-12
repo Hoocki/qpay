@@ -23,3 +23,8 @@ export enum PaymentEndpoints {
     P2B = "/p2b",
     TOP_UP = "/topUp"
 }
+
+export enum TransactionEndpoints {
+    TRANSACTION = "/transactions",
+    REPORT = "/report"
+}

@@ -13,4 +13,5 @@ export const Titles = {
     GENERATE_QR: "Generate QR code",
     INFORMATION: "Information",
     TRANSACTIONS_FOR_YEAR: `Transactions in ${Time.CURRENT_YEAR}`,
+    GENERATE_PDF: "Generate PDF report"
 }

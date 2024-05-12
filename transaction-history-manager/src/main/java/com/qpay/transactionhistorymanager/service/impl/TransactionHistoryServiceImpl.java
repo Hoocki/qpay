@@ -20,11 +20,11 @@ public class TransactionHistoryServiceImpl implements TransactionHistoryService 
 
     private final TransactionMapper transactionMapper;
 
-    public List<TransactionEntity> getPageOfTransactionsByUserId(final long userId, final Pageable pageable, final UserType userType) {
+    public List<TransactionEntity> getPageOfTransactionsByUserId(final long walletId, final Pageable pageable, final UserType userType) {
         if (userType == UserType.CUSTOMER) {
-            return transactionRepository.findAllByIdFromOrderByCreatedAt(userId, pageable);
+            return transactionRepository.findAllByIdFromOrderByCreatedAt(walletId, pageable);
         }
-        return transactionRepository.findAllByIdToOrderByCreatedAt(userId, pageable);
+        return transactionRepository.findAllByIdToOrderByCreatedAt(walletId, pageable);
     }
 
     public TransactionEntity saveTransaction(final TransactionModification transactionModification) {

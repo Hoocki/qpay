@@ -27,7 +27,7 @@ class WalletMapperTest {
         // then
         var expectedWallet = WalletCreation.builder()
                 .userId(1L)
-                .name("wallet")
+                .name("customer")
                 .userType(UserType.CUSTOMER)
                 .build();
         assertThat(result).isEqualTo(expectedWallet);
@@ -48,7 +48,7 @@ class WalletMapperTest {
         // then
         var expectedWallet = WalletCreation.builder()
                 .userId(1L)
-                .name("wallet")
+                .name("merchant")
                 .userType(UserType.MERCHANT)
                 .build();
         assertThat(result).isEqualTo(expectedWallet);

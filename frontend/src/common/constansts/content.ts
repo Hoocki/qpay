@@ -9,5 +9,7 @@ export const Content = {
     SEND_NOTIFICATION: "Send a payment email notification",
     TERMS: "I agree with terms, conditions, and privacy policy",
     ACCOUNT_EXIST: "Already have an account? ",
-    ACCOUNT_NOT_EXIST: "Don't have an account? "
+    ACCOUNT_NOT_EXIST: "Don't have an account? ",
+    SELECT_FROM: "From",
+    SELECT_TO: "To",
 }

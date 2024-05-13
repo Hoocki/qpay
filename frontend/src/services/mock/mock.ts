@@ -1,6 +1,7 @@
 import {IUser, UserType} from "../../types/user";
 import {IWallet} from "../../types/wallet";
 import {IOutcome, ITransaction, ITransactionsOutcome, TransactionType,} from "../../types/transactions";
+import {IWalletTopUp} from "../../types/payment";
 
 // test configs
 export const mockEnabled = true;
@@ -26,6 +27,12 @@ export const mockWallet: IWallet = {
     id: 40,
     balance: 100,
     userId: 79
+}
+
+export const mockWalletTopUp: IWalletTopUp = {
+    amount: 10,
+    email: "usertest@mail.ru",
+    sendNotification: false
 }
 
 export const mockTransactions: ITransaction[] = [

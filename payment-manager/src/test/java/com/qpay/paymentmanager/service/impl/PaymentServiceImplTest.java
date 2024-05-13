@@ -3,6 +3,7 @@ package com.qpay.paymentmanager.service.impl;
 import com.qpay.libs.models.UserType;
 import com.qpay.paymentmanager.client.TransactionHistoryClient;
 import com.qpay.paymentmanager.event.PaymentNotificationProducer;
+import com.qpay.paymentmanager.mapper.WalletMapper;
 import com.qpay.paymentmanager.model.dto.WalletPayment;
 import com.qpay.paymentmanager.model.dto.WalletTopUp;
 import com.qpay.paymentmanager.model.entity.WalletEntity;
@@ -33,6 +34,9 @@ class PaymentServiceImplTest {
 
     @Mock
     private WalletService walletService;
+
+    @Mock
+    private WalletMapper walletMapper;
 
     @Mock
     private PaymentNotificationProducer paymentNotificationProducer;
@@ -166,16 +170,37 @@ class PaymentServiceImplTest {
         var id = 1L;
         var walletTopUp = WalletTopUp.builder()
                 .amount(BigDecimal.valueOf(100))
+                .email("user@mail.ru")
+                .sendNotification(false)
                 .build();
 
-        var expectedWallet = WalletEntity.builder()
+        var walletEntity = WalletEntity.builder()
+                .id(id)
                 .name("wallet")
-                .balance(new BigDecimal(100))
-                .userId(1L)
+                .balance(new BigDecimal(0))
+                .userId(id)
                 .userType(UserType.CUSTOMER)
                 .build();
 
-        given(walletService.getWalletById(id)).willReturn(WALLET_ENTITY);
+        var walletPayment = WalletPayment.builder()
+                .walletIdTo(id)
+                .walletIdFrom(id)
+                .emailTo("user@mail.ru")
+                .emailFrom("user@mail.ru")
+                .amount(BigDecimal.valueOf(100))
+                .sendNotification(false)
+                .build();
+
+        var expectedWallet = WalletEntity.builder()
+                .id(id)
+                .name("wallet")
+                .balance(new BigDecimal(100))
+                .userId(id)
+                .userType(UserType.CUSTOMER)
+                .build();
+
+        given(walletService.getWalletById(id)).willReturn(walletEntity);
+        given(walletMapper.map(walletTopUp, walletEntity)).willReturn(walletPayment);
         given(walletRepository.save(expectedWallet)).willReturn(expectedWallet);
 
         // when

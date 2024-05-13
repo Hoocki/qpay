@@ -1,11 +1,18 @@
 import React from 'react';
 import {Titles} from "../../../common/constansts/titles";
+import {Box} from "@mui/material";
+import Title from "../../../components/typography/title/Title";
+import TopUpConfirmation from "./confirm/TopUpConfirmation";
 
 const TopUp: React.FC = () => {
+
     return (
-        <p>
-            {Titles.TOP_UP}
-        </p>
+        <Box className="main-container">
+            <Box className="content-container">
+                <Title title={Titles.TOP_UP}/>
+                <TopUpConfirmation/>
+            </Box>
+        </Box>
     );
 }
 

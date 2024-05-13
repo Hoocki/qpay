@@ -8,6 +8,7 @@ import {Titles} from "../../../common/constansts/titles";
 import {anchorOriginTopRight, transformOriginTopRight} from "../../../common/constansts/positions";
 import ConfirmLogOut from "./confirmLogOut/ConfirmLogOut";
 import {Content} from "../../../common/constansts/content";
+import {clearWalletId} from "../../../stores/redux/wallet/walletSlicer";
 
 const UserMenu: React.FC<UserMenuProps> = ({anchorElUser, handleCloseMenu, handleOpenUserMenu, settingsTabs}: UserMenuProps) => {
     const loggedUser = useAppSelector(selectLoggedUser);
@@ -23,6 +24,7 @@ const UserMenu: React.FC<UserMenuProps> = ({anchorElUser, handleCloseMenu, handl
     };
 
     const handleLogOut = () => {
+        dispatch(clearWalletId());
         dispatch(logOut());
     };
 

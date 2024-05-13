@@ -1,0 +1,13 @@
+.privacy-data-card {
+    display: flex;
+    gap: 2rem;
+}
+
+.date-picker {
+    display: flex;
+    align-items: center;
+}
+
+.field-ccv {
+    padding-bottom: 0.3rem;
+}

@@ -8,4 +8,6 @@ public final class PathUtils {
     public static final String HISTORY_PATH = "/api/v1/transactions";
 
     public static final String REPORT_PATH = "/report";
+
+    public static final String CHART_PATH = "/chart";
 }

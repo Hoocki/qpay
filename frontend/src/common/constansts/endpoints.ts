@@ -26,5 +26,6 @@ export enum PaymentEndpoints {
 
 export enum TransactionEndpoints {
     TRANSACTION = "/transactions",
-    REPORT = "/report"
+    REPORT = "/report",
+    CHART = "/chart"
 }

@@ -7,35 +7,35 @@ import {ArcElement, Chart, Legend, Tooltip} from "chart.js";
 import {ITransactionsOutcome} from "../../../../../../types/transactions";
 import {getTransactionsOutcomeInRange} from "../../../../../../services/transaction";
 import {useAppSelector} from "../../../../../../stores/redux/hooks";
-import {selectLoggedUser} from "../../../../../../stores/redux/loggedUser/loggedUserSlice";
 import FinancialSummary from "./financialSummary/FinancialSummary";
 import PieChart from "./pieChart/PieChart";
 import {getEndOfCurrentDate, getStartOfTheYearDate} from "../../../../../../common/utils/time";
 import CardTitle from "../../../../../../components/typography/cardTitle/CardTitle";
 import {Titles} from "../../../../../../common/constansts/titles";
+import {selectWalletId} from "../../../../../../stores/redux/wallet/walletSlicer";
 
 Chart.register(Tooltip, Legend, ArcElement);
 
 const initialStateTransactionOutcome: ITransactionsOutcome = {
     expenses: {
-        transactionGroups: [],
+        transactionsGroup: [],
         total: 0
     },
     income: {
-        transactionGroups: [],
+        transactionsGroup: [],
         total: 0
     },
 }
 
 const TransactionsChart: React.FC = () => {
 
-    const loggedUser = useAppSelector(selectLoggedUser);
+    const walletId = useAppSelector(selectWalletId);
     const [transactionsOutcome, setTransactionsOutcome] = useState<ITransactionsOutcome>(initialStateTransactionOutcome);
 
     const getTransactionsOutcome = async () => {
         const startDate = getStartOfTheYearDate();
         const endDate = getEndOfCurrentDate();
-        const receivedTransactionsOutcome = await getTransactionsOutcomeInRange(loggedUser.id, loggedUser.userType, startDate, endDate);
+        const receivedTransactionsOutcome = await getTransactionsOutcomeInRange(walletId, startDate, endDate);
         setTransactionsOutcome(receivedTransactionsOutcome);
     }
 
@@ -56,7 +56,7 @@ const TransactionsChart: React.FC = () => {
                     </Grid>
                 </Grid>
             </CardContent>
-            <PieChart transactionGroups={transactionsOutcome.expenses.transactionGroups}
+            <PieChart transactionsGroup={transactionsOutcome.expenses.transactionsGroup}
                       total={transactionsOutcome.expenses.total}/>
         </Card>
     );

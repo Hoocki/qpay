@@ -1,5 +1,6 @@
 package com.qpay.transactionhistorymanager.repository;
 
+import com.qpay.libs.models.TransactionType;
 import com.qpay.transactionhistorymanager.model.entity.TransactionEntity;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.MongoRepository;
@@ -18,4 +19,6 @@ public interface TransactionRepository extends MongoRepository<TransactionEntity
     List<TransactionEntity> findAllByIdFromAndCreatedAtBetween(long idFrom, LocalDateTime from, LocalDateTime to);
 
     List<TransactionEntity> findAllByIdToAndCreatedAtBetween(long idTo, LocalDateTime from, LocalDateTime to);
+
+    List<TransactionEntity> findAllByIdFromAndTransactionTypeAndCreatedAtBetween(long idFrom, TransactionType transactionType, LocalDateTime from, LocalDateTime to);
 }

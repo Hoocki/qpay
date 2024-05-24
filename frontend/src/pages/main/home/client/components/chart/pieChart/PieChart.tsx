@@ -7,7 +7,7 @@ import {getGraphData} from "./utils";
 import {IOutcome} from "../../../../../../../types/transactions";
 
 
-const PieChart: React.FC<IOutcome> = ({total, transactionGroups}) => {
+const PieChart: React.FC<IOutcome> = ({total, transactionsGroup}) => {
 
     if (total <= 0) {
         return <></>
@@ -29,7 +29,7 @@ const PieChart: React.FC<IOutcome> = ({total, transactionGroups}) => {
                     }
                 }
             }
-        }} data={getGraphData(transactionGroups)} className="pie-chart"/>
+        }} data={getGraphData(transactionsGroup)} className="pie-chart"/>
     );
 };
 

@@ -75,7 +75,7 @@ export const mockTransactions: ITransaction[] = [
 
 export const mockExpensesOutcome: IOutcome = {
     total: 140,
-    transactionGroups: [
+    transactionsGroup: [
         {
             amount: 30,
             destination: "Starbucks",
@@ -101,7 +101,7 @@ export const mockExpensesOutcome: IOutcome = {
 
 export const mockIncomeOutcome: IOutcome = {
     total: 30,
-    transactionGroups: []
+    transactionsGroup: []
 }
 
 export const mockTransactionsOutcome: ITransactionsOutcome = {

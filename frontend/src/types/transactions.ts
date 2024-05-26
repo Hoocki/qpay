@@ -24,7 +24,7 @@ export interface ITransactionGroup {
 
 export interface IOutcome {
     total: number,
-    transactionGroups: ITransactionGroup[],
+    transactionsGroup: ITransactionGroup[],
 }
 
 

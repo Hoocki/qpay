@@ -5,8 +5,14 @@ import {TransactionEndpoints} from "../common/constansts/endpoints";
 import httpClient from "./httpClient";
 import _ from "lodash";
 
-export const getTransactionsOutcomeInRange = async (userId: number, userType: UserType, startDate: Date, endDate: Date): Promise<ITransactionsOutcome> => {
-    return mockTransactionsOutcome;
+export const getTransactionsOutcomeInRange = async (walletId: number, startDate: Date, endDate: Date): Promise<ITransactionsOutcome> => {
+    if (mockEnabled) return mockTransactionsOutcome;
+    const basePath = `${TransactionEndpoints.TRANSACTION}/${TransactionEndpoints.CHART}`;
+    const startDateISO = startDate.toISOString();
+    const endDateISO = endDate.toISOString();
+    const targetPath = `${basePath}/${walletId}?startDate=${startDateISO}&endDate=${endDateISO}`;
+    const response = await httpClient.get<ITransactionsOutcome>(targetPath);
+    return _.get(response, "data");
 }
 
 export const getTransactionsForPage = async (walletId: number, page: number, size: number, userType: UserType) => {

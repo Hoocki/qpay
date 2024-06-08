@@ -16,7 +16,7 @@ const TableContent = {
 
 const initialPageData: IPageData = {
     page: 0,
-    size: 3
+    size: 5
 }
 
 const TableTransactions: React.FC = () => {
@@ -26,20 +26,30 @@ const TableTransactions: React.FC = () => {
     const [pageTransactions, setPageTransactions] = useState<IPageData>(initialPageData);
     const [isLastPage, setIsLastPage] = useState<boolean>(false);
     const walletId = useAppSelector(selectWalletId);
+    const [showImage, setShowImage] = useState<boolean>(false);
 
     const getTransactions = async () => {
         const receivedTransactions = await getTransactionsForPage(walletId, pageTransactions.page, pageTransactions.size, loggedUser.userType);
+        const nextPageTransactions = await getTransactionsForPage(walletId, pageTransactions.page + 1, pageTransactions.size, loggedUser.userType);
+        const isThereNextPage = nextPageTransactions.length !== 0;
         if (!receivedTransactions) return;
         setTransactions(receivedTransactions);
-        handleLastPage(receivedTransactions);
+        handleLastPage(receivedTransactions, isThereNextPage);
     }
 
-    const handleLastPage = (receivedTransactions: ITransaction[]) => {
-        if (receivedTransactions.length < pageTransactions.size) {
+    const handleLastPage = (receivedTransactions: ITransaction[], isThereNextPage: boolean) => {
+        if (receivedTransactions.length === pageTransactions.size && !isThereNextPage) {
             setIsLastPage(true);
         }
         else {
             setIsLastPage(false);
+        }
+        if (receivedTransactions.length === 0) {
+            setShowImage(true);
+            setIsLastPage(true);
+        }
+        else {
+            setShowImage(false);
         }
     }
 
@@ -54,8 +64,8 @@ const TableTransactions: React.FC = () => {
 
     return (
         <Paper>
-            <TableContainer className="card-background" component={Paper}>
-                <Table className="table-container" aria-label="simple table">
+            <TableContainer className="card-background table-container" component={Paper}>
+                <Table className="table" aria-label="simple table">
                     <TableHead>
                         <TableRow>
                             <TableCell>{TableContent.NAME}</TableCell>
@@ -82,11 +92,25 @@ const TableTransactions: React.FC = () => {
                                     }
                                 </TableRow>
                             ))}
+                        {showImage &&
+                            <TableRow>
+                                <TableCell colSpan={4}>
+                                    <div className="emptyPageIcon">
+                                        <img
+                                            src={require('./emptyPageIcon.png')}
+                                            alt="emptyPageIcon"
+                                            width={200}
+                                            height={200}
+                                        />
+                                    </div>
+                                </TableCell>
+                            </TableRow>
+                        }
                     </TableBody>
                 </Table>
             </TableContainer>
             <TablePagination
-                className="card-background"
+                className="card-background table-pagination"
                 rowsPerPageOptions={[pageTransactions.size]}
                 component="div"
                 slotProps={{

@@ -8,6 +8,10 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    background-color: #FAFAFA;
+    width: 75rem;
+    height: 120rem;
+    padding-top: 8rem;
 }
 
 .components-container {
@@ -26,10 +30,12 @@
 }
 
 .card-auth {
-    padding: 2rem;
+    padding: 2.5rem !important;
 }
 
 .card-background {
-    background-color: #ffffff;
-    box-shadow: 1rem 1rem 4rem #cbcbcb;
+    background-color: #F3F3F3;
+    box-shadow: 0 0 2.5rem 0.05rem rgba(0, 0, 0, 0.15);
+    border-radius: 1rem;
+    padding: 0.5rem;
 }

@@ -20,6 +20,7 @@ import ConfirmationButton from "../../../components/buttons/confirmationButton/C
 import {Content} from "../../../common/constansts/content";
 import {getWalletByUserService} from "../../../services/wallet";
 import {addWalletId} from "../../../stores/redux/wallet/walletSlicer";
+import {cardAuthSx} from "../../../common/styles/container";
 
 const initialAuthCredentials: IAuthCredentials = {
     email: "",
@@ -68,8 +69,8 @@ const SignIn: React.FC = () => {
 
     return (
         <Box className="main-container">
-            <Box className="content-container">
-                <Card className="card-background card-payment card-auth">
+            <Box className="content-container auth-container">
+                <Card className="card-background card-payment card-auth" sx={cardAuthSx}>
                     <AuthLogo/>
                     <Box className="sign-in-fields">
                         <EmailField

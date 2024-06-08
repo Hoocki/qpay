@@ -30,7 +30,7 @@ const Balance: React.FC = () => {
 
     return (
         <Card className="card-background card-payment card-balance">
-            <CardContent className="card-content">
+            <CardContent className="card-content balance-card-content">
                 <AccountBalanceWalletIcon className="wallet-icon" color="primary"/>
                 <Box className="balance-info">
                     <Typography className="wallet-balance">

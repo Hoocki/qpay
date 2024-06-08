@@ -17,9 +17,8 @@ import {Notifications} from "../../../../common/constansts/notifications";
 import "./styles.css";
 import {selectWalletId} from "../../../../stores/redux/wallet/walletSlicer";
 import {selectLoggedUser} from "../../../../stores/redux/loggedUser/loggedUserSlice";
-import {DatePicker} from "@mui/x-date-pickers";
-import { LocalizationProvider } from '@mui/x-date-pickers';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import {DatePicker, LocalizationProvider} from "@mui/x-date-pickers";
+import {AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs'
 import dayjs from "dayjs";
 
 const initialWalletTopUp: IWalletTopUp = {

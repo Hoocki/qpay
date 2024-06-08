@@ -1,18 +1,21 @@
 import React from 'react';
-import {Button} from "@mui/material";
+import {Button, ThemeProvider} from "@mui/material";
 import {ButtonProps} from "../props";
 import {Buttons} from "../../../common/constansts/buttons";
+import {buttonTheme} from "../../../common/themes/button";
 
 const CancelButton: React.FC<ButtonProps> = ({handleClick, buttonName}) => {
     return (
-        <Button
-            onClick={handleClick}
-            variant="contained"
-            className="button"
-            color="secondary"
-        >
-            {buttonName ? buttonName : Buttons.CANCEL}
-        </Button>
+        <ThemeProvider theme={buttonTheme}>
+            <Button
+                onClick={handleClick}
+                variant="contained"
+                color="cancel"
+                className="button"
+            >
+                {buttonName ? buttonName : Buttons.CANCEL}
+            </Button>
+        </ThemeProvider>
     );
 };
 

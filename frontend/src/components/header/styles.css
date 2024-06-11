@@ -8,3 +8,8 @@
 .container {
     width: 10rem;
 }
+
+.header-container {
+    max-width: 73rem;
+    padding: 0
+}

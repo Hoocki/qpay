@@ -10,8 +10,8 @@
     align-items: center;
     background-color: #FAFAFA;
     width: 75rem;
-    height: 120rem;
-    padding-top: 8rem;
+    height: max(90vh, 50rem);
+    padding-top: max(10vh, 8rem);
 }
 
 .components-container {

@@ -67,7 +67,7 @@ const Header: React.FC<HeaderProps> = ({isLogged}: HeaderProps) => {
     return (
         <AppBar className="app-bar">
             {isLogged && (
-                <Container maxWidth="lg">
+                <Container maxWidth={false} className="header-container">
                     <Toolbar disableGutters>
                         <DesktopLogo/>
                         <MobileMenu anchorEl={anchorElNav} handleCloseMenu={handleCloseMenu}

@@ -30,26 +30,22 @@ const TableTransactions: React.FC = () => {
 
     const getTransactions = async () => {
         const receivedTransactions = await getTransactionsForPage(walletId, pageTransactions.page, pageTransactions.size, loggedUser.userType);
-        const nextPageTransactions = await getTransactionsForPage(walletId, pageTransactions.page + 1, pageTransactions.size, loggedUser.userType);
-        const isThereNextPage = nextPageTransactions.length !== 0;
         if (!receivedTransactions) return;
         setTransactions(receivedTransactions);
-        handleLastPage(receivedTransactions, isThereNextPage);
+        handleLastPage(receivedTransactions);
     }
 
-    const handleLastPage = (receivedTransactions: ITransaction[], isThereNextPage: boolean) => {
-        if (receivedTransactions.length === pageTransactions.size && !isThereNextPage) {
-            setIsLastPage(true);
-        }
-        else {
-            setIsLastPage(false);
-        }
+    const handleLastPage = (receivedTransactions: ITransaction[]) => {
         if (receivedTransactions.length === 0) {
-            setShowImage(true);
             setIsLastPage(true);
+            setShowImage(true);
         }
-        else {
+        else if (receivedTransactions.length < pageTransactions.size) {
+            setIsLastPage(true);
             setShowImage(false);
+        } else {
+            setShowImage(false);
+            setIsLastPage(false)
         }
     }
 

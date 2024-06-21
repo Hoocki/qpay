@@ -1,3 +1,15 @@
 .app-bar {
     background-color: white;
+    position: absolute;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 10rem;
+}
+
+.header-container {
+    max-width: 73rem;
+    padding: 0
 }

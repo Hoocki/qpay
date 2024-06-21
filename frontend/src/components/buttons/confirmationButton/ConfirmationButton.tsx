@@ -8,6 +8,7 @@ const ConfirmationButton: React.FC<ConfirmationButtonProps> = ({handleClick, but
         <Button
             onClick={handleClick}
             variant="contained"
+            color="primary"
             className={`button ${className}`}
             disabled={isDisabled}
         >

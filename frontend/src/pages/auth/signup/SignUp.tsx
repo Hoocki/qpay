@@ -22,6 +22,7 @@ import {NotificationType} from "../../../types/notification";
 import {signUpService} from "../../../services/auth";
 import {Content} from "../../../common/constansts/content";
 import ConfirmationButton from "../../../components/buttons/confirmationButton/ConfirmationButton";
+import {roleOptionBoxSx} from "./styles";
 
 const initialUserCredentials: IUserCredentials = {
     email: "",
@@ -84,7 +85,7 @@ const SignUp: React.FC = () => {
 
     return (
         <Box className="main-container">
-            <Box className="content-container">
+            <Box className="content-container auth-container">
                 <Card className="card-background card-payment card-auth">
                     <AuthLogo/>
                     <EmailField
@@ -107,20 +108,20 @@ const SignUp: React.FC = () => {
                         value={selectedRole}
                         onChange={handleRoleChange}
                     >
-                        <Box className="role-option">
+                        <Box className="role-option" sx={roleOptionBoxSx}>
                             <FormControlLabel value={UserType.Customer} control={<Radio/>} label={Roles.CUSTOMER}/>
                         </Box>
-                        <Box className="role-option">
+                        <Box className="role-option" sx={roleOptionBoxSx}>
                             <FormControlLabel value={UserType.Merchant} control={<Radio/>} label={Roles.MERCHANT}/>
                         </Box>
                     </RadioGroup>
 
-                    <Box className="terms-checkbox">
+                    <Box className="terms-checkbox" sx={roleOptionBoxSx}>
                         <Checkbox
                             checked={agreeChecked}
                             onChange={handleAgreeCheckboxChange}
                         />
-                        <Typography variant="body2">
+                        <Typography className="terms">
                             {Content.TERMS}
                         </Typography>
                     </Box>

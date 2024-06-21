@@ -5,7 +5,7 @@ import {CardTitleProps} from "./props";
 const CardTitle: React.FC<CardTitleProps> = ({title}) => {
     return (
         <Typography
-            variant="h6"
+            variant="h5"
         >
             {title}
         </Typography>

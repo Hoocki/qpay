@@ -21,14 +21,22 @@
 
 .wallet-balance {
     font-size: 1.5rem;
-    font-weight: bold;
+    font-weight: 500;
 }
 
 .wallet-title {
-    font-size: 1.1rem;
+    font-size: 1rem;
+    font-weight: 300;
 }
 
 .wallet-icon {
     padding-right: 1.5rem;
     font-size: 3rem;
+    width: 4rem;
+    height: 4rem;
+}
+
+.balance-card-content {
+    width: 100%;
+    padding-left: 3rem;
 }

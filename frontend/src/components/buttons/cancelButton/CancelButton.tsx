@@ -8,8 +8,8 @@ const CancelButton: React.FC<ButtonProps> = ({handleClick, buttonName}) => {
         <Button
             onClick={handleClick}
             variant="contained"
+            color="cancel"
             className="button"
-            color="secondary"
         >
             {buttonName ? buttonName : Buttons.CANCEL}
         </Button>

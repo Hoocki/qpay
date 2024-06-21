@@ -5,14 +5,15 @@ import {IRoute, mainClientRoutes, mainMerchantRoutes} from "../../routes/routesC
 import {AppBar, Container, Toolbar} from '@mui/material';
 import DesktopLogo from "./desktopLogo/DesktopLogo";
 import MobileMenu from "./mobileMenu/MobileMenu";
-import MobileLogo from "./mobileLogo/MobileLogo";
 import DesktopMenu from "./desktopMenu/DesktopMenu";
 import UserMenu from "./userMenu/UserMenu";
 import './styles.css';
 import {useAppSelector} from "../../stores/redux/hooks";
 import {UserType} from "../../types/user";
 import {
-    HEADER_CLIENT_MAIN_TABS, HEADER_CLIENT_SETTINGS_TABS, HEADER_MERCHANT_SETTINGS_TABS
+    HEADER_CLIENT_MAIN_TABS,
+    HEADER_CLIENT_SETTINGS_TABS,
+    HEADER_MERCHANT_SETTINGS_TABS
 } from "../../common/constansts/headers";
 import {selectLoggedUserType} from "../../stores/redux/loggedUser/loggedUserSlice";
 
@@ -64,14 +65,13 @@ const Header: React.FC<HeaderProps> = ({isLogged}: HeaderProps) => {
     }, [loggedUserType]);
 
     return (
-        <AppBar position="static" className="app-bar">
+        <AppBar className="app-bar">
             {isLogged && (
-                <Container maxWidth="xl">
+                <Container maxWidth={false} className="header-container">
                     <Toolbar disableGutters>
                         <DesktopLogo/>
                         <MobileMenu anchorEl={anchorElNav} handleCloseMenu={handleCloseMenu}
                                     handleOpenNavMenu={handleOpenNavMenu} mainTabs={mainTabs}/>
-                        <MobileLogo/>
                         <DesktopMenu handleCloseMenu={handleCloseMenu} mainTabs={mainTabs}/>
                         <UserMenu anchorElUser={anchorElUser} handleCloseMenu={handleCloseMenu}
                                   handleOpenUserMenu={handleOpenUserMenu} settingsTabs={settingsTabs}/>

@@ -68,7 +68,7 @@ const SignIn: React.FC = () => {
 
     return (
         <Box className="main-container">
-            <Box className="content-container">
+            <Box className="content-container auth-container">
                 <Card className="card-background card-payment card-auth">
                     <AuthLogo/>
                     <Box className="sign-in-fields">

@@ -123,9 +123,9 @@ const GeneratePdf = () => {
 
     return (
         <Card className="card-background card-payment card-generate-pdf">
-            <CardContent className="card-content">
-                <Box className="balance-info">
-                    <CardTitle title={Titles.GENERATE_PDF}/>
+            <CardContent className="card-content card-content-pdf">
+                <CardTitle title={Titles.GENERATE_PDF}/>
+                <Box className="date">
                     <SelectDate handleDateChange={handleDateChange}
                                 title={Content.SELECT_FROM} period={startPeriod} periodType={PeriodType.START}
                                 days={startDays}/>

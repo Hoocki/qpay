@@ -11,6 +11,7 @@
     border-radius: 0.3rem;
     width: 40%;
     height: 1rem;
+    background-color: #ececec;
 }
 
 .terms-checkbox {
@@ -20,4 +21,9 @@
     margin-bottom: 1rem;
     border-radius: 0.3rem;
     height: 4rem;
+    background-color: #ececec;
+}
+
+.terms {
+    max-width: 20rem;
 }

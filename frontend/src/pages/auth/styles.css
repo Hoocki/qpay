@@ -1,3 +1,7 @@
 .logo {
-    width: 8rem;
+    width: 10rem;
+}
+
+.auth-container {
+    background-color: transparent;
 }

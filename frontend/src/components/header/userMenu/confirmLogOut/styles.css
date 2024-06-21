@@ -1,0 +1,16 @@
+.title {
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
+.content {
+    font-weight: 200;
+}
+
+.dialog {
+    background-color: transparent;
+}
+
+.cancelButton {
+    padding-top: 20rem;
+}

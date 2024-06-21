@@ -23,7 +23,6 @@ import {signUpService} from "../../../services/auth";
 import {Content} from "../../../common/constansts/content";
 import ConfirmationButton from "../../../components/buttons/confirmationButton/ConfirmationButton";
 import {roleOptionBoxSx} from "./styles";
-import {cardAuthSx} from "../../../common/styles/container";
 
 const initialUserCredentials: IUserCredentials = {
     email: "",
@@ -87,7 +86,7 @@ const SignUp: React.FC = () => {
     return (
         <Box className="main-container">
             <Box className="content-container auth-container">
-                <Card className="card-background card-payment card-auth" sx={cardAuthSx}>
+                <Card className="card-background card-payment card-auth">
                     <AuthLogo/>
                     <EmailField
                         defaultEmail={userCredentials.email}

@@ -2,26 +2,26 @@ import {createTheme} from "@mui/material/styles";
 
 declare module '@mui/material/styles' {
     interface Palette {
-        blue: Palette['primary'];
-        cancel: Palette['primary'];
+        primary: Palette['primary'];
+        cancel: Palette['secondary'];
     }
 
     interface PaletteOptions {
-        blue?: PaletteOptions['primary'];
-        cancel?: PaletteOptions['primary'];
+        primary?: PaletteOptions['primary'];
+        cancel?: PaletteOptions['secondary'];
     }
 }
 
 declare module '@mui/material/Button' {
     interface ButtonPropsColorOverrides {
-        blue: true;
+        primary: true;
         cancel: true;
     }
 }
 
-export const buttonTheme = createTheme({
+export const theme = createTheme({
     palette: {
-        blue: {
+        primary: {
             main: '#657FB4',
             light: '#8798be',
             dark: '#4d618c',

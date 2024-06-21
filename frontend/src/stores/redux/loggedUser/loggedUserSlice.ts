@@ -7,7 +7,7 @@ const initialState: ILoggedUser = {
     id: -1,
     email: "",
     name: "",
-    userType: UserType.Merchant,
+    userType: UserType.Customer,
     token: ""
 }
 
@@ -27,7 +27,7 @@ export const {signIn, logOut, addToken} = loggedUserSlice.actions;
 
 export const selectLoggedUser = (state: RootState) => state.loggedUserState;
 
-export const selectIsLogged = (state: RootState) => !_.isEmpty(state.loggedUserState.token);
+export const selectIsLogged = (state: RootState) => !_.isEmpty(state.loggedUserState.token && state.loggedUserState.email);
 
 export const selectLoggedUserType = (state: RootState) => state.loggedUserState.userType;
 
